@@ -45,7 +45,7 @@ import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.services.ISourceProviderService;
 
 public class StockForm extends AbstractForm {
-	private TabItem item;
+	
 	
 	private class LengthConverter extends Converter {
 
@@ -60,9 +60,9 @@ public class StockForm extends AbstractForm {
 	}
 	
 	@Override
-	public void createForm(final IWorkbenchPartSite site, TabFolder folder, EditingDomain domain, DataBindingContext dbc,
+	public TabItem doCreateForm(final IWorkbenchPartSite site, TabFolder folder, EditingDomain domain, DataBindingContext dbc,
 			IObservableValue master) {
-		item = new TabItem(folder, SWT.NONE);
+		TabItem item = new TabItem(folder, SWT.NONE);
 		item.setText("Stock");
 		Composite comp = new Composite(folder,SWT.NONE);
 		IValueProperty textProp = WidgetProperties.text();
@@ -166,19 +166,21 @@ public class StockForm extends AbstractForm {
 		
 		item.setControl(comp);
 		itemViewer.setInput(EMFEditObservables.observeDetailList(Realm.getDefault(), domain, master, EXTLibraryPackage.Literals.LIBRARY__STOCK));
+		
+		return item;
 	}
 
 	@Override
 	public void postExecuteFailure(String commandId,
 			ExecutionException exception) {
 		if( commandId.equals(CreateNewStockItemHandler.commandId) ) {
-			MessageDialog.openError(item.getParent().getShell(), "Creating Stock item failed", exception.getMessage());
+			MessageDialog.openError(getItem().getParent().getShell(), "Creating Stock item failed", exception.getMessage());
 		}
 	}
 
 	@Override
 	public void postExecuteSuccess(String commandId, Object returnValue) {
-		item.getParent().setSelection(item);
+		getItem().getParent().setSelection(getItem());
 	}
 
 }

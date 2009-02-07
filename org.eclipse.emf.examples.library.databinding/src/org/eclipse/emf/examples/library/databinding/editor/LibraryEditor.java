@@ -16,9 +16,8 @@ import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.observable.masterdetail.IObservableFactory;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.value.IValueProperty;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.notify.NotifyingList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.databinding.edit.properties.EMFEditProperties;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditValueProperty;
@@ -31,8 +30,9 @@ import org.eclipse.emf.examples.library.databinding.common.FormProperties;
 import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider;
 import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider.CondiditionalTemplate;
 import org.eclipse.emf.examples.library.databinding.editor.forms.AbstractForm;
-import org.eclipse.emf.examples.library.databinding.editor.forms.WriterForm;
-import org.eclipse.emf.examples.library.databinding.editor.forms.StockForm;
+import org.eclipse.emf.examples.library.databinding.internal.Activator;
+import org.eclipse.emf.examples.library.databinding.internal.FormDescriptor;
+import org.eclipse.emf.examples.library.databinding.internal.FormExtensionHandler.IModificationListener;
 import org.eclipse.emf.examples.library.databinding.internal.handler.CreateNewLibraryHandler;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.MenuManager;
@@ -40,6 +40,7 @@ import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListTreeContentProvider;
 import org.eclipse.jface.databinding.viewers.TreeStructureAdvisor;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
@@ -123,6 +124,7 @@ public class LibraryEditor extends EditorPart {
 	private StructuredViewer viewer;
 	private int[] weights = new int[] { 30, 70 };
 	private java.util.List<AbstractForm> subforms = new ArrayList<AbstractForm>();
+	private TabFolder subfolder;
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
@@ -220,7 +222,7 @@ public class LibraryEditor extends EditorPart {
 	private void createDetailArea(SashForm sashform) {
 		FormToolkit toolkit = new FormToolkit(sashform.getDisplay());
 
-		DataBindingContext dbc = new DataBindingContext();
+		final DataBindingContext dbc = new DataBindingContext();
 		IValueProperty viewerProp = ViewerProperties.singleSelection();
 		IValueProperty textProp = WidgetProperties.text(SWT.Modify);
 		IValueProperty formTextProp = FormProperties.text();
@@ -238,7 +240,7 @@ public class LibraryEditor extends EditorPart {
 		Text t = toolkit.createText(form.getBody(), "");
 		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-		IObservableValue viewerSelection = viewerProp.observe(viewer);
+		final IObservableValue viewerSelection = viewerProp.observe(viewer);
 		
 		IEMFEditValueProperty prop = EMFEditProperties.value(p
 				.getEditingDomain(), EXTLibraryPackage.Literals.LIBRARY__NAME);
@@ -262,18 +264,54 @@ public class LibraryEditor extends EditorPart {
 				EXTLibraryPackage.Literals.ADDRESSABLE__ADDRESS);
 		dbc.bindValue(textProp.observe(t), prop.observeDetail(viewerSelection));
 
-		TabFolder folder = new TabFolder(form.getBody(), SWT.NONE);
+		subfolder = new TabFolder(form.getBody(), SWT.NONE);
 		gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
-		folder.setLayoutData(gd);
+		subfolder.setLayoutData(gd);
 
-		StockForm stockform = new StockForm();
-		stockform.createForm(getSite(), folder, p.getEditingDomain(), dbc, viewerSelection);
+		for( FormDescriptor desc : Activator.getDefault().getFormDescriptors() ) {
+			try {
+				createForm(desc, dbc, viewerSelection);
+			} catch (CoreException e) {
+				ErrorDialog.openError(viewer.getControl().getShell(), "Error loading forms", e.getMessage(), e.getStatus());
+				Activator.getDefault().getLog().log(e.getStatus());
+			}
+		}
 		
-		WriterForm authorform = new WriterForm();
-		authorform.createForm(getSite(), folder, p.getEditingDomain(), dbc, viewerSelection);
+		if( subfolder.getItemCount() > 0 ) {
+			subfolder.setSelection(0);	
+		} else {
+			subfolder.setVisible(false);
+		}
 		
-		folder.setSelection(0);
+		Activator.getDefault().getFormHandler().addModificationListener(new IModificationListener() {
+
+			public void formAdd(FormDescriptor descriptor) {
+				try {
+					createForm(descriptor, dbc, viewerSelection);
+				} catch (CoreException e) {
+					ErrorDialog.openError(viewer.getControl().getShell(), "Error loading forms", e.getMessage(), e.getStatus());
+					Activator.getDefault().getLog().log(e.getStatus());
+				}
+			}
+
+			public void formRemoved(FormDescriptor descriptor) {
+				String id = descriptor.getId();
+				for( AbstractForm form : subforms ) {
+					if( form.getId().equals(id) ) {
+						
+					}
+				}
+			}
+			
+		});
+	}
+	
+	private void createForm(FormDescriptor desc, DataBindingContext dbc, IObservableValue viewerSelection) throws CoreException {
+		AbstractForm subform = desc.createFormInstance();
+		subform.setId(desc.getId());
+		subform.createForm(getSite(), subfolder, p.getEditingDomain(), dbc, viewerSelection);
+		subforms.add(subform);
 	}
 
 	private void createViewer(SashForm form) {

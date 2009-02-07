@@ -4,7 +4,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.edit.domain.EditingDomain;
-import org.eclipse.emf.examples.library.databinding.internal.handler.CreateNewStockItemHandler;
 import org.eclipse.emf.examples.library.databinding.internal.handler.CreateNewWriterHandler;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -19,14 +18,13 @@ import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.IWorkbenchPartSite;
 
 public class WriterForm extends AbstractForm {
-	private TabItem item;
 	
 	@Override
-	public void createForm(IWorkbenchPartSite site, TabFolder folder,
+	public TabItem doCreateForm(IWorkbenchPartSite site, TabFolder folder,
 			EditingDomain domain, DataBindingContext context,
 			IObservableValue master) {
 		
-		item = new TabItem(folder,SWT.NONE);
+		TabItem item = new TabItem(folder,SWT.NONE);
 		item.setText("Writers");
 		
 		Composite comp = new Composite(folder,SWT.NONE);
@@ -56,13 +54,15 @@ public class WriterForm extends AbstractForm {
 		site.registerContextMenu("org.eclipse.emf.examples.library.databinding.libraryeditor.writer", mgr, writerViewer);
 		
 		item.setControl(comp);
+		
+		return item;
 	}
 
 	@Override
 	public void postExecuteFailure(String commandId,
 			ExecutionException exception) { 
 		if( commandId.equals(CreateNewWriterHandler.commandId) ) {
-			MessageDialog.openError(item.getParent().getShell(), "Creating Stock item failed", exception.getMessage());
+			MessageDialog.openError(getItem().getParent().getShell(), "Creating Stock item failed", exception.getMessage());
 		}
 	}
 

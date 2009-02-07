@@ -1,10 +1,15 @@
 package org.eclipse.emf.examples.library.databinding.internal;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.dynamichelpers.ExtensionTracker;
 import org.eclipse.emf.examples.library.databinding.ILibraryServiceRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -19,7 +24,12 @@ public class Activator extends AbstractUIPlugin {
 	
 	private LibraryServiceTracker tracker;
 	
-	private BundleContext context;
+	private Collection<FormDescriptor> descriptors;
+	
+	private ExtensionTracker extensionTracker = new ExtensionTracker();
+	
+	private FormExtensionHandler extensionHandler;
+
 	
 	private ILibraryServiceRegistry registry = new LibraryServiceRegistryImpl();
 	
@@ -36,9 +46,12 @@ public class Activator extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		this.context = context;
 		tracker = new LibraryServiceTracker(context,registry);
 		tracker.open();
+		
+		if( extensionHandler != null) {
+			extensionTracker.unregisterHandler(extensionHandler);
+		}
 	}
 
 	/*
@@ -73,5 +86,33 @@ public class Activator extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(PLUGIN_ID, path);
+	}
+	
+	public Collection<FormDescriptor> getFormDescriptors() {
+		if( descriptors == null ) {
+			
+			descriptors = new ArrayList<FormDescriptor>();
+			extensionHandler = new FormExtensionHandler(descriptors);
+            IExtensionPoint point = Platform.getExtensionRegistry()
+                            .getExtensionPoint(Activator.PLUGIN_ID,
+                            		FormExtensionHandler.FORM_EXT);
+
+            extensionTracker.registerHandler(
+                            extensionHandler,
+                            ExtensionTracker.createExtensionPointFilter(point));
+
+            System.err.println(point);
+            
+            for (int i = 0; i < point.getExtensions().length; i++) {
+                    extensionHandler.addExtension(extensionTracker, point.getExtensions()[i]);
+            }
+
+		}
+		
+		return descriptors;
+	}
+	
+	public FormExtensionHandler getFormHandler() {
+		return extensionHandler;
 	}
 }
