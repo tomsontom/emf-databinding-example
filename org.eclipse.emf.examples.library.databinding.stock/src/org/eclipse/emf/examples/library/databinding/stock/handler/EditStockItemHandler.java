@@ -1,4 +1,4 @@
-package org.eclipse.emf.examples.library.databinding.internal.handler;
+package org.eclipse.emf.examples.library.databinding.stock.handler;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
