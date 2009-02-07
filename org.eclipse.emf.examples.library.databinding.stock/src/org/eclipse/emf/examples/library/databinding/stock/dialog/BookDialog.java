@@ -37,12 +37,15 @@ public class BookDialog extends TitleAreaDialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
 		
+		getShell().setText("Edit Book");
+		setTitle("Edit the book");
+		setMessage("Edit the data of the book with the form below and press ok when done or cancel to undo all modifications.");
+		
 		Composite comp = new Composite(container,SWT.NONE); 
 		comp.setLayoutData(new GridData(GridData.FILL_BOTH));
 		comp.setLayout(new GridLayout(2,false));
 		
 		DataBindingContext dbc = new DataBindingContext();
-
 		
 		/*
 		 *  Title
@@ -63,6 +66,7 @@ public class BookDialog extends TitleAreaDialog {
 		l.setText("Publication Date");
 		
 		t = new Text(comp,SWT.BORDER);
+		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL)); 
 		mProp = EMFEditProperties.value(domain, EXTLibraryPackage.Literals.ITEM__PUBLICATION_DATE);
 		dbc.bindValue(uProp.observe(t), mProp.observe(book));
 		
@@ -74,6 +78,7 @@ public class BookDialog extends TitleAreaDialog {
 		l.setText("Pages");
 		
 		t = new Text(comp,SWT.BORDER);
+		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL)); 
 		mProp = EMFEditProperties.value(domain, EXTLibraryPackage.Literals.BOOK__PAGES);
 		dbc.bindValue(uProp.observe(t), mProp.observe(book));
 		
@@ -100,6 +105,7 @@ public class BookDialog extends TitleAreaDialog {
 				}
 			}
 		});
+		categoryViewer.getCombo().setLayoutData(new GridData(GridData.FILL_HORIZONTAL)); 
 		categoryViewer.setInput(new BookCategory[] { BookCategory.BIOGRAPHY_LITERAL, BookCategory.MYSTERY_LITERAL, BookCategory.SCIENCE_FICTION_LITERAL });
 		
 		/*

@@ -45,6 +45,7 @@ public class LibraryPersistenceEditorInput implements IEditorInput {
 		return service != null ? service.getToolTip() : "";
 	}
 
+	@SuppressWarnings("unchecked")
 	public Object getAdapter(Class adapter) {
 		if( adapter == ILibraryPersistenceService.class ) {
 			return service;

@@ -36,6 +36,8 @@ import org.eclipse.emf.examples.library.databinding.internal.FormExtensionHandle
 import org.eclipse.emf.examples.library.databinding.internal.handler.CreateNewLibraryHandler;
 import org.eclipse.jface.action.GroupMarker;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.databinding.swt.ISWTObservableValue;
+import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListTreeContentProvider;
 import org.eclipse.jface.databinding.viewers.TreeStructureAdvisor;
@@ -105,7 +107,7 @@ public class LibraryEditor extends EditorPart {
 			return null;
 		}
 	}
-	
+
 	private class NullConverter extends Converter {
 
 		public NullConverter() {
@@ -113,12 +115,12 @@ public class LibraryEditor extends EditorPart {
 		}
 
 		public Object convert(Object fromObject) {
-			return fromObject == null || fromObject.toString().trim().length() == 0 ? "*NONAME*" : fromObject;
+			return fromObject == null
+					|| fromObject.toString().trim().length() == 0 ? "*NONAME*"
+					: fromObject;
 		}
-		
+
 	}
-	
-	
 
 	private ILibraryPersistenceService p;
 	private StructuredViewer viewer;
@@ -172,53 +174,56 @@ public class LibraryEditor extends EditorPart {
 		initListener();
 		form.setWeights(weights);
 	}
-	
+
 	private void initListener() {
-		ICommandService cmdService = (ICommandService) getSite().getService(ICommandService.class);
+		ICommandService cmdService = (ICommandService) getSite().getService(
+				ICommandService.class);
 		cmdService.addExecutionListener(new IExecutionListener() {
 
 			public void notHandled(String commandId,
 					NotHandledException exception) {
-				
+
 			}
 
 			public void postExecuteFailure(String commandId,
 					ExecutionException exception) {
-				//FIXME Only handle if the editor is the active one
+				// FIXME Only handle if the editor is the active one
 				Shell shell = viewer.getControl().getShell();
-				if( commandId.equals(CreateNewLibraryHandler.commandId) ) {
-					MessageDialog.openError(shell, "Creating Library failed", exception.getMessage());	
+				if (commandId.equals(CreateNewLibraryHandler.commandId)) {
+					MessageDialog.openError(shell, "Creating Library failed",
+							exception.getMessage());
 				}
-				
-				for( AbstractForm form: subforms ) {
+
+				for (AbstractForm form : subforms) {
 					form.postExecuteFailure(commandId, exception);
 				}
-				
+
 			}
 
 			public void postExecuteSuccess(String commandId, Object returnValue) {
-				//FIXME Only handle if the editor is the active one
-				if( commandId.equals(CreateNewLibraryHandler.commandId) ) {
+				// FIXME Only handle if the editor is the active one
+				if (commandId.equals(CreateNewLibraryHandler.commandId)) {
 					Library l = (Library) returnValue;
-					if( l.getParentBranch() != null ) {
-						((TreeViewer)viewer).setExpandedState(l.getParentBranch(), true);	
+					if (l.getParentBranch() != null) {
+						((TreeViewer) viewer).setExpandedState(l
+								.getParentBranch(), true);
 					}
 					viewer.setSelection(new StructuredSelection(l));
 				}
-				
-				for( AbstractForm form: subforms ) {
+
+				for (AbstractForm form : subforms) {
 					form.postExecuteSuccess(commandId, returnValue);
 				}
-				
+
 			}
 
 			public void preExecute(String commandId, ExecutionEvent event) {
-				
+
 			}
-			
+
 		});
 	}
-	
+
 	private void createDetailArea(SashForm sashform) {
 		FormToolkit toolkit = new FormToolkit(sashform.getDisplay());
 
@@ -241,14 +246,16 @@ public class LibraryEditor extends EditorPart {
 		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		final IObservableValue viewerSelection = viewerProp.observe(viewer);
-		
+
 		IEMFEditValueProperty prop = EMFEditProperties.value(p
 				.getEditingDomain(), EXTLibraryPackage.Literals.LIBRARY__NAME);
-		
+
 		IObservableValue uObs = prop.observeDetail(viewerSelection);
-		
-		dbc.bindValue(textProp.observe(t), uObs);
-		dbc.bindValue(formTextProp.observe(form), uObs,new UpdateValueStrategy(),new UpdateValueStrategy().setConverter(new NullConverter()));
+
+		dbc.bindValue(SWTObservables.observeDelayedValue(400, (ISWTObservableValue) textProp.observe(t)), uObs);
+		dbc.bindValue(formTextProp.observe(form), uObs,
+				new UpdateValueStrategy(), new UpdateValueStrategy()
+						.setConverter(new NullConverter()));
 
 		GridData gd = new GridData(GridData.BEGINNING, GridData.BEGINNING,
 				false, false);
@@ -262,66 +269,89 @@ public class LibraryEditor extends EditorPart {
 
 		prop = EMFEditProperties.value(p.getEditingDomain(),
 				EXTLibraryPackage.Literals.ADDRESSABLE__ADDRESS);
-		dbc.bindValue(textProp.observe(t), prop.observeDetail(viewerSelection));
+		dbc.bindValue(SWTObservables.observeDelayedValue(400, (ISWTObservableValue) textProp.observe(t)), prop.observeDetail(viewerSelection));
 
 		subfolder = new TabFolder(form.getBody(), SWT.NONE);
 		gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		subfolder.setLayoutData(gd);
 
-		for( FormDescriptor desc : Activator.getDefault().getFormDescriptors() ) {
+		for (FormDescriptor desc : Activator.getDefault().getFormDescriptors()) {
 			try {
 				createForm(desc, dbc, viewerSelection);
 			} catch (CoreException e) {
-				ErrorDialog.openError(viewer.getControl().getShell(), "Error loading forms", e.getMessage(), e.getStatus());
+				ErrorDialog.openError(viewer.getControl().getShell(),
+						"Error loading forms", e.getMessage(), e.getStatus());
 				Activator.getDefault().getLog().log(e.getStatus());
 			}
 		}
-		
-		if( subfolder.getItemCount() > 0 ) {
-			subfolder.setSelection(0);	
+
+		if (subfolder.getItemCount() > 0) {
+			subfolder.setSelection(0);
 		} else {
 			subfolder.setVisible(false);
 		}
-		
-		Activator.getDefault().getFormHandler().addModificationListener(new IModificationListener() {
 
-			public void formAdd(FormDescriptor descriptor) {
-				try {
-					createForm(descriptor, dbc, viewerSelection);
-				} catch (CoreException e) {
-					ErrorDialog.openError(viewer.getControl().getShell(), "Error loading forms", e.getMessage(), e.getStatus());
-					Activator.getDefault().getLog().log(e.getStatus());
-				}
-			}
+		Activator.getDefault().getFormHandler().addModificationListener(
+				new IModificationListener() {
 
-			public void formRemoved(FormDescriptor descriptor) {
-				String id = descriptor.getId();
-				for( AbstractForm form : subforms ) {
-					if( form.getId().equals(id) ) {
-						final AbstractForm tmp = form;
-						if( ! viewer.getControl().isDisposed() ) {
-							viewer.getControl().getDisplay().syncExec(new Runnable() {
+					public void formAdd(final FormDescriptor descriptor) {
 
-								public void run() {
-									tmp.dispose();
-								}
-								
-							});
-								
+						if (!viewer.getControl().isDisposed()) {
+							viewer.getControl().getDisplay().syncExec(
+									new Runnable() {
+
+										public void run() {
+											try {
+												createForm(descriptor, dbc,
+														viewerSelection);
+											} catch (CoreException e) {
+												ErrorDialog.openError(viewer
+														.getControl()
+														.getShell(),
+														"Error loading forms",
+														e.getMessage(), e
+																.getStatus());
+												Activator.getDefault().getLog()
+														.log(e.getStatus());
+											}
+										}
+
+									});
 						}
-						
+
 					}
-				}
-			}
-			
-		});
+
+					public void formRemoved(FormDescriptor descriptor) {
+						String id = descriptor.getId();
+						for (AbstractForm form : subforms) {
+							if (form.getId().equals(id)) {
+								final AbstractForm tmp = form;
+								if (!viewer.getControl().isDisposed()) {
+									viewer.getControl().getDisplay().syncExec(
+											new Runnable() {
+
+												public void run() {
+													tmp.dispose();
+												}
+
+											});
+
+								}
+
+							}
+						}
+					}
+
+				});
 	}
-	
-	private void createForm(FormDescriptor desc, DataBindingContext dbc, IObservableValue viewerSelection) throws CoreException {
+
+	private void createForm(FormDescriptor desc, DataBindingContext dbc,
+			IObservableValue viewerSelection) throws CoreException {
 		AbstractForm subform = desc.createFormInstance();
 		subform.setId(desc.getId());
-		subform.createForm(getSite(), subfolder, p.getEditingDomain(), dbc, viewerSelection);
+		subform.createForm(getSite(), subfolder, p.getEditingDomain(), dbc,
+				viewerSelection);
 		subforms.add(subform);
 	}
 
@@ -366,10 +396,11 @@ public class LibraryEditor extends EditorPart {
 
 	@Override
 	public void setFocus() {
-		if( viewer.getSelection().isEmpty() ) {
-			Tree t = (Tree)viewer.getControl();
-			if( t.getItemCount() > 0 ) {
-				viewer.setSelection(new StructuredSelection(t.getItem(0).getData()));	
+		if (viewer.getSelection().isEmpty()) {
+			Tree t = (Tree) viewer.getControl();
+			if (t.getItemCount() > 0) {
+				viewer.setSelection(new StructuredSelection(t.getItem(0)
+						.getData()));
 			}
 		}
 		viewer.getControl().setFocus();

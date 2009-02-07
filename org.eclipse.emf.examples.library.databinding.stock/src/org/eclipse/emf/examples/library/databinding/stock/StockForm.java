@@ -64,7 +64,6 @@ public class StockForm extends AbstractForm {
 	public TabItem doCreateForm(final IWorkbenchPartSite site, TabFolder folder, EditingDomain domain, DataBindingContext dbc,
 			IObservableValue master) {
 		TabItem item = new TabItem(folder, SWT.NONE);
-		item.setText("Stock");
 		Composite comp = new Composite(folder,SWT.NONE);
 		IValueProperty textProp = WidgetProperties.text();
 		dbc.bindValue(textProp.observe(item), EMFEditObservables.observeDetailValue(Realm.getDefault(), domain, master, EXTLibraryPackage.Literals.LIBRARY__STOCK),new UpdateValueStrategy(), new UpdateValueStrategy().setConverter(new LengthConverter()));
