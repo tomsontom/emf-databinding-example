@@ -8,7 +8,7 @@ import org.eclipse.emf.example.library.service.ILibraryPersistenceService;
 import org.eclipse.emf.examples.extlibrary.Book;
 import org.eclipse.emf.examples.extlibrary.BookOnTape;
 import org.eclipse.emf.examples.extlibrary.Item;
-import org.eclipse.emf.examples.library.databinding.internal.dialogs.BookDialog;
+import org.eclipse.emf.examples.library.databinding.stock.dialog.BookDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISources;

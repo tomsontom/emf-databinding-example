@@ -1,9 +1,7 @@
-package org.eclipse.emf.examples.library.databinding.internal.dialogs;
+package org.eclipse.emf.examples.library.databinding.stock.dialog;
 
 import org.eclipse.core.databinding.DataBindingContext;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.value.IValueProperty;
-import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.databinding.edit.properties.EMFEditProperties;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditValueProperty;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -16,9 +14,7 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.osgi.framework.internal.core.Tokenizer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;

@@ -1,9 +1,8 @@
-package org.eclipse.emf.examples.library.databinding.internal.source;
+package org.eclipse.emf.examples.library.databinding;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.emf.examples.library.databinding.ISources;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.AbstractSourceProvider;
 

@@ -74,7 +74,7 @@
    <extension
          point="org.eclipse.ui.services">
       <sourceProvider
-            provider="org.eclipse.emf.examples.library.databinding.internal.source.SourceProvider">
+            provider="org.eclipse.emf.examples.library.databinding.SourceProvider">
          <variable
                name="selectedStockItemName"
                priorityLevel="workbench">
