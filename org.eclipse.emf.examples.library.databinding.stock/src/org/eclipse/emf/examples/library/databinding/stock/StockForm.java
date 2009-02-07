@@ -88,7 +88,7 @@ public class StockForm extends AbstractForm {
 		});
 		
 		CondiditionalTemplate[] tpl = new CondiditionalTemplate[4];
-		tpl[0] = new CondiditionalTemplate("{0}") {
+		tpl[0] = new CondiditionalTemplate("${0}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -96,7 +96,7 @@ public class StockForm extends AbstractForm {
 			}
 			
 		};
-		tpl[1] = new CondiditionalTemplate("{1}") {
+		tpl[1] = new CondiditionalTemplate("${1}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -105,7 +105,7 @@ public class StockForm extends AbstractForm {
 			
 		};
 
-		tpl[2] = new CondiditionalTemplate("{1,medium}") {
+		tpl[2] = new CondiditionalTemplate("${1,medium}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -181,7 +181,9 @@ public class StockForm extends AbstractForm {
 
 	@Override
 	public void postExecuteSuccess(String commandId, Object returnValue) {
-		getItem().getParent().setSelection(getItem());
+		if( commandId.equals(CreateNewStockItemHandler.commandId) ) {
+			getItem().getParent().setSelection(getItem());
+		}
 	}
 
 }
