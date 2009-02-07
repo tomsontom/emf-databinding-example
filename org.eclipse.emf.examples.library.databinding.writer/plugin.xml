@@ -33,7 +33,7 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:org.eclipse.emf.examples.library.databinding.libraryeditor.writer?after=additions">
+            locationURI="popup:org.eclipse.emf.examples.library.databinding.writer?after=additions">
          <command
                commandId="org.eclipse.emf.examples.library.databinding.writer.new"
                label="New Writer"
