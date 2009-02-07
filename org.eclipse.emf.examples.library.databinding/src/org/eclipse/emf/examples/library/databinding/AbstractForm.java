@@ -11,6 +11,7 @@ import org.eclipse.ui.IWorkbenchPartSite;
 public abstract class AbstractForm {
 	private String id;
 	private TabItem item;
+	private IWorkbenchPartSite site;
 	
 	public String getId() {
 		return id;
@@ -24,11 +25,16 @@ public abstract class AbstractForm {
 		return item;
 	}
 	
-	public void createForm(IWorkbenchPartSite site, TabFolder folder, EditingDomain domain, DataBindingContext context, IObservableValue master) {
-		item = doCreateForm(site, folder, domain, context, master);
+	protected IWorkbenchPartSite getSite() {
+		return site;
 	}
 	
-	public abstract TabItem doCreateForm(IWorkbenchPartSite site, TabFolder folder, EditingDomain domain, DataBindingContext context, IObservableValue master);
+	public void createForm(IWorkbenchPartSite site, TabFolder folder, EditingDomain domain, DataBindingContext context, IObservableValue master) {
+		this.site = site;
+		item = doCreateForm(folder, domain, context, master);
+	}
+	
+	public abstract TabItem doCreateForm(TabFolder folder, EditingDomain domain, DataBindingContext context, IObservableValue master);
 	public abstract void postExecuteFailure(String commandId,ExecutionException exception);
 	public abstract void postExecuteSuccess(String commandId, Object returnValue);
 	protected abstract void doDispose();

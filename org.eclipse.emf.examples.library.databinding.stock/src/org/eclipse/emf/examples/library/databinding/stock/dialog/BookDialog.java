@@ -89,6 +89,19 @@ public class BookDialog extends TitleAreaDialog {
 						.setConverter(new DateToStringConverter()));
 
 		/*
+		 * Copies
+		 */
+		l = new Label(comp, SWT.NONE);
+		l.setText("Copies");
+
+		t = new Text(comp, SWT.BORDER);
+		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		mProp = EMFEditProperties.value(domain,
+				EXTLibraryPackage.Literals.LENDABLE__COPIES);
+		dbc.bindValue(SWTObservables.observeDelayedValue(400,
+				(ISWTObservableValue) uProp.observe(t)), mProp.observe(book));
+		
+		/*
 		 * Pages
 		 */
 		l = new Label(comp, SWT.NONE);

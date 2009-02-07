@@ -30,33 +30,36 @@
          point="org.eclipse.ui.menus">
       <menuContribution
             locationURI="popup:org.eclipse.emf.examples.library.databinding.stock?after=additions">
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.stock.new"
-               label="New Book"
-               style="push">
-            <parameter
-                  name="org.eclipse.emf.examples.library.databinding.stock.type"
-                  value="book">
-            </parameter>
-         </command>
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.stock.new"
-               label="New Book On Tape"
-               style="push">
-            <parameter
-                  name="org.eclipse.emf.examples.library.databinding.stock.type"
-                  value="tapebook">
-            </parameter>
-         </command>
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.stock.new"
-               label="New Video"
-               style="push">
-            <parameter
-                  name="org.eclipse.emf.examples.library.databinding.stock.type"
-                  value="video">
-            </parameter>
-         </command>
+         <menu
+               label="New">
+            <command
+                  commandId="org.eclipse.emf.examples.library.databinding.stock.new"
+                  label="New Book"
+                  style="push">
+               <parameter
+                     name="org.eclipse.emf.examples.library.databinding.stock.type"
+                     value="book">
+               </parameter>
+            </command>
+            <command
+                  commandId="org.eclipse.emf.examples.library.databinding.stock.new"
+                  label="New Book On Tape"
+                  style="push">
+               <parameter
+                     name="org.eclipse.emf.examples.library.databinding.stock.type"
+                     value="tapebook">
+               </parameter>
+            </command>
+            <command
+                  commandId="org.eclipse.emf.examples.library.databinding.stock.new"
+                  label="New Video"
+                  style="push">
+               <parameter
+                     name="org.eclipse.emf.examples.library.databinding.stock.type"
+                     value="video">
+               </parameter>
+            </command>
+         </menu>
          <command
                commandId="org.eclipse.emf.examples.library.databinding.stock.edititem"
                label="Edit Book"

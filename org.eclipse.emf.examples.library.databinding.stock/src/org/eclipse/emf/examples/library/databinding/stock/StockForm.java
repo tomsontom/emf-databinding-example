@@ -3,7 +3,11 @@ package org.eclipse.emf.examples.library.databinding.stock;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.NotEnabledException;
+import org.eclipse.core.commands.NotHandledException;
+import org.eclipse.core.commands.common.NotDefinedException;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.conversion.Converter;
@@ -27,6 +31,7 @@ import org.eclipse.emf.examples.library.databinding.SourceProvider;
 import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider;
 import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider.CondiditionalTemplate;
 import org.eclipse.emf.examples.library.databinding.stock.handler.CreateNewStockItemHandler;
+import org.eclipse.emf.examples.library.databinding.stock.handler.EditStockItemHandler;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ObservableListContentProvider;
@@ -36,6 +41,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
@@ -43,10 +49,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.IWorkbenchPartSite;
+import org.eclipse.ui.commands.ICommandService;
+import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.services.ISourceProviderService;
 
 public class StockForm extends AbstractForm {
 	
+	private TableViewer itemViewer;
 	
 	private class LengthConverter extends Converter {
 
@@ -61,7 +70,7 @@ public class StockForm extends AbstractForm {
 	}
 	
 	@Override
-	public TabItem doCreateForm(final IWorkbenchPartSite site, TabFolder folder, EditingDomain domain, DataBindingContext dbc,
+	public TabItem doCreateForm(TabFolder folder, EditingDomain domain, DataBindingContext dbc,
 			IObservableValue master) {
 		TabItem item = new TabItem(folder, SWT.NONE);
 		Composite comp = new Composite(folder,SWT.NONE);
@@ -71,7 +80,7 @@ public class StockForm extends AbstractForm {
 		TableColumnLayout layout = new TableColumnLayout();
 		comp.setLayout(layout);
 		
-		TableViewer itemViewer = new TableViewer(comp,SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL|SWT.FULL_SELECTION|SWT.MULTI);
+		itemViewer = new TableViewer(comp,SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL|SWT.FULL_SELECTION|SWT.MULTI);
 		itemViewer.getTable().setHeaderVisible(true);
 		itemViewer.getTable().setLinesVisible(true);
 		ObservableListContentProvider cp = new ObservableListContentProvider();
@@ -79,7 +88,7 @@ public class StockForm extends AbstractForm {
 		itemViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			public void selectionChanged(SelectionChangedEvent event) {
-				ISourceProviderService service = (ISourceProviderService) site.getService(ISourceProviderService.class);
+				ISourceProviderService service = (ISourceProviderService) getSite().getService(ISourceProviderService.class);
 				SourceProvider pv = (SourceProvider) service.getSourceProvider(ISources.SELECTED_STOCK_ITEM_NAME);
 				pv.setItemSelection(event.getSelection());
 			}
@@ -162,7 +171,7 @@ public class StockForm extends AbstractForm {
 		
 		MenuManager mgr = new MenuManager();
 		itemViewer.getControl().setMenu(mgr.createContextMenu(itemViewer.getControl()));
-		site.registerContextMenu("org.eclipse.emf.examples.library.databinding.stock", mgr, itemViewer);
+		getSite().registerContextMenu("org.eclipse.emf.examples.library.databinding.stock", mgr, itemViewer);
 		
 		item.setControl(comp);
 		itemViewer.setInput(EMFEditObservables.observeDetailList(Realm.getDefault(), domain, master, EXTLibraryPackage.Literals.LIBRARY__STOCK));
@@ -182,6 +191,14 @@ public class StockForm extends AbstractForm {
 	public void postExecuteSuccess(String commandId, Object returnValue) {
 		if( commandId.equals(CreateNewStockItemHandler.commandId) ) {
 			getItem().getParent().setSelection(getItem());
+			itemViewer.setSelection(new StructuredSelection(returnValue));
+			
+			IHandlerService hs = (IHandlerService) getSite().getService(IHandlerService.class);
+			try {
+				hs.executeCommand(EditStockItemHandler.commandId, null);
+			} catch (Exception e) {
+				MessageDialog.openError(getItem().getParent().getShell(), "Creating Stock item failed", e.getMessage());
+			}
 		}
 	}
 

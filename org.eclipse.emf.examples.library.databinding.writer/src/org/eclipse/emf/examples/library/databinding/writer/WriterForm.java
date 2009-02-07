@@ -48,7 +48,7 @@ public class WriterForm extends AbstractForm {
 		
 	}
 	@Override
-	public TabItem doCreateForm(IWorkbenchPartSite site, TabFolder folder,
+	public TabItem doCreateForm(TabFolder folder,
 			EditingDomain domain, DataBindingContext dbc,
 			IObservableValue master) {
 		
@@ -112,7 +112,7 @@ public class WriterForm extends AbstractForm {
 		
 		MenuManager mgr = new MenuManager();
 		writerViewer.getControl().setMenu(mgr.createContextMenu(writerViewer.getControl()));
-		site.registerContextMenu("org.eclipse.emf.examples.library.databinding.writer", mgr, writerViewer);
+		getSite().registerContextMenu("org.eclipse.emf.examples.library.databinding.writer", mgr, writerViewer);
 		
 		writerViewer.setInput(EMFEditObservables.observeDetailList(Realm.getDefault(), domain, master, EXTLibraryPackage.Literals.LIBRARY__WRITERS));
 		item.setControl(comp);

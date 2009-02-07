@@ -10,13 +10,15 @@ import org.eclipse.emf.examples.extlibrary.BookOnTape;
 import org.eclipse.emf.examples.extlibrary.Item;
 import org.eclipse.emf.examples.extlibrary.Library;
 import org.eclipse.emf.examples.library.databinding.stock.dialog.BookDialog;
+import org.eclipse.emf.examples.library.databinding.stock.dialog.BookOnTapeDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISources;
 import org.eclipse.ui.PlatformUI;
 
 public class EditStockItemHandler extends AbstractHandler {
-
+	public static final String commandId = "org.eclipse.emf.examples.library.databinding.stock.edititem";
+	
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IEvaluationContext ctx = (IEvaluationContext) event.getApplicationContext();
 		IEditorPart part = (IEditorPart) ctx.getVariable(ISources.ACTIVE_EDITOR_NAME);
@@ -29,7 +31,8 @@ public class EditStockItemHandler extends AbstractHandler {
 			BookDialog dialog = new BookDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),parent,(Book)item);
 			dialog.open();
 		} else if( item instanceof BookOnTape ) {
-			
+			BookOnTapeDialog dialog = new BookOnTapeDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),parent,(BookOnTape)item);
+			dialog.open();
 		} else {
 			
 		}
