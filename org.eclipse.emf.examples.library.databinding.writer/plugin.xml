@@ -5,7 +5,8 @@
          point="org.eclipse.emf.examples.library.databinding.subform">
       <form
             class="org.eclipse.emf.examples.library.databinding.writer.WriterForm"
-            id="org.eclipse.emf.examples.library.databinding.form2">
+            id="org.eclipse.emf.examples.library.databinding.form2"
+            weight="1.0">
       </form>
    </extension>
    <extension

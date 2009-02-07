@@ -133,4 +133,10 @@ public class WriterForm extends AbstractForm {
 		}
 	}
 
+	@Override
+	protected void doDispose() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

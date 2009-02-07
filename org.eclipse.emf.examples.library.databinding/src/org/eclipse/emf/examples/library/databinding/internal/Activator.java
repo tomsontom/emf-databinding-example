@@ -1,7 +1,8 @@
 package org.eclipse.emf.examples.library.databinding.internal;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.Platform;
@@ -91,7 +92,18 @@ public class Activator extends AbstractUIPlugin {
 	public Collection<FormDescriptor> getFormDescriptors() {
 		if( descriptors == null ) {
 			
-			descriptors = new ArrayList<FormDescriptor>();
+			descriptors = new TreeSet<FormDescriptor>(new Comparator<FormDescriptor>() {
+
+				public int compare(FormDescriptor o1, FormDescriptor o2) {
+					Double d1 = o1.getWeight();
+					int rv = d1.compareTo(o2.getWeight());
+					if( rv == 0 ) {
+						rv = -1;
+					}
+					return rv;
+				}
+				
+			});
 			extensionHandler = new FormExtensionHandler(descriptors);
             IExtensionPoint point = Platform.getExtensionRegistry()
                             .getExtensionPoint(Activator.PLUGIN_ID,
@@ -101,8 +113,6 @@ public class Activator extends AbstractUIPlugin {
                             extensionHandler,
                             ExtensionTracker.createExtensionPointFilter(point));
 
-            System.err.println(point);
-            
             for (int i = 0; i < point.getExtensions().length; i++) {
                     extensionHandler.addExtension(extensionTracker, point.getExtensions()[i]);
             }

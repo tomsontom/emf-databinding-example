@@ -22,12 +22,19 @@ public class FormDescriptor {
 	
 	private static final String ATT_CLASS = "class";
 	
-	private static final String ATT_LABEL = "label";
+	private static final String ATT_WEIGHT = "weight";
 	
 	private String id;
+	
+	private double weight;
 
 	public FormDescriptor(IConfigurationElement element) {
 		this.id = element.getAttribute(ATT_ID);
+		try {
+			this.weight = Double.parseDouble(element.getAttribute(ATT_WEIGHT));	
+		} catch (NumberFormatException e) {
+		}
+		
 		this.element = element;
 	}
 	
@@ -35,11 +42,11 @@ public class FormDescriptor {
 		return (AbstractForm) element.createExecutableExtension(ATT_CLASS);
 	}
 	
-	public String getLabel() {
-		return element.getAttribute(ATT_LABEL);
-	}
-	
 	public String getId() {
 		return id;
-	}	
+	}
+	
+	public double getWeight() {
+		return weight;
+	}
 }

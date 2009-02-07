@@ -299,6 +299,17 @@ public class LibraryEditor extends EditorPart {
 				String id = descriptor.getId();
 				for( AbstractForm form : subforms ) {
 					if( form.getId().equals(id) ) {
+						final AbstractForm tmp = form;
+						if( ! viewer.getControl().isDisposed() ) {
+							viewer.getControl().getDisplay().syncExec(new Runnable() {
+
+								public void run() {
+									tmp.dispose();
+								}
+								
+							});
+								
+						}
 						
 					}
 				}

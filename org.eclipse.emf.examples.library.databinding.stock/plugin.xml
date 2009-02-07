@@ -5,7 +5,8 @@
          point="org.eclipse.emf.examples.library.databinding.subform">
       <form
             class="org.eclipse.emf.examples.library.databinding.stock.StockForm"
-            id="org.eclipse.emf.examples.library.databinding.stock">
+            id="org.eclipse.emf.examples.library.databinding.stock"
+            weight="1.0">
       </form>
    </extension>
    <extension

@@ -31,8 +31,11 @@ public abstract class AbstractForm {
 	public abstract TabItem doCreateForm(IWorkbenchPartSite site, TabFolder folder, EditingDomain domain, DataBindingContext context, IObservableValue master);
 	public abstract void postExecuteFailure(String commandId,ExecutionException exception);
 	public abstract void postExecuteSuccess(String commandId, Object returnValue);
+	protected abstract void doDispose();
 	
 	public void dispose() {
-		
+		doDispose();
+		item.getControl().dispose();
+		item.dispose();
 	}
 }

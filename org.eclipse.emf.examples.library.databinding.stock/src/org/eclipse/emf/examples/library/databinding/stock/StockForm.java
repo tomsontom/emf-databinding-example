@@ -186,4 +186,9 @@ public class StockForm extends AbstractForm {
 		}
 	}
 
+	@Override
+	protected void doDispose() {
+		
+	}
+
 }
