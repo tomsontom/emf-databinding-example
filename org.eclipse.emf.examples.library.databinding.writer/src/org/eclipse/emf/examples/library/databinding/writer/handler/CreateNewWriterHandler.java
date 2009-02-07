@@ -1,4 +1,4 @@
-package org.eclipse.emf.examples.library.databinding.internal.handler;
+package org.eclipse.emf.examples.library.databinding.writer.handler;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -6,7 +6,6 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.edit.command.AddCommand;
-import org.eclipse.emf.edit.command.SetCommand;
 import org.eclipse.emf.example.library.service.ILibraryPersistenceService;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryFactory;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;

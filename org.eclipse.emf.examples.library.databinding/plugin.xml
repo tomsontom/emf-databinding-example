@@ -19,10 +19,6 @@
             id="org.eclipse.emf.examples.library.databinding.library.new"
             name="Create a new library">
       </command>
-      <command
-            id="org.eclipse.emf.examples.library.databinding.writer.new"
-            name="Create new writer">
-      </command>
    </extension>
    <extension
          point="org.eclipse.ui.editors">
@@ -63,18 +59,6 @@
             </with>
          </enabledWhen>
       </handler>
-      <handler
-            class="org.eclipse.emf.examples.library.databinding.internal.handler.CreateNewWriterHandler"
-            commandId="org.eclipse.emf.examples.library.databinding.writer.new">
-         <enabledWhen>
-            <with
-                  variable="activeEditorId">
-               <equals
-                     value="org.eclipse.emf.examples.library.databinding.libraryeditor">
-               </equals>
-            </with>
-         </enabledWhen>
-      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -83,14 +67,6 @@
          <command
                commandId="org.eclipse.emf.examples.library.databinding.library.new"
                label="New Library"
-               style="push">
-         </command>
-      </menuContribution>
-      <menuContribution
-            locationURI="popup:org.eclipse.emf.examples.library.databinding.libraryeditor.writer?after=additions">
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.writer.new"
-               label="New Writer"
                style="push">
          </command>
       </menuContribution>
@@ -104,13 +80,6 @@
                priorityLevel="workbench">
          </variable>
       </sourceProvider>
-   </extension>
-   <extension
-         point="org.eclipse.emf.examples.library.databinding.subform">
-      <form
-            class="org.eclipse.emf.examples.library.databinding.editor.forms.WriterForm"
-            id="org.eclipse.emf.examples.library.databinding.form2">
-      </form>
    </extension>
 
 </plugin>
