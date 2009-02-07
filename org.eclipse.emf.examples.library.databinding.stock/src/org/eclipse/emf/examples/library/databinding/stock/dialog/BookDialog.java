@@ -14,6 +14,7 @@ import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
 import org.eclipse.emf.examples.extlibrary.Library;
 import org.eclipse.emf.examples.extlibrary.Writer;
 import org.eclipse.emf.examples.library.databinding.common.converter.DateToStringConverter;
+import org.eclipse.emf.examples.library.databinding.tokenviewer.TokenViewer;
 import org.eclipse.jface.databinding.swt.ISWTObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
@@ -30,8 +31,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-
-import zhou.eclipse.tokenviewer.testing.tokenviewer.TokenViewer;
 
 public class BookDialog extends TitleAreaDialog {
 	private Book book;
