@@ -1,4 +1,4 @@
-package org.eclipse.emf.examples.library.databinding.internal.handler;
+package org.eclipse.emf.examples.library.databinding.stock.handler;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -17,7 +17,7 @@
                id="org.eclipse.emf.examples.library.databinding.stock.type"
                name="Stock Item type"
                optional="false"
-               values="org.eclipse.emf.examples.library.databinding.internal.handler.StockItemValues">
+               values="org.eclipse.emf.examples.library.databinding.stock.handler.StockItemValues">
          </commandParameter>
       </command>
       <command
