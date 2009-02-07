@@ -104,7 +104,7 @@ public class StockForm extends AbstractForm {
 			
 		};
 
-		tpl[2] = new CondiditionalTemplate("${1,medium}") {
+		tpl[2] = new CondiditionalTemplate("${0,date,medium}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {

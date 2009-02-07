@@ -2,6 +2,7 @@ package org.eclipse.emf.examples.library.databinding.editor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -324,19 +325,20 @@ public class LibraryEditor extends EditorPart {
 
 					public void formRemoved(FormDescriptor descriptor) {
 						String id = descriptor.getId();
-						for (AbstractForm form : subforms) {
+						Iterator<AbstractForm> it = subforms.iterator();
+						while( it.hasNext() ) {
+							final AbstractForm form = it.next();
 							if (form.getId().equals(id)) {
-								final AbstractForm tmp = form;
 								if (!viewer.getControl().isDisposed()) {
 									viewer.getControl().getDisplay().syncExec(
 											new Runnable() {
 
 												public void run() {
-													tmp.dispose();
+													form.dispose();
 												}
 
 											});
-
+									it.remove();
 								}
 
 							}

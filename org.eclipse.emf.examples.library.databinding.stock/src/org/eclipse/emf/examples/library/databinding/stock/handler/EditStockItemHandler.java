@@ -8,6 +8,7 @@ import org.eclipse.emf.example.library.service.ILibraryPersistenceService;
 import org.eclipse.emf.examples.extlibrary.Book;
 import org.eclipse.emf.examples.extlibrary.BookOnTape;
 import org.eclipse.emf.examples.extlibrary.Item;
+import org.eclipse.emf.examples.extlibrary.Library;
 import org.eclipse.emf.examples.library.databinding.stock.dialog.BookDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
@@ -20,11 +21,12 @@ public class EditStockItemHandler extends AbstractHandler {
 		IEvaluationContext ctx = (IEvaluationContext) event.getApplicationContext();
 		IEditorPart part = (IEditorPart) ctx.getVariable(ISources.ACTIVE_EDITOR_NAME);
 		ILibraryPersistenceService service = (ILibraryPersistenceService) part.getEditorInput().getAdapter(ILibraryPersistenceService.class);
+		Library parent = (Library) ((IStructuredSelection)ctx.getVariable(ISources.ACTIVE_CURRENT_SELECTION_NAME)).getFirstElement();
 		
 		Item item = (Item) ((IStructuredSelection) ctx.getVariable(org.eclipse.emf.examples.library.databinding.ISources.SELECTED_STOCK_ITEM_NAME)).getFirstElement();
 		
 		if( item instanceof Book ) {
-			BookDialog dialog = new BookDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),(Book)item);
+			BookDialog dialog = new BookDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),parent,(Book)item);
 			dialog.open();
 		} else if( item instanceof BookOnTape ) {
 			
