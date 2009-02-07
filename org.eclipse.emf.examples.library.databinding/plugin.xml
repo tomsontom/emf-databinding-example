@@ -20,20 +20,6 @@
             name="Create a new library">
       </command>
       <command
-            id="org.eclipse.emf.examples.library.databinding.stock.new"
-            name="Create a new stock item">
-         <commandParameter
-               id="org.eclipse.emf.examples.library.databinding.stock.type"
-               name="Stock Item type"
-               optional="false"
-               values="org.eclipse.emf.examples.library.databinding.internal.handler.StockItemValues">
-         </commandParameter>
-      </command>
-      <command
-            id="org.eclipse.emf.examples.library.databinding.stock.edititem"
-            name="Edit stock item">
-      </command>
-      <command
             id="org.eclipse.emf.examples.library.databinding.writer.new"
             name="Create new writer">
       </command>
@@ -78,46 +64,6 @@
          </enabledWhen>
       </handler>
       <handler
-            class="org.eclipse.emf.examples.library.databinding.internal.handler.CreateNewStockItemHandler"
-            commandId="org.eclipse.emf.examples.library.databinding.stock.new">
-         <enabledWhen>
-            <with
-                  variable="activeEditorId">
-               <equals
-                     value="org.eclipse.emf.examples.library.databinding.libraryeditor">
-               </equals>
-               <and>
-                  <with
-                        variable="selection">
-                     <count
-                           value="1">
-                     </count>
-                  </with>
-               </and>
-            </with>
-         </enabledWhen>
-      </handler>
-      <handler
-            class="org.eclipse.emf.examples.library.databinding.internal.handler.EditStockItemHandler"
-            commandId="org.eclipse.emf.examples.library.databinding.stock.edititem">
-         <enabledWhen>
-            <with
-                  variable="activeEditorId">
-               <equals
-                     value="org.eclipse.emf.examples.library.databinding.libraryeditor">
-               </equals>
-               <and>
-                  <with
-                        variable="selectedStockItemName">
-                     <count
-                           value="1">
-                     </count>
-                  </with>
-               </and>
-            </with>
-         </enabledWhen>
-      </handler>
-      <handler
             class="org.eclipse.emf.examples.library.databinding.internal.handler.CreateNewWriterHandler"
             commandId="org.eclipse.emf.examples.library.databinding.writer.new">
          <enabledWhen>
@@ -138,105 +84,6 @@
                commandId="org.eclipse.emf.examples.library.databinding.library.new"
                label="New Library"
                style="push">
-         </command>
-      </menuContribution>
-      <menuContribution
-            locationURI="popup:org.eclipse.emf.examples.library.databinding.libraryeditor.stock?after=additions">
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.stock.new"
-               label="New Book"
-               style="push">
-            <parameter
-                  name="org.eclipse.emf.examples.library.databinding.stock.type"
-                  value="book">
-            </parameter>
-         </command>
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.stock.new"
-               label="New Book On Tape"
-               style="push">
-            <parameter
-                  name="org.eclipse.emf.examples.library.databinding.stock.type"
-                  value="tapebook">
-            </parameter>
-         </command>
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.stock.new"
-               label="New Video"
-               style="push">
-            <parameter
-                  name="org.eclipse.emf.examples.library.databinding.stock.type"
-                  value="video">
-            </parameter>
-         </command>
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.stock.edititem"
-               label="Edit Book"
-               style="push">
-            <visibleWhen
-                  checkEnabled="true">
-               <with
-                     variable="activeMenuSelection">
-                  <count
-                        value="1">
-                  </count>
-                  <and>
-                     <iterate
-                           ifEmpty="false"
-                           operator="and">
-                        <instanceof
-                              value="org.eclipse.emf.examples.extlibrary.Book">
-                        </instanceof>
-                     </iterate>
-                  </and>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.stock.edititem"
-               label="Edit Book On Tape"
-               style="push">
-            <visibleWhen
-                  checkEnabled="true">
-               <with
-                     variable="activeMenuSelection">
-                  <count
-                        value="1">
-                  </count>
-                  <and>
-                     <iterate
-                           ifEmpty="false"
-                           operator="and">
-                        <instanceof
-                              value="org.eclipse.emf.examples.extlibrary.BookOnTape">
-                        </instanceof>
-                     </iterate>
-                  </and>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.eclipse.emf.examples.library.databinding.stock.edititem"
-               label="Edit Video"
-               style="push">
-            <visibleWhen
-                  checkEnabled="true">
-               <with
-                     variable="activeMenuSelection">
-                  <count
-                        value="1">
-                  </count>
-                  <and>
-                     <iterate
-                           ifEmpty="false"
-                           operator="and">
-                        <instanceof
-                              value="org.eclipse.emf.examples.extlibrary.VideoCassette">
-                        </instanceof>
-                     </iterate>
-                  </and>
-               </with>
-            </visibleWhen>
          </command>
       </menuContribution>
       <menuContribution

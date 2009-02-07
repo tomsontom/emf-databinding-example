@@ -163,7 +163,7 @@ public class StockForm extends AbstractForm {
 		
 		MenuManager mgr = new MenuManager();
 		itemViewer.getControl().setMenu(mgr.createContextMenu(itemViewer.getControl()));
-		site.registerContextMenu("org.eclipse.emf.examples.library.databinding.libraryeditor.stock", mgr, itemViewer);
+		site.registerContextMenu("org.eclipse.emf.examples.library.databinding.stock", mgr, itemViewer);
 		
 		item.setControl(comp);
 		itemViewer.setInput(EMFEditObservables.observeDetailList(Realm.getDefault(), domain, master, EXTLibraryPackage.Literals.LIBRARY__STOCK));
