@@ -12,7 +12,7 @@ package org.eclipse.emf.examples.library.databinding.internal;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.emf.examples.library.databinding.editor.forms.AbstractForm;
+import org.eclipse.emf.examples.library.databinding.AbstractForm;
 
 
 public class FormDescriptor {

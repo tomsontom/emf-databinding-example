@@ -1,4 +1,4 @@
-package org.eclipse.emf.examples.library.databinding.editor.forms;
+package org.eclipse.emf.examples.library.databinding;
 
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.databinding.DataBindingContext;

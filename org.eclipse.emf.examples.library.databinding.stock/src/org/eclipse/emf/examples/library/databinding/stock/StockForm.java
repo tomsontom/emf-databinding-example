@@ -1,4 +1,4 @@
-package org.eclipse.emf.examples.library.databinding.editor.forms;
+package org.eclipse.emf.examples.library.databinding.stock;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,6 +21,7 @@ import org.eclipse.emf.examples.extlibrary.BookOnTape;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
 import org.eclipse.emf.examples.extlibrary.Item;
 import org.eclipse.emf.examples.extlibrary.VideoCassette;
+import org.eclipse.emf.examples.library.databinding.AbstractForm;
 import org.eclipse.emf.examples.library.databinding.ISources;
 import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider;
 import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider.CondiditionalTemplate;

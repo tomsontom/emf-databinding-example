@@ -4,6 +4,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.examples.library.databinding.AbstractForm;
 import org.eclipse.emf.examples.library.databinding.internal.handler.CreateNewWriterHandler;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;

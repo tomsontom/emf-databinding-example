@@ -29,7 +29,7 @@ public class FormExtensionHandler implements IExtensionChangeHandler {
 
 	public static final String FORM_EXT = "subform";
 
-	private static final String ELEM_DATASOURCE = "subform";
+	private static final String ELEM_DATASOURCE = "form";
 	
 	private Collection<FormDescriptor> descriptors;
 	
