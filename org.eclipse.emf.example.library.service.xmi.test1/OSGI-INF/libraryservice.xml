@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<component name="libraryservice">
+	<implementation class="org.eclipse.emf.example.library.service.xmi.test1.Test1PersistenceService"/>
+	<service>
+		<provide interface="org.eclipse.emf.example.library.service.ILibraryPersistenceService"/>
+	</service>
+</component>
