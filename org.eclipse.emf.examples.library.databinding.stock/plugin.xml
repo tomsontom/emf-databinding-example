@@ -59,6 +59,15 @@
                      value="video">
                </parameter>
             </command>
+            <command
+                  commandId="org.eclipse.emf.examples.library.databinding.stock.new"
+                  label="New Periodical"
+                  style="push">
+               <parameter
+                     name="org.eclipse.emf.examples.library.databinding.stock.type"
+                     value="periodical">
+               </parameter>
+            </command>
          </menu>
          <command
                commandId="org.eclipse.emf.examples.library.databinding.stock.edititem"
