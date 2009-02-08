@@ -29,10 +29,13 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.databinding.edit.properties.EMFEditProperties;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditValueProperty;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.domain.IEditingDomainProvider;
 import org.eclipse.emf.example.library.service.ILibraryPersistenceService;
 import org.eclipse.emf.example.library.service.ILibraryPersistenceService.Listener;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
@@ -77,7 +80,7 @@ import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.part.EditorPart;
 
-public class LibraryEditor extends EditorPart {
+public class LibraryEditor extends EditorPart implements IEditingDomainProvider {
 	private Listener listener = new Listener() {
 
 		public void dirtyStateChanged(boolean newState) {
@@ -167,6 +170,12 @@ public class LibraryEditor extends EditorPart {
 
 	@Override
 	public void dispose() {
+		if( p.isDirty() ) {
+			CommandStack stack = p.getEditingDomain().getCommandStack();
+			while( stack.canUndo() ) {
+				stack.undo();
+			}
+		}
 		p.removeListener(listener);
 		super.dispose();
 	}
@@ -180,6 +189,17 @@ public class LibraryEditor extends EditorPart {
 	public void createPartControl(Composite parent) {
 		SashForm form = new SashForm(parent, SWT.HORIZONTAL);
 
+//		UndoAction undoAction = new UndoAction(p.getEditingDomain());
+//		RedoAction redoAction = new RedoAction(p.getEditingDomain());
+//		
+//		getEditorSite().getActionBars().setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
+//		getEditorSite().getActionBars().setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
+//		
+//		undoAction.setActiveWorkbenchPart(this);
+//		redoAction.setActiveWorkbenchPart(this);
+//		undoAction.update();
+//	    redoAction.update();
+		
 		createViewer(form);
 		createDetailArea(form);
 		initListener();
@@ -416,5 +436,9 @@ public class LibraryEditor extends EditorPart {
 			}
 		}
 		viewer.getControl().setFocus();
+	}
+
+	public EditingDomain getEditingDomain() {
+		return p != null ? p.getEditingDomain() : null;
 	}
 }

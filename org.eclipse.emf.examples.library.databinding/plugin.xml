@@ -24,6 +24,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="org.eclipse.emf.examples.library.databinding.editor.LibraryEditor"
+            contributorClass="org.eclipse.emf.examples.library.databinding.editor.ActionBarContribution"
             default="false"
             id="org.eclipse.emf.examples.library.databinding.libraryeditor"
             name="Library Editor">

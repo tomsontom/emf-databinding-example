@@ -53,9 +53,9 @@ public class PeriodicalDialog extends TitleAreaDialog {
 	protected Control createDialogArea(Composite parent) {
 		Composite container = (Composite) super.createDialogArea(parent);
 
-		getShell().setText("Edit Book");
-		setTitle("Edit the book");
-		setMessage("Edit the data of the book with the form below and press ok when done or cancel to undo all modifications.");
+		getShell().setText("Edit Periodical");
+		setTitle("Edit the periodical");
+		setMessage("Edit the data of the periodical with the form below and press ok when done or cancel to undo all modifications.");
 
 		Composite comp = new Composite(container, SWT.NONE);
 		comp.setLayoutData(new GridData(GridData.FILL_BOTH));

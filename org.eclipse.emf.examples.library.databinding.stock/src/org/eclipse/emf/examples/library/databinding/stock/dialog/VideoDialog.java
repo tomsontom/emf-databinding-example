@@ -59,6 +59,7 @@ public class VideoDialog extends TitleAreaDialog {
 		
 		@Override
 		protected Control createDialogArea(Composite parent) {
+			getShell().setText("Add cast");
 			Composite container = (Composite) super.createDialogArea(parent);
 			Composite comp = new Composite(container,SWT.NONE);
 			comp.setLayout(new GridLayout(3,false));
@@ -147,9 +148,9 @@ public class VideoDialog extends TitleAreaDialog {
 	
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		getShell().setText("Edit Book On Tape");
-		setTitle("Edit the book on tape");
-		setMessage("Edit the data of the book on tape with the form below and press ok when done or cancel to undo all modifications.");
+		getShell().setText("Edit Videocassette");
+		setTitle("Edit the Videocassette");
+		setMessage("Edit the data of the videocassette with the form below and press ok when done or cancel to undo all modifications.");
 
 		Composite container = (Composite) super.createDialogArea(parent);
 
