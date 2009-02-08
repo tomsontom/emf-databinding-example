@@ -18,7 +18,6 @@ import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.list.ComputedList;
 import org.eclipse.core.databinding.observable.list.IObservableList;
-import org.eclipse.core.databinding.observable.map.ComputedObservableMap;
 import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.databinding.edit.properties.EMFEditProperties;
@@ -183,6 +182,7 @@ public class BookOnTapeDialog extends TitleAreaDialog {
 						EXTLibraryPackage.Literals.LIBRARY__EMPLOYEES);
 		
 
+				@SuppressWarnings("unchecked")
 				@Override
 				protected List calculate() {
 					ArrayList<?> list = new ArrayList<Object>();
