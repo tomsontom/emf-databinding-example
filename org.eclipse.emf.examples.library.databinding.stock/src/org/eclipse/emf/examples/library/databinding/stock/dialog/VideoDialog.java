@@ -110,11 +110,9 @@ public class VideoDialog extends TitleAreaDialog {
 		
 		@Override
 		protected void okPressed() {
-			System.err.println("Person: " + person);
 			if( person == null ) {
 				person = (Person) ((IStructuredSelection)viewer.getSelection()).getFirstElement();
 			}
-			System.err.println("Person: " + person);
 			
 			if( person != null ) {
 				super.okPressed();	
