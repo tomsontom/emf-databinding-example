@@ -19,8 +19,12 @@ import org.eclipse.emf.examples.extlibrary.Book;
 import org.eclipse.emf.examples.extlibrary.BookOnTape;
 import org.eclipse.emf.examples.extlibrary.Item;
 import org.eclipse.emf.examples.extlibrary.Library;
+import org.eclipse.emf.examples.extlibrary.Periodical;
+import org.eclipse.emf.examples.extlibrary.VideoCassette;
 import org.eclipse.emf.examples.library.databinding.stock.dialog.BookDialog;
 import org.eclipse.emf.examples.library.databinding.stock.dialog.BookOnTapeDialog;
+import org.eclipse.emf.examples.library.databinding.stock.dialog.PeriodicalDialog;
+import org.eclipse.emf.examples.library.databinding.stock.dialog.VideoDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISources;
@@ -43,8 +47,12 @@ public class EditStockItemHandler extends AbstractHandler {
 		} else if( item instanceof BookOnTape ) {
 			BookOnTapeDialog dialog = new BookOnTapeDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),parent,(BookOnTape)item);
 			dialog.open();
-		} else {
-			
+		} else if( item instanceof VideoCassette ) {
+			VideoDialog dialog = new VideoDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),parent,(VideoCassette)item);
+			dialog.open();
+		} else if( item instanceof Periodical ) {
+			PeriodicalDialog dialog = new PeriodicalDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),(Periodical)item);
+			dialog.open();
 		}
 		
 		return null;

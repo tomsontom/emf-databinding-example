@@ -10,19 +10,16 @@
  *******************************************************************************/
 package org.eclipse.emf.examples.library.databinding.stock.dialog;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
 import org.eclipse.core.databinding.observable.Realm;
-import org.eclipse.core.databinding.observable.list.ComputedList;
-import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.databinding.edit.properties.EMFEditProperties;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditValueProperty;
-import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.example.library.service.ISavePoint;
+import org.eclipse.emf.example.library.service.ISavePointEditingDomain;
 import org.eclipse.emf.examples.extlibrary.BookOnTape;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
 import org.eclipse.emf.examples.extlibrary.Library;
@@ -33,6 +30,7 @@ import org.eclipse.jface.databinding.swt.ISWTObservableValue;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.swt.WidgetProperties;
 import org.eclipse.jface.databinding.viewers.ViewerProperties;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -49,9 +47,10 @@ import org.eclipse.swt.widgets.Text;
 public class BookOnTapeDialog extends TitleAreaDialog {
 	private BookOnTape bookOnTape;
 	private Library library;
-	private EditingDomain domain;
+	private ISavePointEditingDomain domain;
+	private ISavePoint savePoint;
 
-	public BookOnTapeDialog(Shell parentShell, EditingDomain domain,
+	public BookOnTapeDialog(Shell parentShell, ISavePointEditingDomain domain,
 			Library library, BookOnTape bookOnTape) {
 		super(parentShell);
 		this.bookOnTape = bookOnTape;
@@ -62,6 +61,12 @@ public class BookOnTapeDialog extends TitleAreaDialog {
 	@Override
 	protected Point getInitialSize() {
 		return new Point(500,super.getInitialSize().y);
+	}
+	
+	@Override
+	public int open() {
+		savePoint = domain.addSavePoint(EcoreUtil.generateUUID());
+		return super.open();
 	}
 	
 	@Override
@@ -182,29 +187,10 @@ public class BookOnTapeDialog extends TitleAreaDialog {
 				}
 			});
 
-			ComputedList list = new ComputedList() {
-				private IObservableList writer = EMFEditObservables
-						.observeList(Realm.getDefault(), domain, library,
-								EXTLibraryPackage.Literals.LIBRARY__WRITERS);
-				
-				private IObservableList employee = EMFEditObservables
-				.observeList(Realm.getDefault(), domain, library,
-						EXTLibraryPackage.Literals.LIBRARY__EMPLOYEES);
-		
-
-				@SuppressWarnings("unchecked")
-				@Override
-				protected List calculate() {
-					ArrayList<?> list = new ArrayList<Object>();
-					list.addAll(writer);
-					list.addAll(employee);
-					return list;
-				}
-
-			};
-
 			readerViewer.setContentProvider(new ArrayContentProvider());
-			readerViewer.setInput(list);
+			readerViewer.setInput(EMFEditObservables
+					.observeList(Realm.getDefault(), domain, library,
+							EXTLibraryPackage.Literals.LIBRARY__READERS));
 
 			mProp = EMFEditProperties.value(domain,
 					EXTLibraryPackage.Literals.BOOK_ON_TAPE__READER);
@@ -214,5 +200,21 @@ public class BookOnTapeDialog extends TitleAreaDialog {
 		}
 
 		return comp;
+	}
+	
+	@Override
+	protected void okPressed() {
+		savePoint.dispose();
+		super.okPressed();
+	}
+	
+	@Override
+	protected void cancelPressed() {
+		if( savePoint.canRollback() ) {
+			savePoint.rollback();
+			super.cancelPressed();
+		} else {
+			MessageDialog.openInformation(getShell(), "Rollback failed", "An error occurred while rolling back to the save point!");
+		}
 	}
 }

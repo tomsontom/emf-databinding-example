@@ -105,7 +105,7 @@ public class EMFEditObservables
    * @param eStructuralFeatures the features for which to track the value.
    * @return an array of observable maps tracking the current value of the given features for each object in the given set.
    */
-  public static IObservableMap[] observeMaps(EditingDomain domain, IObservableSet objects, EStructuralFeature[] eStructuralFeatures)
+  public static IObservableMap[] observeMaps(EditingDomain domain, IObservableSet objects, EStructuralFeature... eStructuralFeatures)
   {
     IObservableMap[] result = new IObservableMap [eStructuralFeatures.length];
     for (int i = 0; i < eStructuralFeatures.length; i++)

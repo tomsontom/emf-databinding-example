@@ -138,6 +138,29 @@
                </with>
             </visibleWhen>
          </command>
+         <command
+               commandId="org.eclipse.emf.examples.library.databinding.stock.edititem"
+               label="Edit Periodical"
+               style="push">
+            <visibleWhen
+                  checkEnabled="true">
+               <with
+                     variable="activeMenuSelection">
+                  <count
+                        value="1">
+                  </count>
+                  <and>
+                     <iterate
+                           ifEmpty="false"
+                           operator="and">
+                        <instanceof
+                              value="org.eclipse.emf.examples.extlibrary.Periodical">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
    <extension

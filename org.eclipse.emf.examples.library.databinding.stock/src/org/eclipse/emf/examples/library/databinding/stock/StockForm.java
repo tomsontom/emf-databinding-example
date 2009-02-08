@@ -166,6 +166,8 @@ public class StockForm extends AbstractForm {
 					return "Book On Tape";
 				} else if( element instanceof VideoCassette ) {
 					return "Video";
+				} else if( element instanceof Periodical ) {
+					return "Periodical";
 				} else {
 					return "";
 				}

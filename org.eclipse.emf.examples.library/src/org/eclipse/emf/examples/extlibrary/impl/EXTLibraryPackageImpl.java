@@ -379,6 +379,24 @@ public class EXTLibraryPackageImpl extends EPackageImpl implements EXTLibraryPac
 
   /**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLibrary_Casts() {
+		return (EReference)libraryEClass.getEStructuralFeatures().get(9);
+	}
+
+		/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLibrary_Readers() {
+		return (EReference)libraryEClass.getEStructuralFeatures().get(10);
+	}
+
+		/**
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -733,6 +751,8 @@ public class EXTLibraryPackageImpl extends EPackageImpl implements EXTLibraryPac
 		createEReference(libraryEClass, LIBRARY__BRANCHES);
 		createEReference(libraryEClass, LIBRARY__PARENT_BRANCH);
 		createEAttribute(libraryEClass, LIBRARY__PEOPLE);
+		createEReference(libraryEClass, LIBRARY__CASTS);
+		createEReference(libraryEClass, LIBRARY__READERS);
 
 		writerEClass = createEClass(WRITER);
 		createEAttribute(writerEClass, WRITER__NAME);
@@ -839,6 +859,8 @@ public class EXTLibraryPackageImpl extends EPackageImpl implements EXTLibraryPac
 		initEReference(getLibrary_Branches(), this.getLibrary(), this.getLibrary_ParentBranch(), "branches", null, 0, -1, Library.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(getLibrary_ParentBranch(), this.getLibrary(), this.getLibrary_Branches(), "parentBranch", null, 0, 1, Library.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(getLibrary_People(), ecorePackage.getEFeatureMapEntry(), "people", null, 0, -1, Library.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getLibrary_Casts(), this.getPerson(), null, "casts", null, 0, -1, Library.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+		initEReference(getLibrary_Readers(), this.getPerson(), null, "readers", null, 0, -1, Library.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(writerEClass, Writer.class, "Writer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEAttribute(getWriter_Name(), ecorePackage.getEString(), "name", null, 0, 1, Writer.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -928,6 +950,18 @@ public class EXTLibraryPackageImpl extends EPackageImpl implements EXTLibraryPac
 		   source, 
 		   new String[] {
 			 "kind", "group" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getLibrary_Casts(), 
+		   source, 
+		   new String[] {
+			 "group", "#people" //$NON-NLS-1$ //$NON-NLS-2$
+		   });		
+		addAnnotation
+		  (getLibrary_Readers(), 
+		   source, 
+		   new String[] {
+			 "group", "#people" //$NON-NLS-1$ //$NON-NLS-2$
 		   });
 	}
 

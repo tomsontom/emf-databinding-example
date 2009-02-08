@@ -39,6 +39,8 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.eclipse.emf.examples.extlibrary.Library#getBranches <em>Branches</em>}</li>
  *   <li>{@link org.eclipse.emf.examples.extlibrary.Library#getParentBranch <em>Parent Branch</em>}</li>
  *   <li>{@link org.eclipse.emf.examples.extlibrary.Library#getPeople <em>People</em>}</li>
+ *   <li>{@link org.eclipse.emf.examples.extlibrary.Library#getCasts <em>Casts</em>}</li>
+ *   <li>{@link org.eclipse.emf.examples.extlibrary.Library#getReaders <em>Readers</em>}</li>
  * </ul>
  * </p>
  *
@@ -183,5 +185,39 @@ public interface Library extends Addressable
 	 * @generated
 	 */
   FeatureMap getPeople();
+
+		/**
+	 * Returns the value of the '<em><b>Casts</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.emf.examples.extlibrary.Person}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Casts</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Casts</em>' containment reference list.
+	 * @see org.eclipse.emf.examples.extlibrary.EXTLibraryPackage#getLibrary_Casts()
+	 * @model containment="true" transient="true" volatile="true" derived="true"
+	 *        extendedMetaData="group='#people'"
+	 * @generated
+	 */
+	EList<Person> getCasts();
+
+		/**
+	 * Returns the value of the '<em><b>Readers</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.emf.examples.extlibrary.Person}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Readers</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Readers</em>' containment reference list.
+	 * @see org.eclipse.emf.examples.extlibrary.EXTLibraryPackage#getLibrary_Readers()
+	 * @model containment="true" transient="true" volatile="true" derived="true"
+	 *        extendedMetaData="group='#people'"
+	 * @generated
+	 */
+	EList<Person> getReaders();
 
 } // Library

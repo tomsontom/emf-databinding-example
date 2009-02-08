@@ -39,6 +39,7 @@ import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
 import org.eclipse.emf.examples.extlibrary.Employee;
 import org.eclipse.emf.examples.extlibrary.Item;
 import org.eclipse.emf.examples.extlibrary.Library;
+import org.eclipse.emf.examples.extlibrary.Person;
 import org.eclipse.emf.examples.extlibrary.Writer;
 
 //import org.eclipse.emf.ecore.util.EObjectResolvingEList;
@@ -61,6 +62,8 @@ import org.eclipse.emf.examples.extlibrary.Writer;
  *   <li>{@link org.eclipse.emf.examples.extlibrary.impl.LibraryImpl#getBranches <em>Branches</em>}</li>
  *   <li>{@link org.eclipse.emf.examples.extlibrary.impl.LibraryImpl#getParentBranch <em>Parent Branch</em>}</li>
  *   <li>{@link org.eclipse.emf.examples.extlibrary.impl.LibraryImpl#getPeople <em>People</em>}</li>
+ *   <li>{@link org.eclipse.emf.examples.extlibrary.impl.LibraryImpl#getCasts <em>Casts</em>}</li>
+ *   <li>{@link org.eclipse.emf.examples.extlibrary.impl.LibraryImpl#getReaders <em>Readers</em>}</li>
  * </ul>
  * </p>
  *
@@ -421,6 +424,24 @@ public class LibraryImpl extends EObjectImpl implements Library
 
   /**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Person> getCasts() {
+		return getPeople().list(EXTLibraryPackage.Literals.LIBRARY__CASTS);
+	}
+
+		/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Person> getReaders() {
+		return getPeople().list(EXTLibraryPackage.Literals.LIBRARY__READERS);
+	}
+
+		/**
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -462,6 +483,10 @@ public class LibraryImpl extends EObjectImpl implements Library
 				return basicSetParentBranch(null, msgs);
 			case EXTLibraryPackage.LIBRARY__PEOPLE:
 				return ((InternalEList<?>)getPeople()).basicRemove(otherEnd, msgs);
+			case EXTLibraryPackage.LIBRARY__CASTS:
+				return ((InternalEList<?>)getCasts()).basicRemove(otherEnd, msgs);
+			case EXTLibraryPackage.LIBRARY__READERS:
+				return ((InternalEList<?>)getReaders()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -512,6 +537,10 @@ public class LibraryImpl extends EObjectImpl implements Library
 			case EXTLibraryPackage.LIBRARY__PEOPLE:
 				if (coreType) return getPeople();
 				return ((FeatureMap.Internal)getPeople()).getWrapper();
+			case EXTLibraryPackage.LIBRARY__CASTS:
+				return getCasts();
+			case EXTLibraryPackage.LIBRARY__READERS:
+				return getReaders();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -562,6 +591,14 @@ public class LibraryImpl extends EObjectImpl implements Library
 			case EXTLibraryPackage.LIBRARY__PEOPLE:
 				((FeatureMap.Internal)getPeople()).set(newValue);
 				return;
+			case EXTLibraryPackage.LIBRARY__CASTS:
+				getCasts().clear();
+				getCasts().addAll((Collection<? extends Person>)newValue);
+				return;
+			case EXTLibraryPackage.LIBRARY__READERS:
+				getReaders().clear();
+				getReaders().addAll((Collection<? extends Person>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -605,6 +642,12 @@ public class LibraryImpl extends EObjectImpl implements Library
 			case EXTLibraryPackage.LIBRARY__PEOPLE:
 				getPeople().clear();
 				return;
+			case EXTLibraryPackage.LIBRARY__CASTS:
+				getCasts().clear();
+				return;
+			case EXTLibraryPackage.LIBRARY__READERS:
+				getReaders().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -638,6 +681,10 @@ public class LibraryImpl extends EObjectImpl implements Library
 				return basicGetParentBranch() != null;
 			case EXTLibraryPackage.LIBRARY__PEOPLE:
 				return people != null && !people.isEmpty();
+			case EXTLibraryPackage.LIBRARY__CASTS:
+				return !getCasts().isEmpty();
+			case EXTLibraryPackage.LIBRARY__READERS:
+				return !getReaders().isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

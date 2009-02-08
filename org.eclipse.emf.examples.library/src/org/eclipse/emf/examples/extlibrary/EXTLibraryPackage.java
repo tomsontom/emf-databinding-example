@@ -367,13 +367,31 @@ public interface EXTLibraryPackage extends EPackage
   int LIBRARY__PEOPLE = ADDRESSABLE_FEATURE_COUNT + 8;
 
   /**
+	 * The feature id for the '<em><b>Casts</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIBRARY__CASTS = ADDRESSABLE_FEATURE_COUNT + 9;
+
+		/**
+	 * The feature id for the '<em><b>Readers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LIBRARY__READERS = ADDRESSABLE_FEATURE_COUNT + 10;
+
+		/**
 	 * The number of structural features of the '<em>Library</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int LIBRARY_FEATURE_COUNT = ADDRESSABLE_FEATURE_COUNT + 9;
+  int LIBRARY_FEATURE_COUNT = ADDRESSABLE_FEATURE_COUNT + 11;
 
   /**
 	 * The meta object id for the '{@link org.eclipse.emf.examples.extlibrary.impl.PersonImpl <em>Person</em>}' class.
@@ -1098,6 +1116,28 @@ public interface EXTLibraryPackage extends EPackage
   EAttribute getLibrary_People();
 
   /**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.emf.examples.extlibrary.Library#getCasts <em>Casts</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Casts</em>'.
+	 * @see org.eclipse.emf.examples.extlibrary.Library#getCasts()
+	 * @see #getLibrary()
+	 * @generated
+	 */
+	EReference getLibrary_Casts();
+
+		/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.emf.examples.extlibrary.Library#getReaders <em>Readers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Readers</em>'.
+	 * @see org.eclipse.emf.examples.extlibrary.Library#getReaders()
+	 * @see #getLibrary()
+	 * @generated
+	 */
+	EReference getLibrary_Readers();
+
+		/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.examples.extlibrary.Writer <em>Writer</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1573,6 +1613,22 @@ public interface EXTLibraryPackage extends EPackage
     EAttribute LIBRARY__PEOPLE = eINSTANCE.getLibrary_People();
 
     /**
+		 * The meta object literal for the '<em><b>Casts</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIBRARY__CASTS = eINSTANCE.getLibrary_Casts();
+
+				/**
+		 * The meta object literal for the '<em><b>Readers</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LIBRARY__READERS = eINSTANCE.getLibrary_Readers();
+
+				/**
 		 * The meta object literal for the '{@link org.eclipse.emf.examples.extlibrary.impl.WriterImpl <em>Writer</em>}' class.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

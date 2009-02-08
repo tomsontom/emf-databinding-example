@@ -418,4 +418,7 @@ public class TokenViewer extends ContentViewer {
 		}
 	}
 
+	public String getText() {
+		return text.getText();
+	}
 }
