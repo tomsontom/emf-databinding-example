@@ -23,13 +23,13 @@ import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.examples.extlibrary.AudioVisualItem;
 import org.eclipse.emf.examples.extlibrary.Book;
 import org.eclipse.emf.examples.extlibrary.BookOnTape;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
 import org.eclipse.emf.examples.extlibrary.Item;
+import org.eclipse.emf.examples.extlibrary.Periodical;
 import org.eclipse.emf.examples.extlibrary.VideoCassette;
 import org.eclipse.emf.examples.library.databinding.AbstractForm;
 import org.eclipse.emf.examples.library.databinding.ISources;
@@ -99,8 +99,7 @@ public class StockForm extends AbstractForm {
 			
 		});
 		
-		CondiditionalTemplate[] tpl = new CondiditionalTemplate[4];
-		tpl[0] = new CondiditionalTemplate("${0}") {
+		CondiditionalTemplate tplBookTitle = new CondiditionalTemplate("${0}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -108,7 +107,7 @@ public class StockForm extends AbstractForm {
 			}
 			
 		};
-		tpl[1] = new CondiditionalTemplate("${1}") {
+		CondiditionalTemplate tplAudiovisualTitle = new CondiditionalTemplate("${1}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -116,8 +115,16 @@ public class StockForm extends AbstractForm {
 			}
 			
 		};
+		CondiditionalTemplate tplPeriodicalTitle = new CondiditionalTemplate("${2}") {
 
-		tpl[2] = new CondiditionalTemplate("${0,date,medium}") {
+			@Override
+			public boolean isTemplate(EObject element) {
+				return element instanceof Periodical && ((Periodical)element).getTitle() != null;
+			}
+			
+		};
+
+		CondiditionalTemplate tplPublicationDate = new CondiditionalTemplate("${0,date,medium}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -126,7 +133,7 @@ public class StockForm extends AbstractForm {
 			
 		};
 		
-		tpl[3] = new CondiditionalTemplate("-") {
+		CondiditionalTemplate tplNullValue = new CondiditionalTemplate("-") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -135,17 +142,16 @@ public class StockForm extends AbstractForm {
 			
 		};
 
-		EStructuralFeature[] features = new EStructuralFeature[3];
-		features[0] = EXTLibraryPackage.Literals.BOOK__TITLE;
-		features[1] = EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__TITLE;
-		features[2] = EXTLibraryPackage.Literals.ITEM__PUBLICATION_DATE;
+		IObservableMap featBookTitle = EMFEditObservables.observeMap(domain, cp.getKnownElements(), EXTLibraryPackage.Literals.BOOK__TITLE);
+		IObservableMap featAudiovisualTitle = EMFEditObservables.observeMap(domain, cp.getKnownElements(), EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__TITLE);
+		IObservableMap featPeriodicalTitle = EMFEditObservables.observeMap(domain, cp.getKnownElements(), EXTLibraryPackage.Literals.PERIODICAL__TITLE);
+		IObservableMap featItemPublicationDate = EMFEditObservables.observeMap(domain, cp.getKnownElements(), EXTLibraryPackage.Literals.ITEM__PUBLICATION_DATE);
 		
-		IObservableMap[] map = EMFEditObservables.observeMaps(domain, cp.getKnownElements(), features);
 		
 		TableViewerColumn c = new TableViewerColumn(itemViewer,SWT.NONE);
 		c.getColumn().setText("Title");
 		layout.setColumnData(c.getColumn(), new ColumnWeightData(1,120));
-		c.setLabelProvider(new ObservableColumnLabelProvider(new IObservableMap[] { map[0], map[1] },Arrays.asList(tpl[0],tpl[1],tpl[3])));
+		c.setLabelProvider(new ObservableColumnLabelProvider(new IObservableMap[] { featBookTitle, featAudiovisualTitle, featPeriodicalTitle },Arrays.asList(tplBookTitle,tplAudiovisualTitle,tplPeriodicalTitle,tplNullValue)));
 		
 		c = new TableViewerColumn(itemViewer,SWT.NONE);
 		c.getColumn().setText("Type");
@@ -170,7 +176,7 @@ public class StockForm extends AbstractForm {
 		c = new TableViewerColumn(itemViewer,SWT.NONE);
 		c.getColumn().setText("Publication Date");
 		layout.setColumnData(c.getColumn(), new ColumnWeightData(1,120));
-		c.setLabelProvider(new ObservableColumnLabelProvider(new IObservableMap[] { map[2] },Arrays.asList(tpl[2],tpl[3])));
+		c.setLabelProvider(new ObservableColumnLabelProvider(new IObservableMap[] { featItemPublicationDate },Arrays.asList(tplPublicationDate,tplNullValue)));
 		
 		
 		MenuManager mgr = new MenuManager();

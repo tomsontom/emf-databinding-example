@@ -37,6 +37,7 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -59,7 +60,16 @@ public class BookOnTapeDialog extends TitleAreaDialog {
 	}
 
 	@Override
+	protected Point getInitialSize() {
+		return new Point(500,super.getInitialSize().y);
+	}
+	
+	@Override
 	protected Control createDialogArea(Composite parent) {
+		getShell().setText("Edit Book On Tape");
+		setTitle("Edit the book on tape");
+		setMessage("Edit the data of the book on tape with the form below and press ok when done or cancel to undo all modifications.");
+
 		Composite container = (Composite) super.createDialogArea(parent);
 
 		Composite comp = new Composite(container, SWT.NONE);

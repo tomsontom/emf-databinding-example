@@ -21,6 +21,7 @@ public class StockItemValues implements IParameterValues {
 		map.put("Book", "book");
 		map.put("Book On Tape", "tapebook");
 		map.put("Video", "video");
+		map.put("Periodical", "periodical");
 		return map;
 	}
 

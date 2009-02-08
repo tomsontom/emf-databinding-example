@@ -45,6 +45,8 @@ public class CreateNewStockItemHandler extends AbstractHandler {
 					item = EXTLibraryFactory.eINSTANCE.createBookOnTape();
 				} else if( type.equals("video") ) {
 					item = EXTLibraryFactory.eINSTANCE.createVideoCassette();
+				} else if( type.equals("periodical") ) {
+					item = EXTLibraryFactory.eINSTANCE.createPeriodical();
 				} else {
 					throw new ExecutionException("Unknow stock item type '"+type+"'.");
 				}
