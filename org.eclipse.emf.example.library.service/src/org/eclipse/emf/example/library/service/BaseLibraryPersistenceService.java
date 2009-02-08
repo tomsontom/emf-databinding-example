@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2009 Tom Schindl and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Tom Schindl - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.emf.example.library.service;
 
 import java.util.ArrayList;
@@ -9,23 +19,20 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.databinding.EMFObservables;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
-import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
+import org.eclipse.emf.example.library.service.internal.SavePointEditingDomain;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
 
 public abstract class BaseLibraryPersistenceService implements
 		ILibraryPersistenceService {
-	private EditingDomain editingDomain;
+	private ISavePointEditingDomain editingDomain;
 	private ResourceSet resourceSet;
 	private boolean dirtyState = false;
 	private BasicCommandStack commandStack;
@@ -62,11 +69,11 @@ public abstract class BaseLibraryPersistenceService implements
 
 		commandStack = new BasicCommandStack();
 		commandStack.addCommandStackListener(new CommandStackListenerImpl());
-		editingDomain = new AdapterFactoryEditingDomain(adapterFactory,
-				commandStack, resourceSet);
+		editingDomain = new SavePointEditingDomain(new AdapterFactoryEditingDomain(adapterFactory,
+				commandStack, resourceSet));
 	}
 
-	public EditingDomain getEditingDomain() {
+	public ISavePointEditingDomain getEditingDomain() {
 		return editingDomain;
 	}
 

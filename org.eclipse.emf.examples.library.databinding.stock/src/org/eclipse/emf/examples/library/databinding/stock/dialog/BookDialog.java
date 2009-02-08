@@ -24,6 +24,7 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -43,6 +44,11 @@ public class BookDialog extends TitleAreaDialog {
 		this.book = book;
 		this.library = library;
 		this.domain = domain;
+	}
+
+	@Override
+	protected Point getInitialSize() {
+		return new Point(500,super.getInitialSize().y);
 	}
 
 	@Override
@@ -100,7 +106,7 @@ public class BookDialog extends TitleAreaDialog {
 				EXTLibraryPackage.Literals.LENDABLE__COPIES);
 		dbc.bindValue(SWTObservables.observeDelayedValue(400,
 				(ISWTObservableValue) uProp.observe(t)), mProp.observe(book));
-		
+
 		/*
 		 * Pages
 		 */
