@@ -12,6 +12,7 @@ package org.eclipse.emf.examples.library.databinding.internal;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -84,7 +85,13 @@ public class FormExtensionHandler implements IExtensionChangeHandler {
 	public void removeExtension(IExtension extension, Object[] objects) {
 		synchronized (descriptors) {
 			for (int i = 0; i < objects.length; i++) {
-				descriptors.remove(objects[i]);
+				Iterator<FormDescriptor> it = descriptors.iterator();
+				while( it.hasNext() ) {
+					if( it.next() == objects[i] ) {
+						it.remove();
+					}
+				}
+				
 				FormDescriptor descriptor = (FormDescriptor) objects[i];
 				for( IModificationListener l : listeners ) {
 					l.formRemoved(descriptor);
