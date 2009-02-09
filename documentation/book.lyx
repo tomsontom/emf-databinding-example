@@ -1,0 +1,318 @@
+#LyX 1.5.5 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Writing an RCP-Application
+\end_layout
+
+\begin_layout Author
+Tom Schindl
+\end_layout
+
+\begin_layout Date
+02/09/09
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Section*
+Copyright
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Copyright (c) Tom Schindl
+\series default
+
+\newline
+
+\newline
+All right reserved.
+ No part of this work may be reproduced or transmitted in any form or any
+ means, electronic or mechanical, including photogcopying, recording, or
+ by information storage or retrieval system without the prior written permission
+ of the copyright owner.
+\end_layout
+
+\begin_layout Standard
+All code parts shown in the book are released under EPL 1.0.
+\end_layout
+
+\begin_layout Section*
+Foreword
+\end_layout
+
+\begin_layout Section*
+About the Author
+\end_layout
+
+\begin_layout Section*
+Introduction
+\end_layout
+
+\begin_layout Standard
+The following book is a show case for Eclipse RCP and Eclipse Modeling technolog
+ies.
+ It will explain you how to exploit existing frameworks to write a first
+ class Desktop- and/or Web-Application.
+ Having attended many conferences delivering talks about RCP and EMF the
+ main pain points the audience always told me is that there's a lack of
+ documentation and examples showing best practice usage patterns.
+ Although the book includes introduction chapters an on the technologies
+ a general knowledge about Eclipse-Plugin- / RCP-Development is a plus,
+ a strong knowledge of java and object oriented principels is a must.
+\end_layout
+
+\begin_layout Standard
+The book explains as much of the underlying technology to build the show
+ case application and if you want to read more about them every introduction
+ chapter includes a list of online and book resources for more information
+ on the technology.
+ The book tries to explain many concepts on learning by doing approach which
+ is what I prefer myself in books.
+ It gives a lot of code and nutshell examples to support monkey see monkey
+ do style of reading and learning.
+\end_layout
+
+\begin_layout Standard
+
+\newpage
+
+\end_layout
+
+\begin_layout Part
+Getting started with enabling technologies
+\end_layout
+
+\begin_layout Section
+Introduction to OSGi
+\end_layout
+
+\begin_layout Standard
+OSGi is a component model to write modular and dynamic applications on top
+ of JavaVirtualMachine JVM.
+ Recently many enterprise software developers like SpringSource, BEA WebLogic
+ and IBM Websphere chose OSGi for their next versions of products.
+ Since 3.0 OSGi is the foundation of the Eclipse-Platform and is one of the
+ reason for the big success of Eclipse as an IDE and recently as a Runtime
+ Platform.
+\end_layout
+
+\begin_layout Subsection
+Basics about OSGi
+\end_layout
+
+\begin_layout Standard
+Because Eclipse is itself built upon OSGi you already have everything installed
+ and there's no need to download anything additionally.
+ The OSGi implementation used by Eclipse is named Equinox and is the reference
+ implementation of the OSGi specification.
+ There are other opensource implementations of the OSGi specification available
+ like Apache Felix and in theory everything should also work on an alternate
+ implementation but for the sake of simplicity we use Equinox.
+ To get the best tooling support for Eclipse you should use an Eclipse Package
+ which has the Plugin Development Environment (PDE) installed.
+\end_layout
+
+\begin_layout Standard
+In the world of OSGi instead of writing one big monolithic application it
+ is broken into small modules named 
+\series bold
+bundle
+\series default
+ and the OSGi-Runtime weaves them all together to make up 
+\series bold
+an
+\series default
+ not 
+\series bold
+the
+\series default
+ application.
+ Breaking up your application in different smaller parts has many advantages
+ like:
+\end_layout
+
+\begin_layout Itemize
+seperation of concerns on a high level (e.g.
+ splitting of core and ui)
+\end_layout
+
+\begin_layout Itemize
+reuse of modules in different applications and contextes
+\end_layout
+
+\begin_layout Itemize
+dyamic/live updateing, installing and uninstalling application parts
+\end_layout
+
+\begin_layout Itemize
+and many more
+\end_layout
+
+\begin_layout Paragraph
+Hands on practice: Creating an OSGi-Bundle and launch OSGI-Console
+\end_layout
+
+\begin_layout Enumerate
+Fire up your Eclipse IDE
+\end_layout
+
+\begin_layout Enumerate
+Create a New Plugin-Project using File > New > Project ...
+\newline
+
+\begin_inset Graphics
+	filename chapter1/screen_1.tiff
+	width 5cm
+
+\end_inset
+
+ 
+\begin_inset Graphics
+	filename chapter1/screen_2.tiff
+	width 5cm
+
+\end_inset
+
+
+\newline
+There are some important things ton note:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+The Plug-in ID is created like you are used to create package names.
+ The Plug-in ID has to be a unique name in the OSGi-runtime used so that
+ the bundle can be identified.
+\end_layout
+
+\begin_layout Enumerate
+Execution Environment: Is the required Java version for the module.
+ If the Execution Env is smaller than the selected one the module is not
+ loaded by the OSGi-Runtime.
+ You should always set an execution environment because PDE-build uses this
+ information when exporting the classes (no matter which JDT-Compiler settings
+ you have)
+\end_layout
+
+\begin_layout Enumerate
+A special class named Activator is created for you.
+ The pupose of this class is to give you informations about the lifecycle
+ of your module - starting and stoping
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+OSGi-Services
+\end_layout
+
+\begin_layout Subsection
+Resources about OSGi
+\end_layout
+
+\begin_layout Section
+Introduction to RCP
+\end_layout
+
+\begin_layout Subsection
+Basics about Eclipse RCP
+\end_layout
+
+\begin_layout Subsection
+Commands, Handlers and Expressions
+\end_layout
+
+\begin_layout Subsection
+Extension Points
+\end_layout
+
+\begin_layout Section
+Introduction to EMF
+\end_layout
+
+\begin_layout Subsection
+Basics about EMF
+\end_layout
+
+\begin_layout Subsection
+The EMF-EditingFramework
+\end_layout
+
+\begin_layout Subsection
+EMF-Databinding
+\end_layout
+
+\begin_layout Part
+Writing the example application
+\end_layout
+
+\begin_layout Part
+Adding support for Teneo
+\end_layout
+
+\begin_layout Part
+Adding support for CDO
+\end_layout
+
+\begin_layout Part
+Make your application accessible through the web
+\end_layout
+
+\end_body
+\end_document
