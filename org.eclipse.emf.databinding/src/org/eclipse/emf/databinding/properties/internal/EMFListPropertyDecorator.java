@@ -78,4 +78,8 @@ public class EMFListPropertyDecorator extends ListProperty implements IEMFListPr
 		return new EMFObservableListDecorator(delegate.observeDetail(master),
 				feature);
 	}
+	
+	public String toString() {
+		return delegate.toString();
+	}
 }

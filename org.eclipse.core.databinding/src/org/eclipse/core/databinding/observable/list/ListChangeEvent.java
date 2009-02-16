@@ -27,10 +27,7 @@ public class ListChangeEvent extends ObservableEvent {
 	 */
 	private static final long serialVersionUID = -9154315534258776672L;
 
-	/**
-	 * 
-	 */
-	public static final Object TYPE = new Object();
+	static final Object TYPE = new Object();
 
 	/**
 	 * Description of the change to the source observable list. Listeners must

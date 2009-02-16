@@ -100,4 +100,10 @@ public class EMFValueProperty extends SimpleValueProperty {
 		EObject eObj = (EObject) source;
 		eObj.eAdapters().remove((Adapter) listener);
 	}	
+	
+	public String toString() {
+		String s = feature.getName();
+		s += "<" + feature.getEType().getInstanceClassName() + ">"; //$NON-NLS-1$//$NON-NLS-2$
+		return s;
+	}
 }

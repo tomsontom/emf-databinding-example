@@ -31,25 +31,27 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * <b>PROVISIONAL This API is subject to arbitrary change, including renaming or
  * removal.</b>
  * </p>
+ * 
  * @since 1.1
  */
 public class EMFMapProperty extends SimpleMapProperty {
-	
+
 	private final EStructuralFeature feature;
 	private final Class<?> keyType;
 	private final Class<?> valueType;
-	
+
 	/**
 	 * @param feature
 	 * @param keyType
 	 * @param valueType
 	 */
-	public EMFMapProperty(EStructuralFeature feature, Class<?> keyType, Class<?> valueType) {
+	public EMFMapProperty(EStructuralFeature feature, Class<?> keyType,
+			Class<?> valueType) {
 		this.feature = feature;
 		this.keyType = keyType;
 		this.valueType = valueType;
 	}
-	
+
 	public Object getKeyType() {
 		return keyType;
 	}
@@ -59,42 +61,44 @@ public class EMFMapProperty extends SimpleMapProperty {
 	}
 
 	@Override
-	protected Map<?,?> doGetMap(Object source) {
+	protected Map<?, ?> doGetMap(Object source) {
 		EObject eObj = (EObject) source;
-		return (Map<?,?>) eObj.eGet(feature);
+		return (Map<?, ?>) eObj.eGet(feature);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void doSetMap(Object source, Map map, MapDiff diff) {
 		EObject eObject = (EObject) source;
 		eObject.eSet(feature, map);
 	}
-	
+
 	@Override
 	public INativePropertyListener adaptListener(
 			ISimplePropertyListener listener) {
 		return new Listener(listener);
 	}
-	
-	private class Listener extends AdapterImpl implements INativePropertyListener {
+
+	private class Listener extends AdapterImpl implements
+			INativePropertyListener {
 		private final ISimplePropertyListener listener;
 
 		private Listener(ISimplePropertyListener listener) {
 			this.listener = listener;
 		}
-		
+
 		@Override
 		public void notifyChanged(Notification msg) {
-			if (feature == msg.getFeature() && !msg.isTouch())
-	        {
-	          // TODO
-	          // This assumes we only get a SET notification, which isn't a good assumption.
-	          //
-	          final MapDiff diff = Diffs.createMapDiffSingleChange(msg.getNotifier(), msg.getOldValue(), msg.getNewValue());
-	          listener.handlePropertyChange(new SimplePropertyEvent(msg
+			if (feature == msg.getFeature() && !msg.isTouch()) {
+				// TODO
+				// This assumes we only get a SET notification, which isn't a
+				// good assumption.
+				//
+				final MapDiff diff = Diffs.createMapDiffSingleChange(msg
+						.getNotifier(), msg.getOldValue(), msg.getNewValue());
+				listener.handlePropertyChange(new SimplePropertyEvent(msg
 						.getNotifier(), EMFMapProperty.this, diff));
-	        }
+			}
 		}
 	}
 
@@ -109,5 +113,14 @@ public class EMFMapProperty extends SimpleMapProperty {
 			INativePropertyListener listener) {
 		EObject eObj = (EObject) source;
 		eObj.eAdapters().remove((Adapter) listener);
+	}
+
+	@Override
+	public String toString() {
+		String s = feature.getName() + "{:}"; //$NON-NLS-1$
+		if (keyType != null || valueType != null)
+			s += "<" + (keyType != null ? keyType.getName() : "null") + ", " //$NON-NLS-1$ //$NON-NLS-2$
+					+ (valueType != null ? valueType.getName() : "null") + ">"; //$NON-NLS-1$
+		return super.toString();
 	}
 }

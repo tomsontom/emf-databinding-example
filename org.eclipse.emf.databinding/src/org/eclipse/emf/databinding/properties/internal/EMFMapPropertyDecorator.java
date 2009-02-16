@@ -85,4 +85,8 @@ public class EMFMapPropertyDecorator extends MapProperty implements
 		return new EMFObservableMapDecorator(delegate.observeDetail(master),
 				feature);
 	}
+	
+	public String toString() {
+		return delegate.toString();
+	}
 }
