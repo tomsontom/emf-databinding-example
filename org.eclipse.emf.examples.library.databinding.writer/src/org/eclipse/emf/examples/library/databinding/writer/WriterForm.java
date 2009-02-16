@@ -57,11 +57,10 @@ public class WriterForm extends AbstractForm {
 		
 	}
 	@Override
-	public TabItem doCreateForm(TabFolder folder,
+	public void doCreateForm(TabFolder folder,TabItem item,
 			EditingDomain domain, DataBindingContext dbc,
 			IObservableValue master) {
 		
-		TabItem item = new TabItem(folder,SWT.NONE);
 		IValueProperty textProp = WidgetProperties.text();
 		dbc.bindValue(textProp.observe(item), EMFEditObservables.observeDetailValue(Realm.getDefault(), domain, master, EXTLibraryPackage.Literals.LIBRARY__WRITERS),new UpdateValueStrategy(), new UpdateValueStrategy().setConverter(new LengthConverter()));
 				
@@ -126,7 +125,6 @@ public class WriterForm extends AbstractForm {
 		writerViewer.setInput(EMFEditObservables.observeDetailList(Realm.getDefault(), domain, master, EXTLibraryPackage.Literals.LIBRARY__WRITERS));
 		item.setControl(comp);
 		
-		return item;
 	}
 
 	@Override

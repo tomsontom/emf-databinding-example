@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.dynamichelpers.IExtensionTracker;
 
 public class FormExtensionHandler implements IExtensionChangeHandler {
 	public interface IModificationListener {
-		public void formAdd(FormDescriptor descriptor);
+		public void formAdd(int index, FormDescriptor descriptor);
 		
 		public void formRemoved(FormDescriptor descriptor);
 	}
@@ -53,10 +53,19 @@ public class FormExtensionHandler implements IExtensionChangeHandler {
 			IConfigurationElement element) {
 		FormDescriptor descriptor = new FormDescriptor(element);
 		descriptors.add(descriptor);
+		int i = 0;
+		for( FormDescriptor desc: descriptors ) {
+			if( desc == descriptor ) {
+				break;
+			}
+			i++;
+		}
 		tracker.registerObject(element.getDeclaringExtension(), descriptor, IExtensionTracker.REF_WEAK);
 		
+		synchronized(listeners) {
 		for( IModificationListener l: listeners ) {
-			l.formAdd(descriptor);
+			l.formAdd(i,descriptor);
+		}
 		}
 		
 		return true;
@@ -92,9 +101,12 @@ public class FormExtensionHandler implements IExtensionChangeHandler {
 					}
 				}
 				
-				FormDescriptor descriptor = (FormDescriptor) objects[i];
-				for( IModificationListener l : listeners ) {
-					l.formRemoved(descriptor);
+				synchronized(listeners) {
+					FormDescriptor descriptor = (FormDescriptor) objects[i];
+					for( IModificationListener l : listeners ) {
+						l.formRemoved(descriptor);
+					}
+					
 				}
 			}
 		}

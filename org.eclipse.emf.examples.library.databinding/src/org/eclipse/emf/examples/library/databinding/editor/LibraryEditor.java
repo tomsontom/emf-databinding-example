@@ -188,18 +188,6 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 	@Override
 	public void createPartControl(Composite parent) {
 		SashForm form = new SashForm(parent, SWT.HORIZONTAL);
-
-//		UndoAction undoAction = new UndoAction(p.getEditingDomain());
-//		RedoAction redoAction = new RedoAction(p.getEditingDomain());
-//		
-//		getEditorSite().getActionBars().setGlobalActionHandler(ActionFactory.UNDO.getId(), undoAction);
-//		getEditorSite().getActionBars().setGlobalActionHandler(ActionFactory.REDO.getId(), redoAction);
-//		
-//		undoAction.setActiveWorkbenchPart(this);
-//		redoAction.setActiveWorkbenchPart(this);
-//		undoAction.update();
-//	    redoAction.update();
-		
 		createViewer(form);
 		createDetailArea(form);
 		initListener();
@@ -307,9 +295,10 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 		gd.horizontalSpan = 2;
 		subfolder.setLayoutData(gd);
 
+		int i = 0;
 		for (FormDescriptor desc : Activator.getDefault().getFormDescriptors()) {
 			try {
-				createForm(desc, dbc, viewerSelection);
+				createForm(i++, desc, dbc, viewerSelection);
 			} catch (CoreException e) {
 				ErrorDialog.openError(viewer.getControl().getShell(),
 						"Error loading forms", e.getMessage(), e.getStatus());
@@ -326,7 +315,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 		Activator.getDefault().getFormHandler().addModificationListener(
 				new IModificationListener() {
 
-					public void formAdd(final FormDescriptor descriptor) {
+					public void formAdd(final int index, final FormDescriptor descriptor) {
 
 						if (!viewer.getControl().isDisposed()) {
 							viewer.getControl().getDisplay().syncExec(
@@ -334,7 +323,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 
 										public void run() {
 											try {
-												createForm(descriptor, dbc,
+												createForm(index, descriptor, dbc,
 														viewerSelection);
 											} catch (CoreException e) {
 												ErrorDialog.openError(viewer
@@ -378,13 +367,14 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 				});
 	}
 
-	private void createForm(FormDescriptor desc, DataBindingContext dbc,
+	private void createForm(int index, FormDescriptor desc, DataBindingContext dbc,
 			IObservableValue viewerSelection) throws CoreException {
 		AbstractForm subform = desc.createFormInstance();
+		subforms.add(index, subform);
+		
 		subform.setId(desc.getId());
-		subform.createForm(getSite(), subfolder, p.getEditingDomain(), dbc,
+		subform.createForm(getSite(), subfolder, index, p.getEditingDomain(), dbc,
 				viewerSelection);
-		subforms.add(subform);
 	}
 
 	private void createViewer(SashForm form) {

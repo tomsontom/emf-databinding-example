@@ -254,7 +254,8 @@ Execution Environment: Is the required Java version for the module.
 \begin_layout Enumerate
 A special class named Activator is created for you.
  The pupose of this class is to give you informations about the lifecycle
- of your module - starting and stoping
+ of your module - starting and stoping.
+ See below for more informations
 \end_layout
 
 \end_deeper

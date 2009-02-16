@@ -21,13 +21,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.eclipse.core.databinding.observable.AbstractObservable;
 import org.eclipse.core.databinding.observable.Diffs;
 import org.eclipse.core.databinding.observable.ObservableTracker;
 import org.eclipse.core.databinding.observable.Realm;
-import org.eclipse.core.databinding.observable.list.IListChangeListener;
+import org.eclipse.core.databinding.observable.list.AbstractObservableList;
 import org.eclipse.core.databinding.observable.list.IObservableList;
-import org.eclipse.core.databinding.observable.list.ListChangeEvent;
 import org.eclipse.core.databinding.observable.list.ListDiff;
 import org.eclipse.core.databinding.observable.list.ListDiffEntry;
 import org.eclipse.emf.common.notify.Adapter;
@@ -37,7 +35,7 @@ import org.eclipse.emf.common.notify.NotifyingList;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 
-public class EWritableList<Type> extends AbstractObservable implements IObservableList {
+public class EWritableList<Type> extends AbstractObservableList implements IObservableList {
 	private NotifyingList<Type> wrappedList;
 	private Object elementType;
 	private boolean stale = false;
@@ -151,12 +149,6 @@ public class EWritableList<Type> extends AbstractObservable implements IObservab
 		}		
 	}
 	
-	protected void fireListChange(ListDiff diff) {
-		// fire general change event first
-		super.fireChange();
-		fireEvent(new ListChangeEvent(this, diff));
-	}
-	
 	@Override
 	public synchronized void dispose() {
 		((Notifier)wrappedList.getNotifier()).eAdapters().remove(listener);
@@ -180,10 +172,6 @@ public class EWritableList<Type> extends AbstractObservable implements IObservab
 	public boolean addAll(int index, Collection c) {
 		checkRealm();
 		return wrappedList.addAll(index, c);
-	}
-
-	public void addListChangeListener(IListChangeListener listener) {
-		addListener(ListChangeEvent.TYPE, listener);
 	}
 
 	public boolean contains(Object o) {
@@ -256,21 +244,19 @@ public class EWritableList<Type> extends AbstractObservable implements IObservab
 		return wrappedList.removeAll(c);
 	}
 
-	public void removeListChangeListener(IListChangeListener listener) {
-		removeListener(ListChangeEvent.TYPE, listener);
-	}
-
+	@SuppressWarnings("unchecked")
 	public boolean retainAll(Collection c) {
 		checkRealm();
 		return wrappedList.retainAll(c);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Object set(int index, Object element) {
 		checkRealm();
 		return wrappedList.set(index, (Type) element);
 	}
 
-	public int size() {
+	public int doGetSize() {
 		getterCalled();
 		return wrappedList.size();
 	}
@@ -305,13 +291,13 @@ public class EWritableList<Type> extends AbstractObservable implements IObservab
 		return stale;
 	}	
 	
-	public void setStale(boolean stale) {
-		checkRealm();
-
-		boolean wasStale = this.stale;
-		this.stale = stale;
-		if (!wasStale && stale) {
-			fireStale();
-		}
-	}
+//	public void setStale(boolean stale) {
+//		checkRealm();
+//
+//		boolean wasStale = this.stale;
+//		this.stale = stale;
+//		if (!wasStale && stale) {
+//			fireStale();
+//		}
+//	}
 }

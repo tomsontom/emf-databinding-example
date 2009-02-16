@@ -74,9 +74,8 @@ public class StockForm extends AbstractForm {
 	}
 	
 	@Override
-	public TabItem doCreateForm(TabFolder folder, EditingDomain domain, DataBindingContext dbc,
+	public void doCreateForm(TabFolder folder, TabItem item, EditingDomain domain, DataBindingContext dbc,
 			IObservableValue master) {
-		TabItem item = new TabItem(folder, SWT.NONE);
 		Composite comp = new Composite(folder,SWT.NONE);
 		IValueProperty textProp = WidgetProperties.text();
 		dbc.bindValue(textProp.observe(item), EMFEditObservables.observeDetailValue(Realm.getDefault(), domain, master, EXTLibraryPackage.Literals.LIBRARY__STOCK),new UpdateValueStrategy(), new UpdateValueStrategy().setConverter(new LengthConverter()));
@@ -187,8 +186,6 @@ public class StockForm extends AbstractForm {
 		
 		item.setControl(comp);
 		itemViewer.setInput(EMFEditObservables.observeDetailList(Realm.getDefault(), domain, master, EXTLibraryPackage.Literals.LIBRARY__STOCK));
-		
-		return item;
 	}
 
 	@Override
