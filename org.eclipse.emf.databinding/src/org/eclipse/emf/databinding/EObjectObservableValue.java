@@ -20,6 +20,7 @@ import org.eclipse.core.databinding.observable.Diffs;
 import org.eclipse.core.databinding.observable.IObserving;
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.value.AbstractObservableValue;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.observable.value.ValueDiff;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -32,18 +33,52 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * <b>PROVISIONAL This API is subject to arbitrary change, including renaming or
  * removal.</b>
  * </p>
+ * 
+ * @deprecated you should not use this type it will be removed. Use the generic
+ *             {@link IObservableValue}
  */
 public class EObjectObservableValue extends AbstractObservableValue implements
 		IObserving {
+	/**
+	 * The object owning the feature
+	 */
 	protected EObject eObject;
+
+	/**
+	 * The feature observed
+	 */
 	protected EStructuralFeature eStructuralFeature;
+
+	/**
+	 * The adapter attached to listen for changes
+	 */
 	protected Adapter listener;
 
+	/**
+	 * Create a new observable
+	 * 
+	 * @param eObject
+	 *            the object owning the observed feature
+	 * @param eStructuralFeature
+	 *            the feature observed
+	 * @deprecated you should use
+	 *             {@link EMFObservables#observeValue(EObject, EStructuralFeature)}
+	 */
 	public EObjectObservableValue(EObject eObject,
 			EStructuralFeature eStructuralFeature) {
 		this(Realm.getDefault(), eObject, eStructuralFeature);
 	}
 
+	/**
+	 * Create a new observable
+	 * 
+	 * @param realm
+	 *            the realm used to sync the feature
+	 * @param eObject
+	 *            the object owning the observed feature
+	 * @param eStructuralFeature
+	 *            the feature observed
+	 */
 	public EObjectObservableValue(Realm realm, EObject eObject,
 			EStructuralFeature eStructuralFeature) {
 		super(realm);

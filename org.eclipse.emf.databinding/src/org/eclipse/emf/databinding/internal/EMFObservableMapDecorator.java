@@ -10,13 +10,13 @@
  *     Matthew Hall - bug 246625
  *     Tom Schindl<tom.schindl@bestsolution.at> - Port to EMF
  ******************************************************************************/
-package org.eclipse.emf.databinding.properties.internal;
+package org.eclipse.emf.databinding.internal;
 
 import org.eclipse.core.databinding.observable.IObservable;
 import org.eclipse.core.databinding.observable.IObserving;
 import org.eclipse.core.databinding.observable.map.DecoratingObservableMap;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
-import org.eclipse.emf.databinding.properties.IEMFObservable;
+import org.eclipse.emf.databinding.IEMFObservable;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**

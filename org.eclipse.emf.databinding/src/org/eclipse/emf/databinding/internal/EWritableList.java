@@ -35,25 +35,33 @@ import org.eclipse.emf.common.notify.NotifyingList;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 
-public class EWritableList<Type> extends AbstractObservableList implements IObservableList {
+/**
+ * Writable list which can be used to observe an {@link NotifyingList}
+ * 
+ * @param <Type>
+ */
+public class EWritableList<Type> extends AbstractObservableList implements
+		IObservableList {
 	private NotifyingList<Type> wrappedList;
 	private Object elementType;
 	private boolean stale = false;
-	
+
 	private class Listener extends AdapterImpl {
 		private Object feature;
-		
+
 		public Listener(Object feature) {
 			this.feature = feature;
 		}
-		
+
 		@Override
 		public void notifyChanged(Notification msg) {
-			
-			if( feature == null && msg.getFeature() == null && msg.getFeatureID(Resource.class) != Resource.RESOURCE__CONTENTS ) {
+
+			if (feature == null
+					&& msg.getFeature() == null
+					&& msg.getFeatureID(Resource.class) != Resource.RESOURCE__CONTENTS) {
 				return;
 			}
-			
+
 			if (feature == msg.getFeature() && !msg.isTouch()) {
 				final ListDiff diff;
 				switch (msg.getEventType()) {
@@ -115,60 +123,91 @@ public class EWritableList<Type> extends AbstractObservableList implements IObse
 					return;
 				}
 				}
-				
-//				System.err.println("CHANGE: " + diff.getDifferences()[0].getElement());
-				
-//				fireListChange(diff);
-//				listener.handlePropertyChange(new SimplePropertyEvent(msg
-//						.getNotifier(), EMFListProperty.this, diff));
+
+				// System.err.println("CHANGE: " +
+				// diff.getDifferences()[0].getElement());
+
+				// fireListChange(diff);
+				// listener.handlePropertyChange(new SimplePropertyEvent(msg
+				// .getNotifier(), EMFListProperty.this, diff));
 			}
 		}
-		
+
 	}
-	
+
 	private Adapter listener;
-	
+
+	/**
+	 * New writable list wrapping the {@link NotifyingList}
+	 * 
+	 * @param wrappedList
+	 *            the wrapped list
+	 */
 	public EWritableList(NotifyingList<Type> wrappedList) {
 		this(Realm.getDefault(), wrappedList);
 	}
-	
+
+	/**
+	 * New writable list wrapping the {@link NotifyingList} and using the
+	 * {@link Realm}
+	 * 
+	 * @param realm
+	 *            the realm
+	 * @param wrappedList
+	 *            the wrapped list
+	 */
 	public EWritableList(Realm realm, NotifyingList<Type> wrappedList) {
 		this(realm, wrappedList, null);
 	}
 
-	public EWritableList(Realm realm, NotifyingList<Type> wrappedList, Class<Type> elementType) {
+	/**
+	 * New writable list wrapping the {@link NotifyingList}
+	 * 
+	 * @param realm
+	 *            the realm
+	 * @param wrappedList
+	 *            the wrapped list
+	 * @param elementType
+	 *            the element type
+	 */
+	public EWritableList(Realm realm, NotifyingList<Type> wrappedList,
+			Class<Type> elementType) {
 		super(realm);
-		this.wrappedList = wrappedList; 
+		this.wrappedList = wrappedList;
 		this.elementType = elementType;
-		if( wrappedList.getNotifier() instanceof Notifier ) {
+		if (wrappedList.getNotifier() instanceof Notifier) {
 			Notifier notifier = (Notifier) wrappedList.getNotifier();
 			listener = new Listener(wrappedList.getFeature());
 			notifier.eAdapters().add(listener);
 		} else {
-			throw new IllegalArgumentException("Wrapped list must have a notifier attached!");
-		}		
+			throw new IllegalArgumentException(
+					"Wrapped list must have a notifier attached!");
+		}
 	}
-	
+
 	@Override
 	public synchronized void dispose() {
-		((Notifier)wrappedList.getNotifier()).eAdapters().remove(listener);
+		((Notifier) wrappedList.getNotifier()).eAdapters().remove(listener);
 		super.dispose();
 	}
-	
-	protected void getterCalled() {
+
+	private void getterCalled() {
 		ObservableTracker.getterCalled(this);
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean add(Object o) {
 		checkRealm();
 		return wrappedList.add((Type) o);
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean addAll(Collection c) {
 		checkRealm();
 		return wrappedList.addAll(c);
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean addAll(int index, Collection c) {
 		checkRealm();
 		return wrappedList.addAll(index, c);
@@ -179,6 +218,7 @@ public class EWritableList<Type> extends AbstractObservableList implements IObse
 		return wrappedList.contains(o);
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean containsAll(Collection c) {
 		getterCalled();
 		return wrappedList.containsAll(c);
@@ -239,6 +279,7 @@ public class EWritableList<Type> extends AbstractObservableList implements IObse
 		return wrappedList.remove(index);
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean removeAll(Collection c) {
 		checkRealm();
 		return wrappedList.removeAll(c);
@@ -276,6 +317,7 @@ public class EWritableList<Type> extends AbstractObservableList implements IObse
 		return wrappedList.toArray();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void add(int index, Object element) {
 		checkRealm();
 		wrappedList.add(index, (Type) element);
@@ -289,15 +331,15 @@ public class EWritableList<Type> extends AbstractObservableList implements IObse
 	public boolean isStale() {
 		getterCalled();
 		return stale;
-	}	
-	
-//	public void setStale(boolean stale) {
-//		checkRealm();
-//
-//		boolean wasStale = this.stale;
-//		this.stale = stale;
-//		if (!wasStale && stale) {
-//			fireStale();
-//		}
-//	}
+	}
+
+	// public void setStale(boolean stale) {
+	// checkRealm();
+	//
+	// boolean wasStale = this.stale;
+	// this.stale = stale;
+	// if (!wasStale && stale) {
+	// fireStale();
+	// }
+	// }
 }

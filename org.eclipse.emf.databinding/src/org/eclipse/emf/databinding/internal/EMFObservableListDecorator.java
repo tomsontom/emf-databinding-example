@@ -7,16 +7,16 @@
  *
  * Contributors:
  *     Brad Reynolds - initial API and implementation
- *     Matthew Hall - bug 246625
+ *     Matthew Hall - bugs 208858, 246625
  *     Tom Schindl<tom.schindl@bestsolution.at> - Port to EMF
  ******************************************************************************/
-package org.eclipse.emf.databinding.properties.internal;
+package org.eclipse.emf.databinding.internal;
 
 import org.eclipse.core.databinding.observable.IObservable;
 import org.eclipse.core.databinding.observable.IObserving;
-import org.eclipse.core.databinding.observable.value.DecoratingObservableValue;
-import org.eclipse.core.databinding.observable.value.IObservableValue;
-import org.eclipse.emf.databinding.properties.IEMFObservable;
+import org.eclipse.core.databinding.observable.list.DecoratingObservableList;
+import org.eclipse.core.databinding.observable.list.IObservableList;
+import org.eclipse.emf.databinding.IEMFObservable;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
@@ -24,11 +24,11 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * <b>PROVISIONAL This API is subject to arbitrary change, including renaming or
  * removal.</b>
  * </p>
- * {@link IEMFObservable} decorator for an {@link IObservableValue}.
+ * {@link IEMFObservable} decorator for an {@link IObservableList}.
  * 
  * @since 1.1
  */
-public class EMFObservableValueDecorator extends DecoratingObservableValue
+public class EMFObservableListDecorator extends DecoratingObservableList
 		implements IEMFObservable {
 	private EStructuralFeature feature;
 	
@@ -36,16 +36,16 @@ public class EMFObservableValueDecorator extends DecoratingObservableValue
 	 * @param decorated
 	 * @param feature
 	 */
-	public EMFObservableValueDecorator(IObservableValue decorated, EStructuralFeature feature) {
+	public EMFObservableListDecorator(IObservableList decorated, EStructuralFeature feature) {
 		super(decorated, true);
 		this.feature = feature;
 	}
-	
+
 	public synchronized void dispose() {
 		this.feature = null;
 		super.dispose();
 	}
-
+	
 	public EStructuralFeature getFeature() {
 		return feature;
 	}

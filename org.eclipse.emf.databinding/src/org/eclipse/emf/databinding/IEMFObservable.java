@@ -10,7 +10,7 @@
  *     Brad Reynolds - bug 147515
  *     Tom Schindl<tom.schindl@bestsolution.at> - Port to EMF
  ******************************************************************************/
-package org.eclipse.emf.databinding.properties;
+package org.eclipse.emf.databinding;
 
 import org.eclipse.core.databinding.observable.IObserving;
 import org.eclipse.emf.ecore.EStructuralFeature;

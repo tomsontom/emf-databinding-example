@@ -57,6 +57,7 @@ public class EMFObservables {
 	 *            the feature of the object to observe.
 	 * @return an observable value for the given feature of the object.
 	 */
+	@SuppressWarnings("deprecation")
 	public static IObservableValue observeValue(EObject eObject,
 			EStructuralFeature eStructuralFeature) {
 		return new EObjectObservableValue(eObject, eStructuralFeature);
@@ -73,6 +74,7 @@ public class EMFObservables {
 	 *            the feature of the object to observe.
 	 * @return an observable value for the given feature of the object.
 	 */
+	@SuppressWarnings("deprecation")
 	public static IObservableValue observeValue(Realm realm, EObject eObject,
 			EStructuralFeature eStructuralFeature) {
 		return new EObjectObservableValue(realm, eObject, eStructuralFeature);
@@ -89,6 +91,7 @@ public class EMFObservables {
 	 * @return an observable list for the given multi-valued feature of the
 	 *         object.
 	 */
+	@SuppressWarnings("deprecation")
 	public static IObservableList observeList(EObject eObject,
 			EStructuralFeature eStructuralFeature) {
 		return new EObjectObservableList(eObject, eStructuralFeature);
@@ -107,6 +110,7 @@ public class EMFObservables {
 	 * @return an observable list for the given multi-valued feature of the
 	 *         object.
 	 */
+	@SuppressWarnings("deprecation")
 	public static IObservableList observeList(Realm realm, EObject eObject,
 			EStructuralFeature eStructuralFeature) {
 		return new EObjectObservableList(realm, eObject, eStructuralFeature);
@@ -123,6 +127,7 @@ public class EMFObservables {
 	 * @return an observable map tracking the current value of the given feature
 	 *         for each object in the given set.
 	 */
+	@SuppressWarnings("deprecation")
 	public static IObservableMap observeMap(IObservableSet objects,
 			EStructuralFeature eStructuralFeature) {
 		return new EObjectObservableMap(objects, eStructuralFeature);

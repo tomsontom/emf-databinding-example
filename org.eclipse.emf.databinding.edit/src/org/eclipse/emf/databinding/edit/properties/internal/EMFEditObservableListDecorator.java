@@ -16,7 +16,7 @@ import org.eclipse.core.databinding.observable.IObservable;
 import org.eclipse.core.databinding.observable.IObserving;
 import org.eclipse.core.databinding.observable.list.DecoratingObservableList;
 import org.eclipse.core.databinding.observable.list.IObservableList;
-import org.eclipse.emf.databinding.properties.IEMFObservable;
+import org.eclipse.emf.databinding.IEMFObservable;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.domain.EditingDomain;
 

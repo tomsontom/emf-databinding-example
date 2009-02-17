@@ -22,6 +22,7 @@ import java.util.List;
 import org.eclipse.core.databinding.observable.Diffs;
 import org.eclipse.core.databinding.observable.IObserving;
 import org.eclipse.core.databinding.observable.Realm;
+import org.eclipse.core.databinding.observable.list.IObservableList;
 import org.eclipse.core.databinding.observable.list.ListDiff;
 import org.eclipse.core.databinding.observable.list.ListDiffEntry;
 import org.eclipse.core.databinding.observable.list.ObservableList;
@@ -37,18 +38,56 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * <b>PROVISIONAL This API is subject to arbitrary change, including renaming or
  * removal.</b>
  * </p>
+ * 
+ * @deprecated you should not use this type it will be removed. Use the generic
+ *             {@link IObservableList}
  */
 public class EObjectObservableList extends ObservableList implements
 		IObserving, InternalRawEList {
+	/**
+	 * The container of the list
+	 */
 	protected EObject eObject;
+
+	/**
+	 * The list feature
+	 */
 	protected EStructuralFeature eStructuralFeature;
+
+	/**
+	 * The adapter to list for changes
+	 */
 	protected Adapter listener;
 
+	/**
+	 * Create a new observable list
+	 * 
+	 * @param eObject
+	 *            the object owning the feature
+	 * @param eStructuralFeature
+	 *            the list feature
+	 * @deprecated you should use
+	 *             {@link EMFObservables#observeList(EObject, EStructuralFeature)}
+	 *             this constructor will be removed
+	 */
 	public EObjectObservableList(EObject eObject,
 			EStructuralFeature eStructuralFeature) {
 		this(Realm.getDefault(), eObject, eStructuralFeature);
 	}
 
+	/**
+	 * Create a new observable list
+	 * 
+	 * @param realm
+	 *            the realm to sync the model
+	 * @param eObject
+	 *            the object owning the feature
+	 * @param eStructuralFeature
+	 *            the list feature
+	 * @deprecated you should use
+	 *             {@link EMFObservables#observeList(Realm, EObject, EStructuralFeature)}
+	 *             this constructor will be removed
+	 */
 	public EObjectObservableList(Realm realm, EObject eObject,
 			EStructuralFeature eStructuralFeature) {
 		super(realm, (EList<?>) eObject.eGet(eStructuralFeature),
@@ -169,6 +208,9 @@ public class EObjectObservableList extends ObservableList implements
 		super.dispose();
 	}
 
+	/**
+	 * @return the list wrapped
+	 */
 	@SuppressWarnings("unchecked")
 	protected final List<Object> wrappedList() {
 		return wrappedList;

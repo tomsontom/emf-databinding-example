@@ -18,6 +18,7 @@ package org.eclipse.emf.databinding;
 
 import org.eclipse.core.databinding.observable.Diffs;
 import org.eclipse.core.databinding.observable.map.ComputedObservableMap;
+import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.observable.map.MapDiff;
 import org.eclipse.core.databinding.observable.set.IObservableSet;
 import org.eclipse.emf.common.notify.Adapter;
@@ -32,8 +33,14 @@ import org.eclipse.emf.ecore.util.ExtendedMetaData;
  * <b>PROVISIONAL This API is subject to arbitrary change, including renaming or
  * removal.</b>
  * </p>
+ * 
+ * @deprecated you should not use this type it will be removed. Use the generic
+ *             {@link IObservableMap}
  */
 public class EObjectObservableMap extends ComputedObservableMap {
+	/**
+	 * The structural feature observed
+	 */
 	protected EStructuralFeature eStructuralFeature;
 
 	private Adapter elementListener = new AdapterImpl() {
@@ -57,6 +64,16 @@ public class EObjectObservableMap extends ComputedObservableMap {
 		}
 	};
 
+	/**
+	 * Create a new observable for the feature in the given set of objects
+	 * 
+	 * @param objects
+	 *            the objects whose feature is observed
+	 * @param feature
+	 *            the feature to observe
+	 * @deprecated you should use
+	 *             {@link EMFObservables#observeMap(IObservableSet, EStructuralFeature)}
+	 */
 	public EObjectObservableMap(IObservableSet objects,
 			EStructuralFeature feature) {
 		super(objects);
