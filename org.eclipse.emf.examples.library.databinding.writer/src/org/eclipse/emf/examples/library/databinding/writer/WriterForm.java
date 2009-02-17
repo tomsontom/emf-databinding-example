@@ -48,7 +48,7 @@ public class WriterForm extends AbstractForm {
 	private class LengthConverter extends Converter {
 
 		public LengthConverter() {
-			super(Collection.class, String.class);
+			super(Collection.class, String.class); 
 		}
 
 		public Object convert(Object fromObject) {
