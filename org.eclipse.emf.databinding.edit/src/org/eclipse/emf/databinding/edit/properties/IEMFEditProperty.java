@@ -33,5 +33,9 @@ public interface IEMFEditProperty extends IProperty {
 	 * @return the feature observed
 	 */
 	public EStructuralFeature getFeature();
+
+	/**
+	 * @return the domain the changes happen in
+	 */
 	public EditingDomain getDomain();
 }

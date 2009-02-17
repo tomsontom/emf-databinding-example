@@ -40,17 +40,22 @@ public class EMFEditProperties {
 	 * class. Objects lacking the named property are treated the same as if the
 	 * property always contains null.
 	 * 
+	 * @param domain
+	 *            the domain the domain the changes happen in
+	 * 
 	 * @param featurePath
 	 *            the property name. May be nested e.g.
 	 *            <code>property.values(MyPackage.Literals.OBJ_PARENT, MyPackage.Literals.PARENT_NAME)</code>
 	 * @return a value property for the given property name of an arbitrary bean
 	 *         class.
 	 */
-	public static IEMFEditValueProperty value(EditingDomain domain, EStructuralFeature... featurePath) {
-		IValueProperty property = new EMFEditValueProperty(domain,featurePath[0]);
-
-		IEMFEditValueProperty emfProperty = new EMFEditValuePropertyDecorator(domain, property,
+	public static IEMFEditValueProperty value(EditingDomain domain,
+			EStructuralFeature... featurePath) {
+		IValueProperty property = new EMFEditValueProperty(domain,
 				featurePath[0]);
+
+		IEMFEditValueProperty emfProperty = new EMFEditValuePropertyDecorator(
+				domain, property, featurePath[0]);
 		for (int i = 1; i < featurePath.length; i++) {
 			emfProperty = emfProperty.value(featurePath[i]);
 		}
@@ -72,12 +77,16 @@ public class EMFEditProperties {
 	 * class. Objects lacking the named property are treated the same as if the
 	 * property always contains an empty list.
 	 * 
+	 * @param domain
+	 *            the domain the domain the changes happen in
+	 * 
 	 * @param feature
 	 *            the property name
 	 * @return a list property for the given property name of an arbitrary bean
 	 *         class.
 	 */
-	public static IEMFEditListProperty list(EditingDomain domain, EStructuralFeature feature) {
+	public static IEMFEditListProperty list(EditingDomain domain,
+			EStructuralFeature feature) {
 		IListProperty property = new EMFEditListProperty(domain, feature);
 		return new EMFEditListPropertyDecorator(domain, property, feature);
 	}
@@ -87,18 +96,25 @@ public class EMFEditProperties {
 	 * class. Objects lacking the named property are treated the same as if the
 	 * property always contains an empty map.
 	 * 
+	 * @param domain
+	 *            the domain the changes happen in
+	 * 
 	 * @param feature
 	 *            the property name
 	 * @return a map property for the given property name of an arbitrary bean
 	 *         class.
 	 */
-	public static IEMFEditMapProperty map(EditingDomain domain,EStructuralFeature feature) {
+	public static IEMFEditMapProperty map(EditingDomain domain,
+			EStructuralFeature feature) {
 		return map(domain, feature, null, null);
 	}
 
 	/**
 	 * Returns a map property for the given property name of the given bean
 	 * class.
+	 * 
+	 * @param domain
+	 *            the domain the changes happen in
 	 * 
 	 * @param feature
 	 *            the property name
@@ -109,9 +125,10 @@ public class EMFEditProperties {
 	 * @return a map property for the given property name of the given bean
 	 *         class.
 	 */
-	public static IEMFEditMapProperty map(EditingDomain domain, EStructuralFeature feature,
-			Class<?> keyType, Class<?> valueType) {
-		IMapProperty property = new EMFEditMapProperty(domain, feature, keyType, valueType);
+	public static IEMFEditMapProperty map(EditingDomain domain,
+			EStructuralFeature feature, Class<?> keyType, Class<?> valueType) {
+		IMapProperty property = new EMFEditMapProperty(domain, feature,
+				keyType, valueType);
 		return new EMFEditMapPropertyDecorator(domain, property, feature);
 	}
 }
