@@ -244,8 +244,17 @@ public class EMFObservables {
 			}
 		};
 	}
-	
+
+	/**
+	 * Returns an observable for the resource contents (
+	 * {@link Resource#getContents()})
+	 * 
+	 * @param resource
+	 *            the resources the content should be observed
+	 * @return an observable list
+	 */
 	public static IObservableList observeResourceContents(Resource resource) {
-		return new EWritableList<EObject>((NotifyingList<EObject>) resource.getContents());
+		return new EWritableList<EObject>((NotifyingList<EObject>) resource
+				.getContents());
 	}
 }
