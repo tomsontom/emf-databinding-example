@@ -24,6 +24,7 @@ import org.eclipse.core.databinding.observable.masterdetail.IObservableFactory;
 import org.eclipse.core.databinding.observable.masterdetail.MasterDetailObservables;
 import org.eclipse.core.databinding.observable.set.IObservableSet;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -72,6 +73,56 @@ public class EMFEditObservables {
 				eStructuralFeature);
 	}
 
+	/**
+	 * Returns an observable value for the given feature of the object.
+	 * 
+	 * @param eObject
+	 *            the object to observe.
+	 * @param domain
+	 *            the editing domain used for applying changes.
+	 * @param eStructuralFeature
+	 *            the map feature whose key is observed
+	 * @param key
+	 *            the key value
+	 * @param eMapValueFeature
+	 *            the value feature name
+	 * @return an observable value for the given feature of the object.
+	 */
+	public static IObservableValue observeMapValue(EditingDomain domain, EObject eObject,
+			EStructuralFeature eStructuralFeature, Object key,
+			EStructuralFeature eMapValueFeature) {
+		EMap<?, ?> map = (EMap<?, ?>) eObject.eGet(eStructuralFeature);
+
+		return observeValue(domain, (EObject) map.get(map.indexOfKey(key)),
+				eMapValueFeature);
+	}
+
+	/**
+	 * Returns an observable value for the given feature of the object.
+	 * 
+	 * @param realm
+	 *            the realm in which to observe.
+	 * @param domain
+	 *            the editing domain used for applying changes.
+	 * @param eObject
+	 *            the object to observe.
+	 * @param eStructuralFeature
+	 *            the map feature whose key is observed
+	 * @param key
+	 *            the key value
+	 * @param eMapValueFeature
+	 *            the value feature name
+	 * @return an observable value for the given feature of the object.
+	 */
+	public static IObservableValue observeMapValue(Realm realm,
+			EditingDomain domain, EObject eObject, EStructuralFeature eStructuralFeature, Object key,
+			EStructuralFeature eMapValueFeature) {
+		EMap<?, ?> map = (EMap<?, ?>) eObject.eGet(eStructuralFeature);
+
+		return observeValue(realm, domain, (EObject) map.get(map.indexOfKey(key)),
+				eMapValueFeature);
+	}
+	
 	/**
 	 * Returns an observable list for the given multi-valued feature of the
 	 * object.
