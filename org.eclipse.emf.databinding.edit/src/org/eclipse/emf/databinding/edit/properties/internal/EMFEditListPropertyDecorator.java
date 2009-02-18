@@ -17,6 +17,7 @@ import org.eclipse.core.databinding.observable.masterdetail.IObservableFactory;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.list.IListProperty;
 import org.eclipse.core.databinding.property.list.ListProperty;
+import org.eclipse.emf.databinding.edit.internal.EMFEditObservableListDecorator;
 import org.eclipse.emf.databinding.edit.properties.EMFEditProperties;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditListProperty;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditValueProperty;

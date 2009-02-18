@@ -7,15 +7,15 @@
  *
  * Contributors:
  *     Brad Reynolds - initial API and implementation
- *     Matthew Hall - bugs 208858, 246625
+ *     Matthew Hall - bug 246625
  *     Tom Schindl<tom.schindl@bestsolution.at> - Port to EMF
  ******************************************************************************/
-package org.eclipse.emf.databinding.edit.properties.internal;
+package org.eclipse.emf.databinding.edit.internal;
 
 import org.eclipse.core.databinding.observable.IObservable;
 import org.eclipse.core.databinding.observable.IObserving;
-import org.eclipse.core.databinding.observable.list.DecoratingObservableList;
-import org.eclipse.core.databinding.observable.list.IObservableList;
+import org.eclipse.core.databinding.observable.value.DecoratingObservableValue;
+import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.databinding.IEMFObservable;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.domain.EditingDomain;
@@ -25,11 +25,11 @@ import org.eclipse.emf.edit.domain.EditingDomain;
  * <b>PROVISIONAL This API is subject to arbitrary change, including renaming or
  * removal.</b>
  * </p>
- * {@link IEMFObservable} decorator for an {@link IObservableList}.
+ * {@link IEMFObservable} decorator for an {@link IObservableValue}.
  * 
  * @since 1.1
  */
-public class EMFEditObservableListDecorator extends DecoratingObservableList
+public class EMFEditObservableValueDecorator extends DecoratingObservableValue
 		implements IEMFObservable {
 	private EStructuralFeature feature;
 	private EditingDomain domain;
@@ -38,17 +38,17 @@ public class EMFEditObservableListDecorator extends DecoratingObservableList
 	 * @param decorated
 	 * @param feature
 	 */
-	public EMFEditObservableListDecorator(EditingDomain domain, IObservableList decorated, EStructuralFeature feature) {
+	public EMFEditObservableValueDecorator(EditingDomain domain, IObservableValue decorated, EStructuralFeature feature) {
 		super(decorated, true);
 		this.feature = feature;
 		this.domain = domain;
 	}
-
+	
 	public synchronized void dispose() {
 		this.feature = null;
 		super.dispose();
 	}
-	
+
 	public EStructuralFeature getFeature() {
 		return feature;
 	}

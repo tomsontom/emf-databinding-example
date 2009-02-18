@@ -17,6 +17,7 @@ import org.eclipse.core.databinding.observable.masterdetail.IObservableFactory;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.map.IMapProperty;
 import org.eclipse.core.databinding.property.map.MapProperty;
+import org.eclipse.emf.databinding.edit.internal.EMFEditObservableMapDecorator;
 import org.eclipse.emf.databinding.edit.properties.EMFEditProperties;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditMapProperty;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditValueProperty;
