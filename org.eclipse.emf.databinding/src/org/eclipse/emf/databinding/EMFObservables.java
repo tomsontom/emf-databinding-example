@@ -26,6 +26,7 @@ import org.eclipse.core.databinding.observable.masterdetail.MasterDetailObservab
 import org.eclipse.core.databinding.observable.set.IObservableSet;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.emf.common.notify.NotifyingList;
+import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.databinding.internal.EWritableList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -78,6 +79,52 @@ public class EMFObservables {
 	public static IObservableValue observeValue(Realm realm, EObject eObject,
 			EStructuralFeature eStructuralFeature) {
 		return new EObjectObservableValue(realm, eObject, eStructuralFeature);
+	}
+
+	/**
+	 * Returns an observable value for the given feature of the object.
+	 * 
+	 * @param eObject
+	 *            the object to observe.
+	 * @param eStructuralFeature
+	 *            the map feature whose key is observed
+	 * @param key
+	 *            the key value
+	 * @param eMapValueFeature
+	 *            the value feature name
+	 * @return an observable value for the given feature of the object.
+	 */
+	public static IObservableValue observeMapValue(EObject eObject,
+			EStructuralFeature eStructuralFeature, Object key,
+			EStructuralFeature eMapValueFeature) {
+		EMap<?, ?> map = (EMap<?, ?>) eObject.eGet(eStructuralFeature);
+
+		return observeValue((EObject) map.get(map.indexOfKey(key)),
+				eMapValueFeature);
+	}
+
+	/**
+	 * Returns an observable value for the given feature of the object.
+	 * 
+	 * @param realm
+	 *            the realm in which to observe.
+	 * @param eObject
+	 *            the object to observe.
+	 * @param eStructuralFeature
+	 *            the map feature whose key is observed
+	 * @param key
+	 *            the key value
+	 * @param eMapValueFeature
+	 *            the value feature name
+	 * @return an observable value for the given feature of the object.
+	 */
+	public static IObservableValue observeMapValue(Realm realm,
+			EObject eObject, EStructuralFeature eStructuralFeature, Object key,
+			EStructuralFeature eMapValueFeature) {
+		EMap<?, ?> map = (EMap<?, ?>) eObject.eGet(eStructuralFeature);
+
+		return observeValue(realm, (EObject) map.get(map.indexOfKey(key)),
+				eMapValueFeature);
 	}
 
 	/**
