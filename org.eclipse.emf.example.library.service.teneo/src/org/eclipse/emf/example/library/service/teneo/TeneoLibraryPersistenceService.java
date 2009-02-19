@@ -45,21 +45,18 @@ public abstract class TeneoLibraryPersistenceService extends BaseLibraryPersiste
 
 	private void initResource() {
 		String uriStr = "hibernate://?" + HibernateResource.DS_NAME_PARAM + "="
-				+ "library";
+				+ "library&query1=FROM Library WHERE parentBranch = null";
 		
 		final URI uri = URI.createURI(uriStr);
 		try {
 			resource = getResourceSet().createResource(uri);
 		} catch (Exception e) {
 			e.printStackTrace();
-//			resource = getResourceSet().getResource(uri, false);
 		}
 
 		System.err.println ("Contents: " + resource.getContents().size());
 		
 		if (resource != null) {
-			resource.setURI(uri);
-
 			// load the resource domain
 			try {
 				resource.load(Collections.EMPTY_MAP);
@@ -83,6 +80,8 @@ public abstract class TeneoLibraryPersistenceService extends BaseLibraryPersiste
 		props.setProperty(Environment.SHOW_SQL, "true");
 		props.setProperty(PersistenceOptions.INHERITANCE_MAPPING, "JOINED");
 
+//		HibernateResource
+		
 		HbDataStore hbds = HbHelper.INSTANCE.createRegisterDataStore("library");
 
 		// sets its epackages stored in this datastore
