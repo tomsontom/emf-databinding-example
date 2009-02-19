@@ -32,8 +32,10 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -81,6 +83,12 @@ public class VideoDialog extends TitleAreaDialog {
 			viewer.setInput(EMFEditObservables
 					.observeList(Realm.getDefault(), domain, library,
 							EXTLibraryPackage.Literals.LIBRARY__CASTS));
+			viewer.addSelectionChangedListener(new ISelectionChangedListener(){
+			
+				public void selectionChanged(SelectionChangedEvent event) {
+					System.err.println(event.getSelection());
+				}
+			});
 			
 			Button b = new Button(comp,SWT.PUSH);
 			b.setImage(Activator.getDefault().getImageRegistry().get(Activator.IMG_VIDEO_CAST_NEW));
