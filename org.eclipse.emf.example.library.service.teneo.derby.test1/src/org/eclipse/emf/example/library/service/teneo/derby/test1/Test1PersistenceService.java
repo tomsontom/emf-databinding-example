@@ -31,7 +31,7 @@ public class Test1PersistenceService extends DerbyLibraryPersistenceService {
 	}
 
 	public String getLabel() {
-		return "Derby Embedded - Single";
+		return "Derby Embedded - Single-User";
 	}
 
 	public String getToolTip() {
