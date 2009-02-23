@@ -27,7 +27,6 @@ public abstract class TeneoLibraryPersistenceService extends BaseLibraryPersiste
 	
 	protected Resource doGetResource() {
 		if( resource == null ) {
-			System.err.println("Hello Fetching resource!!");
 			initHibernate();
 			initResource();
 		}
