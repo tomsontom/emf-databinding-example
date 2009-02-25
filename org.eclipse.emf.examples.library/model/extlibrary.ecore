@@ -15,14 +15,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="Library" eSuperTypes="#//Addressable">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="writers" upperBound="-1"
-        eType="#//Writer" volatile="true" transient="true" derived="true" containment="true"
-        resolveProxies="false"/>
+        eType="#//Writer" derived="true" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="employees" upperBound="-1"
-        eType="#//Employee" volatile="true" transient="true" derived="true" containment="true"
-        resolveProxies="false"/>
+        eType="#//Employee" derived="true" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="borrowers" upperBound="-1"
-        eType="#//Borrower" volatile="true" transient="true" derived="true" containment="true"
-        resolveProxies="false"/>
+        eType="#//Borrower" derived="true" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stock" ordered="false"
         upperBound="-1" eType="#//Item" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="books" ordered="false"
@@ -32,11 +29,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentBranch" eType="#//Library"
         eOpposite="#//Library/branches"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="casts" upperBound="-1"
-        eType="#//Person" volatile="true" transient="true" derived="true" containment="true"
-        resolveProxies="false"/>
+        eType="#//Person" derived="true" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="readers" upperBound="-1"
-        eType="#//Person" volatile="true" transient="true" derived="true" containment="true"
-        resolveProxies="false"/>
+        eType="#//Person" derived="true" containment="true" resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Writer" eSuperTypes="#//Person">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"

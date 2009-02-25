@@ -68,16 +68,15 @@ public class PersonImpl extends CDOObjectImpl implements Person
 
   /**
 	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-  @Override
-  protected int eStaticFeatureCount()
-  {
+	@Override
+	protected int eStaticFeatureCount() {
 		return 0;
 	}
 
-  /**
+		/**
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated

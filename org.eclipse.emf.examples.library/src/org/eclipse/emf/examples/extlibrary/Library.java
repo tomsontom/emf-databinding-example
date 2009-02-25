@@ -78,7 +78,7 @@ public interface Library extends Addressable
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Writers</em>' containment reference list.
 	 * @see org.eclipse.emf.examples.extlibrary.EXTLibraryPackage#getLibrary_Writers()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
+	 * @model containment="true" derived="true"
 	 * @generated
 	 */
   EList<Writer> getWriters();
@@ -90,7 +90,7 @@ public interface Library extends Addressable
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Employees</em>' containment reference list.
 	 * @see org.eclipse.emf.examples.extlibrary.EXTLibraryPackage#getLibrary_Employees()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
+	 * @model containment="true" derived="true"
 	 * @generated
 	 */
   EList<Employee> getEmployees();
@@ -102,7 +102,7 @@ public interface Library extends Addressable
    * <!-- end-user-doc -->
 	 * @return the value of the '<em>Borrowers</em>' containment reference list.
 	 * @see org.eclipse.emf.examples.extlibrary.EXTLibraryPackage#getLibrary_Borrowers()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
+	 * @model containment="true" derived="true"
 	 * @generated
 	 */
   EList<Borrower> getBorrowers();
@@ -180,7 +180,7 @@ public interface Library extends Addressable
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Casts</em>' containment reference list.
 	 * @see org.eclipse.emf.examples.extlibrary.EXTLibraryPackage#getLibrary_Casts()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
+	 * @model containment="true" derived="true"
 	 * @generated
 	 */
 	EList<Person> getCasts();
@@ -196,7 +196,7 @@ public interface Library extends Addressable
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Readers</em>' containment reference list.
 	 * @see org.eclipse.emf.examples.extlibrary.EXTLibraryPackage#getLibrary_Readers()
-	 * @model containment="true" transient="true" volatile="true" derived="true"
+	 * @model containment="true" derived="true"
 	 * @generated
 	 */
 	EList<Person> getReaders();
