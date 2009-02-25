@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<component enabled="true" immediate="true" name="org.eclipse.emf.example.library.service.cdo.test1.Test1LibraryPersistence">
+	<implementation class="org.eclipse.emf.example.library.service.cdo.test1.Test1LibraryPersistence"/>
+	<service>
+		<provide interface="org.eclipse.emf.example.library.service.ILibraryPersistenceService"/>
+	</service>
+</component>
