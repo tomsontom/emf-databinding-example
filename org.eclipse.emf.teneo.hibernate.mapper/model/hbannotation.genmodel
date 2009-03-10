@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.emf.teneo.hibernate.mapper/src"
+    modelPluginID="org.eclipse.emf.teneo.hibernate.mapper" modelName="Hbannotation"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false"
+    usedGenPackages="../../org.eclipse.emf.teneo.annotations/model/pannotation.genmodel#//pamodel ../../org.eclipse.emf.teneo.annotations/model/pannotation.genmodel#//pannotation">
+  <foreignModel>hbannotation.ecore</foreignModel>
+  <foreignModel>hbmodel.ecore</foreignModel>
+  <genPackages prefix="Hbannotation" basePackage="org.eclipse.emf.teneo.hibernate"
+      disposableProviderFactory="true" ecorePackage="hbannotation.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="hbannotation.ecore#//CacheConcurrencyStrategy">
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//CacheConcurrencyStrategy/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//CacheConcurrencyStrategy/READ_ONLY"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//CacheConcurrencyStrategy/NONSTRICT_READ_WRITE"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//CacheConcurrencyStrategy/READ_WRITE"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//CacheConcurrencyStrategy/TRANSACTIONAL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="hbannotation.ecore#//HbFetchType">
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbFetchType/JOIN"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbFetchType/SELECT"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbFetchType/SUBSELECT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="hbannotation.ecore#//OnDeleteAction">
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//OnDeleteAction/NO_ACTION"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//OnDeleteAction/CASCADE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="hbannotation.ecore#//GenerationTime">
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//GenerationTime/NEVER"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//GenerationTime/INSERT"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//GenerationTime/ALWAYS"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="hbannotation.ecore#//NotFoundAction">
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//NotFoundAction/EXCEPTION"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//NotFoundAction/IGNORE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="hbannotation.ecore#//OptimisticLockType">
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//OptimisticLockType/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//OptimisticLockType/DIRTY"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//OptimisticLockType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//OptimisticLockType/VERSION"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="hbannotation.ecore#//PolymorphismType">
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//PolymorphismType/IMPLICIT"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//PolymorphismType/EXPLICIT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="hbannotation.ecore#//HbCascadeType">
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/PERSIST"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/MERGE"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/REMOVE"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/REFRESH"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/DELETE"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/SAVE_UPDATE"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/REPLICATE"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/DELETE_ORPHAN"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/LOCK"/>
+      <genEnumLiterals ecoreEnumLiteral="hbannotation.ecore#//HbCascadeType/EVICT"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="hbannotation.ecore#//HbAnnotation"/>
+    <genClasses ecoreClass="hbannotation.ecore#//Cascade">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Cascade/value"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//CollectionOfElements">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//CollectionOfElements/targetElement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//CollectionOfElements/fetch"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//HbMapKey">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbannotation.ecore#//HbMapKey/columns"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Parameter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Parameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//Type">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Type/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbannotation.ecore#//Type/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//Where">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Where/clause"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//IdBag">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//IdBag/generator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//IdBag/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//IdBag/table"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//GenericGenerator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//GenericGenerator/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//GenericGenerator/strategy"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbannotation.ecore#//GenericGenerator/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//Cache">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Cache/usage"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Cache/region"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Cache/include"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//TypeDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//TypeDef/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbannotation.ecore#//TypeDef/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//TypeDef/typeClass"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//Fetch">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Fetch/value"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//OnDelete">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//OnDelete/action"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//Proxy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Proxy/proxyClass"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Proxy/lazy"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//Index">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Index/name"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//Generated">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Generated/value"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//NamedQuery">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//NamedQuery/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//NamedQuery/query"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//Filter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Filter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Filter/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//ParamDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//ParamDef/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//ParamDef/type"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//FilterDef">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//FilterDef/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//FilterDef/defaultCondition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbannotation.ecore#//FilterDef/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//DiscriminatorFormula">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//DiscriminatorFormula/value"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//NaturalId">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//NaturalId/mutable"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//MapKeyManyToMany">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbannotation.ecore#//MapKeyManyToMany/joinColumns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//MapKeyManyToMany/targetEntity"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//ForceDiscriminator"/>
+    <genClasses ecoreClass="hbannotation.ecore#//Immutable"/>
+    <genClasses ecoreClass="hbannotation.ecore#//Formula">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//Formula/value"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//NotFound">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//NotFound/action"/>
+    </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//HbEntity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//HbEntity/dynamicInsert"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//HbEntity/dynamicUpdate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//HbEntity/selectBeforeUpdate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//HbEntity/mutable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//HbEntity/persister"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//HbEntity/optimisticLock"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//HbEntity/polymorphism"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Hbmodel" basePackage="org.eclipse.emf.teneo.hibernate" disposableProviderFactory="true"
+      ecorePackage="hbmodel.ecore#/">
+    <genClasses image="false" ecoreClass="hbmodel.ecore#//HbAnnotatedETypeElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/hbWhere"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/hbCollectionOfElements"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/hbMapKey"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/hbColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/hbCascade"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/hbIdBag"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/hbIndex"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/Filter"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/mapKeyManyToMany"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedETypeElement/formula"/>
+    </genClasses>
+    <genClasses ecoreClass="hbmodel.ecore#//HbAnnotatedEAttribute">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEAttribute/hbType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEAttribute/generated"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEAttribute/naturalId"/>
+    </genClasses>
+    <genClasses ecoreClass="hbmodel.ecore#//HbAnnotatedEClass">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/hbCache"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/hbOnDelete"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/hbWhere"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/hbProxy"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/hbNamedQuery"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/FilterDef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/Filter"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/discriminatorFormula"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/forceDiscriminator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/immutable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/hbEntity"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="hbmodel.ecore#//HbAnnotatedEModelElement"/>
+    <genClasses ecoreClass="hbmodel.ecore#//HbAnnotatedEPackage">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEPackage/hbGenericGenerators"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEPackage/hbTypeDef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEPackage/hbNamedQuery"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEPackage/FilterDef"/>
+    </genClasses>
+    <genClasses ecoreClass="hbmodel.ecore#//HbAnnotatedEReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/hbCache"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/hbFetch"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/hbOnDelete"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/naturalId"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/immutable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/notFound"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/hbType"/>
+    </genClasses>
+    <genClasses ecoreClass="hbmodel.ecore#//HbAnnotatedEDataType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEDataType/hbTypeDef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEDataType/hbWhere"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEDataType/hbColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEDataType/hbIdBag"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEDataType/hbIndex"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

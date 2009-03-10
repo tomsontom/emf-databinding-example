@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.emf.teneo.annotations/src"
+    modelPluginID="org.eclipse.emf.teneo.annotations" modelName="Pannotation" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>pamodel.ecore</foreignModel>
+  <foreignModel>pannotation.ecore</foreignModel>
+  <genPackages prefix="Pamodel" basePackage="org.eclipse.emf.teneo.annotations" disposableProviderFactory="true"
+      ecorePackage="pamodel.ecore#/">
+    <genClasses image="false" ecoreClass="pamodel.ecore#//PAnnotatedEModelElement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEModelElement/modelElement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEModelElement/transient"/>
+    </genClasses>
+    <genClasses ecoreClass="pamodel.ecore#//PAnnotatedModel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedModel/paEPackages"/>
+    </genClasses>
+    <genClasses ecoreClass="pamodel.ecore#//PAnnotatedEPackage">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEPackage/paModel"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEPackage/modelEPackage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEPackage/paEClasses"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEPackage/sequenceGenerators"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEPackage/tableGenerators"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEPackage/paEDataTypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEPackage/sequenceStyleGenerators"/>
+    </genClasses>
+    <genClasses ecoreClass="pamodel.ecore#//PAnnotatedEClass">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/paEPackage"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/modelEClass"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/paEStructuralFeatures"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/attributeOverrides"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/discriminatorColumn"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/discriminatorValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/embeddable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/mappedSuperclass"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/entity"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/idClass"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/inheritance"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/primaryKeyJoinColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/secondaryTables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/table"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/tableGenerator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEClass/associationOverrides"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="pamodel.ecore#//PAnnotatedEStructuralFeature">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEStructuralFeature/paEClass"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEStructuralFeature/modelEStructuralFeature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEStructuralFeature/foreignKey"/>
+    </genClasses>
+    <genClasses ecoreClass="pamodel.ecore#//PAnnotatedEAttribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEAttribute/modelEAttribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEAttribute/basic"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEAttribute/enumerated"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEAttribute/generatedValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEAttribute/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEAttribute/lob"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEAttribute/temporal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEAttribute/version"/>
+    </genClasses>
+    <genClasses ecoreClass="pamodel.ecore#//PAnnotatedEReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/modelEReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/embedded"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/embeddedId"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/manyToMany"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/manyToOne"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/mapKey"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/oneToOne"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/orderBy"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/primaryKeyJoinColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/associationOverrides"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEReference/external"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="pamodel.ecore#//PAnnotatedETypedElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedETypedElement/attributeOverrides"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedETypedElement/joinTable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedETypedElement/oneToMany"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedETypedElement/sequenceGenerator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedETypedElement/tableGenerators"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedETypedElement/joinColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedETypedElement/column"/>
+    </genClasses>
+    <genClasses ecoreClass="pamodel.ecore#//PAnnotatedEDataType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/modelEDataType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/basic"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/enumerated"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/generatedValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/lob"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/temporal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/version"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/paEPackage"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pamodel.ecore#//PAnnotatedEDataType/column"/>
+    </genClasses>
+  </genPackages>
+  <genPackages prefix="Pannotation" basePackage="org.eclipse.emf.teneo.annotations"
+      disposableProviderFactory="true" ecorePackage="pannotation.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pannotation.ecore#//CascadeType">
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//CascadeType/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//CascadeType/PERSIST"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//CascadeType/MERGE"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//CascadeType/REMOVE"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//CascadeType/REFRESH"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//CascadeType/NONE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pannotation.ecore#//DiscriminatorType">
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//DiscriminatorType/STRING"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//DiscriminatorType/CHAR"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//DiscriminatorType/INTEGER"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pannotation.ecore#//EnumType">
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//EnumType/ORDINAL"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//EnumType/STRING"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pannotation.ecore#//FetchType">
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//FetchType/LAZY"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//FetchType/EAGER"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//FetchType/EXTRA"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pannotation.ecore#//GenerationType">
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//GenerationType/TABLE"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//GenerationType/SEQUENCE"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//GenerationType/IDENTITY"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//GenerationType/AUTO"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//GenerationType/SEQUENCESTYLE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pannotation.ecore#//InheritanceType">
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//InheritanceType/SINGLE_TABLE"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//InheritanceType/TABLE_PER_CLASS"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//InheritanceType/JOINED"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pannotation.ecore#//TemporalType">
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//TemporalType/DATE"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//TemporalType/TIME"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//TemporalType/TIMESTAMP"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="pannotation.ecore#//OptimizerType">
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//OptimizerType/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//OptimizerType/HILO"/>
+      <genEnumLiterals ecoreEnumLiteral="pannotation.ecore#//OptimizerType/POOLED"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="pannotation.ecore#//PAnnotation">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference pannotation.ecore#//PAnnotation/eModelElement"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//AttributeOverride">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//AttributeOverride/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pannotation.ecore#//AttributeOverride/column"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//AssociationOverride">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//AssociationOverride/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pannotation.ecore#//AssociationOverride/joinColumns"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Basic">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Basic/fetch"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Basic/optional"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Column">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/unique"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/nullable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/insertable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/updatable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/columnDefinition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/table"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/length"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/precision"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Column/scale"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//DiscriminatorColumn">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//DiscriminatorColumn/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//DiscriminatorColumn/discriminatorType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//DiscriminatorColumn/columnDefinition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//DiscriminatorColumn/length"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//DiscriminatorValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//DiscriminatorValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Embeddable"/>
+    <genClasses ecoreClass="pannotation.ecore#//Embedded"/>
+    <genClasses ecoreClass="pannotation.ecore#//EmbeddedId"/>
+    <genClasses ecoreClass="pannotation.ecore#//Entity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Entity/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Entity/extends"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Enumerated">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Enumerated/value"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//GeneratedValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//GeneratedValue/strategy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//GeneratedValue/generator"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Id"/>
+    <genClasses ecoreClass="pannotation.ecore#//IdClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//IdClass/value"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Inheritance">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Inheritance/strategy"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//JoinColumn">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinColumn/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinColumn/referencedColumnName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinColumn/unique"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinColumn/nullable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinColumn/insertable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinColumn/updatable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinColumn/columnDefinition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinColumn/table"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//JoinTable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinTable/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinTable/catalog"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//JoinTable/schema"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pannotation.ecore#//JoinTable/joinColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pannotation.ecore#//JoinTable/inverseJoinColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pannotation.ecore#//JoinTable/uniqueConstraints"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Lob"/>
+    <genClasses ecoreClass="pannotation.ecore#//ManyToMany">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ManyToMany/targetEntity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ManyToMany/cascade"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ManyToMany/fetch"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ManyToMany/mappedBy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ManyToMany/indexed"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//ManyToOne">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ManyToOne/targetEntity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ManyToOne/cascade"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ManyToOne/fetch"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ManyToOne/optional"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//MapKey">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//MapKey/name"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//MappedSuperclass"/>
+    <genClasses ecoreClass="pannotation.ecore#//OneToMany">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToMany/targetEntity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToMany/cascade"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToMany/fetch"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToMany/mappedBy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToMany/indexed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToMany/unique"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//OneToOne">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToOne/targetEntity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToOne/cascade"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToOne/fetch"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToOne/optional"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OneToOne/mappedBy"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//OrderBy">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//OrderBy/value"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//PrimaryKeyJoinColumn">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//PrimaryKeyJoinColumn/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//PrimaryKeyJoinColumn/referencedColumnName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//PrimaryKeyJoinColumn/columnDefinition"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//SecondaryTable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SecondaryTable/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SecondaryTable/catalog"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SecondaryTable/schema"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pannotation.ecore#//SecondaryTable/pkJoinColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pannotation.ecore#//SecondaryTable/uniqueConstraints"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//SequenceGenerator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SequenceGenerator/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SequenceGenerator/sequenceName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SequenceGenerator/initialValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SequenceGenerator/allocationSize"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Table">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Table/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Table/catalog"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Table/schema"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pannotation.ecore#//Table/uniqueConstraints"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//TableGenerator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//TableGenerator/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//TableGenerator/table"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//TableGenerator/catalog"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//TableGenerator/schema"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//TableGenerator/pkColumnName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//TableGenerator/valueColumnName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//TableGenerator/pkColumnValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//TableGenerator/initialValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//TableGenerator/allocationSize"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference pannotation.ecore#//TableGenerator/uniqueConstraints"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Temporal">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//Temporal/value"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Transient"/>
+    <genClasses ecoreClass="pannotation.ecore#//UniqueConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//UniqueConstraint/columnNames"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//Version"/>
+    <genClasses ecoreClass="pannotation.ecore#//ForeignKey">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//ForeignKey/name"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//SequenceStyleGenerator">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SequenceStyleGenerator/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SequenceStyleGenerator/sequenceName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SequenceStyleGenerator/initialValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SequenceStyleGenerator/incrementSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//SequenceStyleGenerator/optimizer"/>
+    </genClasses>
+    <genClasses ecoreClass="pannotation.ecore#//External">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute pannotation.ecore#//External/type"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema targetNamespace="http://www.eclipse.org/emft/teneo" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.eclipse.org/emft/teneo">
+	<xsd:element name="persistence-mapping" type="PersistenceMapping"/>
+	<xsd:complexType name="PersistenceMapping">
+		<xsd:sequence minOccurs="1" maxOccurs="unbounded">
+			<xsd:element name="epackage" type="EPackage"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EPackage">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="sequence-generator" type="SequenceGenerator">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">sequenceGenerators</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="table-generator" type="TableGenerator">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">tableGenerators</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="transient" type="Transient"/>
+			<xsd:element name="eclass" type="EClass"/>
+			<xsd:element name="edatatype" type="EDataType"/>
+		</xsd:choice>
+		<xsd:attribute name="namespace-uri" type="xsd:anyURI" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="EClass">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="association-override" type="AssociationOverride">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">associationOverrides</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="attribute-override" type="AttributeOverride">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">attributeOverrides</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="discriminator-column" type="DiscriminatorColumn"/>
+			<xsd:element name="discriminator-value" type="xsd:string"/>
+			<xsd:element name="embeddable" type="Embeddable"/>
+			<xsd:element name="entity" type="Entity"/>
+			<xsd:element name="id-class" type="xsd:string"/>
+			<xsd:element name="inheritance" type="InheritanceType"/>
+			<xsd:element name="mapped-superclass" type="MappedSuperclass"/>
+			<xsd:element name="primary-key-join-column" type="PrimaryKeyJoinColumn">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">primaryKeyJoinColumns</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="secondary-table" type="SecondaryTable">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">secondaryTables</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="table" type="Table"/>
+			<xsd:element name="table-generator" type="TableGenerator"/>
+			<xsd:element name="transient" type="Transient"/>
+			<xsd:element name="eattribute" type="EAttribute"/>
+			<xsd:element name="ereference" type="EReference"/>
+			<xsd:element name="property" type="Property"/>
+			<xsd:element name="edatatype" type="EDataType"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:token" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="EAttribute">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="attribute-override" type="AttributeOverride">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">attributeOverrides</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="basic" type="Basic"/>
+			<xsd:element name="column" type="Column"/>
+			<xsd:element name="enumerated" type="EnumType"/>
+			<xsd:element name="foreign-key" type="xsd:string"/>
+			<xsd:element name="generated-value" type="GeneratedValue"/>
+			<xsd:element name="id" type="Id"/>
+			<xsd:element name="join-column" type="JoinColumn">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="join-table" type="JoinTable"/>
+			<xsd:element name="lob" type="Lob"/>
+			<xsd:element name="one-to-many" type="OneToMany"/>
+			<xsd:element name="sequence-generator" type="SequenceGenerator"/>
+			<xsd:element name="table-generator" type="TableGenerator">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">tableGenerators</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="temporal" type="TemporalType"/>
+			<xsd:element name="transient" type="Transient"/>
+			<xsd:element name="version" type="Version"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:token" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="EReference">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="attribute-override" type="AttributeOverride">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">attributeOverrides</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="column" type="Column"/>
+			<xsd:element name="embedded" type="Embedded"/>
+			<xsd:element name="embedded-id" type="EmbeddedId"/>
+			<xsd:element name="foreign-key" type="xsd:string"/>
+			<xsd:element name="join-column" type="JoinColumn">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="join-table" type="JoinTable"/>
+			<xsd:element name="many-to-many" type="ManyToMany"/>
+			<xsd:element name="many-to-one" type="ManyToOne"/>
+			<xsd:element name="map-key" type="xsd:string"/>
+			<xsd:element name="one-to-many" type="OneToMany"/>
+			<xsd:element name="one-to-one" type="OneToOne"/>
+			<xsd:element name="order-by" type="xsd:string"/>
+			<xsd:element name="primary-key-join-column" type="PrimaryKeyJoinColumn">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">primaryKeyJoinColumns</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="sequence-generator" type="SequenceGenerator"/>
+			<xsd:element name="table-generator" type="TableGenerator">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">tableGenerators</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="transient" type="Transient"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:token" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="Property">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="attribute-override" type="AttributeOverride">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">attributeOverrides</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="basic" type="Basic"/>
+			<xsd:element name="column" type="Column"/>
+			<xsd:element name="embedded" type="Embedded"/>
+			<xsd:element name="embedded-id" type="EmbeddedId"/>
+			<xsd:element name="enumerated" type="EnumType"/>
+			<xsd:element name="foreign-key" type="xsd:string"/>
+			<xsd:element name="generated-value" type="GeneratedValue"/>
+			<xsd:element name="id" type="Id"/>
+			<xsd:element name="join-column" type="JoinColumn">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="join-table" type="JoinTable"/>
+			<xsd:element name="lob" type="Lob"/>
+			<xsd:element name="many-to-many" type="ManyToMany"/>
+			<xsd:element name="many-to-one" type="ManyToOne"/>
+			<xsd:element name="map-key" type="xsd:string"/>
+			<xsd:element name="one-to-many" type="OneToMany"/>
+			<xsd:element name="one-to-one" type="OneToOne"/>
+			<xsd:element name="order-by" type="xsd:string"/>
+			<xsd:element name="primary-key-join-column" type="PrimaryKeyJoinColumn">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">primaryKeyJoinColumns</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="sequence-generator" type="SequenceGenerator"/>
+			<xsd:element name="table-generator" type="TableGenerator">
+				<xsd:annotation>
+					<xsd:appinfo source="teneo/internal/EStructuralFeatureName">tableGenerators</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="temporal" type="TemporalType"/>
+			<xsd:element name="transient" type="Transient"/>
+			<xsd:element name="version" type="Version"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:token" use="required"/>
+	</xsd:complexType>
+	<xsd:complexType name="EDataType">
+		<xsd:choice minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="basic" type="Basic"/>
+			<xsd:element name="column" type="Column"/>
+			<xsd:element name="enumerated" type="EnumType"/>
+			<xsd:element name="generated-value" type="GeneratedValue"/>
+			<xsd:element name="id" type="Id"/>
+			<xsd:element name="lob" type="Lob"/>
+			<xsd:element name="temporal" type="TemporalType"/>
+			<xsd:element name="transient" type="Transient"/>
+			<xsd:element name="version" type="Version"/>
+		</xsd:choice>
+		<xsd:attribute name="name" type="xsd:token" use="required"/>
+	</xsd:complexType>
+<xsd:complexType name="AssociationOverride">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="join-column" type="JoinColumn">
+			<xsd:annotation>
+				<xsd:appinfo source="teneo/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:element>
+	</xsd:choice>
+	<xsd:attribute name="name" type="xsd:string" use="required"/>
+</xsd:complexType>
+<xsd:complexType name="AttributeOverride">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="column" type="Column"/>
+	</xsd:choice>
+	<xsd:attribute name="name" type="xsd:string" use="required"/>
+</xsd:complexType>
+<xsd:complexType name="Basic">
+	<xsd:attribute name="fetch" type="FetchType" use="optional"/>
+	<xsd:attribute name="optional" type="xsd:boolean" use="optional"/>
+</xsd:complexType>
+<xsd:simpleType name="CascadeType">
+	<xsd:restriction base="xsd:token">
+		<xsd:enumeration value="ALL"/>
+		<xsd:enumeration value="PERSIST"/>
+		<xsd:enumeration value="MERGE"/>
+		<xsd:enumeration value="REMOVE"/>
+		<xsd:enumeration value="REFRESH"/>
+		<xsd:enumeration value="NONE"/>
+	</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="Column">
+	<xsd:attribute name="column-definition" type="xsd:string" use="optional"/>
+	<xsd:attribute name="insertable" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="length" type="xsd:int" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="optional"/>
+	<xsd:attribute name="nullable" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="precision" type="xsd:int" use="optional"/>
+	<xsd:attribute name="scale" type="xsd:int" use="optional"/>
+	<xsd:attribute name="table" type="xsd:string" use="optional"/>
+	<xsd:attribute name="unique" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="updatable" type="xsd:boolean" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="DiscriminatorColumn">
+	<xsd:attribute name="column-definition" type="xsd:string" use="optional"/>
+	<xsd:attribute name="discriminator-type" type="DiscriminatorType" use="optional"/>
+	<xsd:attribute name="length" type="xsd:int" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:simpleType name="DiscriminatorType">
+	<xsd:restriction base="xsd:token">
+		<xsd:enumeration value="STRING"/>
+		<xsd:enumeration value="CHAR"/>
+		<xsd:enumeration value="INTEGER"/>
+	</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="Embeddable"/>
+<xsd:complexType name="Embedded"/>
+<xsd:complexType name="EmbeddedId"/>
+<xsd:complexType name="Entity">
+	<xsd:attribute name="extends" type="xsd:string" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:simpleType name="EnumType">
+	<xsd:restriction base="xsd:token">
+		<xsd:enumeration value="ORDINAL"/>
+		<xsd:enumeration value="STRING"/>
+	</xsd:restriction>
+</xsd:simpleType>
+<xsd:simpleType name="FetchType">
+	<xsd:restriction base="xsd:token">
+		<xsd:enumeration value="LAZY"/>
+		<xsd:enumeration value="EAGER"/>
+		<xsd:enumeration value="EXTRA"/>
+	</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="GeneratedValue">
+	<xsd:attribute name="generator" type="xsd:string" use="optional"/>
+	<xsd:attribute name="strategy" type="GenerationType" use="optional"/>
+</xsd:complexType>
+<xsd:simpleType name="GenerationType">
+	<xsd:restriction base="xsd:token">
+		<xsd:enumeration value="TABLE"/>
+		<xsd:enumeration value="SEQUENCE"/>
+		<xsd:enumeration value="IDENTITY"/>
+		<xsd:enumeration value="AUTO"/>
+	</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="Id"/>
+<xsd:simpleType name="InheritanceType">
+	<xsd:restriction base="xsd:token">
+		<xsd:enumeration value="SINGLE_TABLE"/>
+		<xsd:enumeration value="TABLE_PER_CLASS"/>
+		<xsd:enumeration value="JOINED"/>
+	</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="JoinColumn">
+	<xsd:attribute name="column-definition" type="xsd:string" use="optional"/>
+	<xsd:attribute name="insertable" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="optional"/>
+	<xsd:attribute name="nullable" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="referenced-column-name" type="xsd:string" use="optional"/>
+	<xsd:attribute name="table" type="xsd:string" use="optional"/>
+	<xsd:attribute name="unique" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="updatable" type="xsd:boolean" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="JoinTable">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="inverse-join-column" type="JoinColumn">
+			<xsd:annotation>
+				<xsd:appinfo source="teneo/internal/EStructuralFeatureName">inverseJoinColumns</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="join-column" type="JoinColumn">
+			<xsd:annotation>
+				<xsd:appinfo source="teneo/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="unique-constraint" type="xsd:string">
+			<xsd:annotation>
+				<xsd:appinfo source="teneo/internal/EStructuralFeatureName">uniqueConstraints</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:element>
+	</xsd:choice>
+	<xsd:attribute name="catalog" type="xsd:string" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="optional"/>
+	<xsd:attribute name="schema" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="Lob"/>
+<xsd:complexType name="ManyToMany">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="cascade" type="CascadeType"/>
+	</xsd:choice>
+	<xsd:attribute name="cascade" type="CascadeType" use="optional"/>
+	<xsd:attribute name="fetch" type="FetchType" use="optional"/>
+	<xsd:attribute name="indexed" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="mapped-by" type="xsd:string" use="optional"/>
+	<xsd:attribute name="target-entity" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="ManyToOne">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="cascade" type="CascadeType"/>
+	</xsd:choice>
+	<xsd:attribute name="cascade" type="CascadeType" use="optional"/>
+	<xsd:attribute name="fetch" type="FetchType" use="optional"/>
+	<xsd:attribute name="optional" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="target-entity" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="MappedSuperclass"/>
+<xsd:complexType name="OneToMany">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="cascade" type="CascadeType"/>
+	</xsd:choice>
+	<xsd:attribute name="cascade" type="CascadeType" use="optional"/>
+	<xsd:attribute name="fetch" type="FetchType" use="optional"/>
+	<xsd:attribute name="indexed" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="mapped-by" type="xsd:string" use="optional"/>
+	<xsd:attribute name="target-entity" type="xsd:string" use="optional"/>
+	<xsd:attribute name="unique" type="xsd:boolean" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="OneToOne">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="cascade" type="CascadeType"/>
+	</xsd:choice>
+	<xsd:attribute name="cascade" type="CascadeType" use="optional"/>
+	<xsd:attribute name="fetch" type="FetchType" use="optional"/>
+	<xsd:attribute name="mapped-by" type="xsd:string" use="optional"/>
+	<xsd:attribute name="optional" type="xsd:boolean" use="optional"/>
+	<xsd:attribute name="target-entity" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="PrimaryKeyJoinColumn">
+	<xsd:attribute name="column-definition" type="xsd:string" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="optional"/>
+	<xsd:attribute name="referenced-column-name" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="SecondaryTable">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="pk-join-column" type="PrimaryKeyJoinColumn">
+			<xsd:annotation>
+				<xsd:appinfo source="teneo/internal/EStructuralFeatureName">pkJoinColumns</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="unique-constraint" type="xsd:string">
+			<xsd:annotation>
+				<xsd:appinfo source="teneo/internal/EStructuralFeatureName">uniqueConstraints</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:element>
+	</xsd:choice>
+	<xsd:attribute name="catalog" type="xsd:string" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="required"/>
+	<xsd:attribute name="schema" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="SequenceGenerator">
+	<xsd:attribute name="allocation-size" type="xsd:int" use="optional"/>
+	<xsd:attribute name="initial-value" type="xsd:int" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="required"/>
+	<xsd:attribute name="sequence-name" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="Table">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="unique-constraint" type="xsd:string">
+			<xsd:annotation>
+				<xsd:appinfo source="teneo/internal/EStructuralFeatureName">uniqueConstraints</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:element>
+	</xsd:choice>
+	<xsd:attribute name="catalog" type="xsd:string" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="optional"/>
+	<xsd:attribute name="schema" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:complexType name="TableGenerator">
+	<xsd:choice minOccurs="0" maxOccurs="unbounded">
+		<xsd:element name="unique-constraint" type="xsd:string">
+			<xsd:annotation>
+				<xsd:appinfo source="teneo/internal/EStructuralFeatureName">uniqueConstraints</xsd:appinfo>
+			</xsd:annotation>
+		</xsd:element>
+	</xsd:choice>
+	<xsd:attribute name="allocation-size" type="xsd:int" use="optional"/>
+	<xsd:attribute name="catalog" type="xsd:string" use="optional"/>
+	<xsd:attribute name="initial-value" type="xsd:int" use="optional"/>
+	<xsd:attribute name="name" type="xsd:string" use="required"/>
+	<xsd:attribute name="pk-column-name" type="xsd:string" use="optional"/>
+	<xsd:attribute name="pk-column-value" type="xsd:string" use="optional"/>
+	<xsd:attribute name="schema" type="xsd:string" use="optional"/>
+	<xsd:attribute name="table" type="xsd:string" use="optional"/>
+	<xsd:attribute name="value-column-name" type="xsd:string" use="optional"/>
+</xsd:complexType>
+<xsd:simpleType name="TemporalType">
+	<xsd:restriction base="xsd:token">
+		<xsd:enumeration value="DATE"/>
+		<xsd:enumeration value="TIME"/>
+		<xsd:enumeration value="TIMESTAMP"/>
+	</xsd:restriction>
+</xsd:simpleType>
+<xsd:complexType name="Transient"/>
+<xsd:complexType name="Version"/>
+</xsd:schema>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="hbannotation"
+    nsURI="http://www.eclipse.org/emf/teneo/2006/HbAnnotation" nsPrefix="org.eclipse.emf.teneo.hibernate">
+  <eAnnotations source="teneo.mapping.source">
+    <details key="1" value="http://hibernate.elver.org/"/>
+  </eAnnotations>
+  <eClassifiers xsi:type="ecore:EClass" name="HbAnnotation" abstract="true" interface="true"
+      eSuperTypes="../../org.eclipse.emf.teneo.annotations/model/pannotation.ecore#//PAnnotation">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="CompatibleEModelElementType AnnotationIsSupported"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Cascade" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EStructuralFeature"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" upperBound="-1"
+        eType="ecore:EEnum ../../org.eclipse.emf.teneo.annotations/model/pannotation.ecore#//CascadeType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CollectionOfElements" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EStructuralFeature"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetElement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fetch" eType="ecore:EEnum ../../org.eclipse.emf.teneo.annotations/model/pannotation.ecore#//FetchType"
+        defaultValueLiteral="LAZY"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MapKey" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EStructuralFeature"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" ordered="false"
+        upperBound="-1" eType="ecore:EClass ../../org.eclipse.emf.teneo.annotations/model/pannotation.ecore#//Column"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Collection">
+      <details key="name" value="Parameters"/>
+      <details key="packageNS" value="http://www.eclipse.org/emf/teneo/2006/HbAnnotation"/>
+    </eAnnotations>
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EStructuralFeature"/>
+      <details key="1" value="EClass"/>
+      <details key="2" value="EPackage"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EAttribute"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//Parameter"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Where" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EStructuralFeature"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="clause" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IdBag" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EStructuralFeature"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="generator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="increment"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="long"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenericGenerator" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EStructuralFeature"/>
+      <details key="1" value="EClass"/>
+      <details key="2" value="EPackage"/>
+    </eAnnotations>
+    <eAnnotations source="http://annotation.elver.org/internal/Collection">
+      <details key="name" value="GenericGenerators"/>
+      <details key="packageNS" value="http://www.eclipse.org/emf/teneo/2006/HbAnnotation"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="strategy" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
+        eType="#//Parameter"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CacheConcurrencyStrategy">
+    <eLiterals name="NONE" literal="NONE"/>
+    <eLiterals name="READ_ONLY" value="1" literal="READ_ONLY"/>
+    <eLiterals name="NONSTRICT_READ_WRITE" value="2" literal="NONSTRICT_READ_WRITE"/>
+    <eLiterals name="READ_WRITE" value="3" literal="READ_WRITE"/>
+    <eLiterals name="TRANSACTIONAL" value="4" literal="TRANSACTIONAL"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Cache" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EReference"/>
+      <details key="1" value="EClass"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usage" eType="#//CacheConcurrencyStrategy"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="region" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="include" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Proxy" eSuperTypes="#//HbAnnotation">
+    <eAnnotations source="http://annotation.elver.org/internal/Target">
+      <details key="0" value="EClass"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="proxyClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

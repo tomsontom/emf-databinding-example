@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://www.elver.org/teneo/persistence" 
+elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+xmlns="http://www.elver.org/teneo/persistence">
+    <xsd:element name="persistence-mapping" type="PersistenceMapping">
+        <xsd:annotation>
+            <xsd:documentation>The root element of an instance document.</xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+    <xsd:complexType name="PersistenceMapping">
+        <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+            <xsd:element name="epackage" type="EPackage"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EPackage">
+        <xsd:sequence>
+            <xsd:element name="sequence-generator" type="SequenceGenerator" minOccurs="0"/>
+            <xsd:element name="table-generator" type="TableGenerator" minOccurs="0"/>
+            <xsd:element name="eclass" type="EClass" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="namespace-uri" type="xsd:anyURI" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="EClass">
+        <xsd:sequence>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="association-override" type="AssociationOverride" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:annotation>
+                        <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">associationOverrides</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="attribute-override" type="AttributeOverride" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:annotation>
+                        <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">attributeOverrides</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="discriminator-column" type="DiscriminatorColumn" minOccurs="0"/>
+                <xsd:element name="discriminator-value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="embeddable" type="Embeddable" minOccurs="0"/>
+                <xsd:element name="id-class" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="inheritance" type="InheritanceType" minOccurs="0"/>
+                <xsd:element name="mapped-superclass" type="MappedSuperclass" minOccurs="0"/>
+                <xsd:element name="primary-key-join-column" type="PrimaryKeyJoinColumn" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:annotation>
+                        <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">primaryKeyJoinColumns</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="secondary-table" type="SecondaryTable" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:annotation>
+                        <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">secondaryTables</xsd:appinfo>
+                    </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="table" type="Table" minOccurs="0"/>
+                <xsd:element name="table-generator" type="TableGenerator" minOccurs="0"/>
+            </xsd:choice>
+            <xsd:choice minOccurs="0" maxOccurs="unbounded">
+                <xsd:element name="eattribute" type="EAttribute" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="ereference" type="EReference" minOccurs="0" maxOccurs="unbounded"/>
+                <xsd:element name="property" type="Property" minOccurs="0" maxOccurs="unbounded"/>
+            </xsd:choice>
+        </xsd:sequence>
+        <xsd:attribute name="name" type="xsd:token" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="EAttribute">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="attribute-override" type="AttributeOverride" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">attributeOverrides</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basic" type="Basic" minOccurs="0"/>
+            <xsd:element name="column" type="Column" minOccurs="0"/>
+            <xsd:element name="enumerated" type="EnumType" minOccurs="0"/>
+            <xsd:element name="generated-value" type="GeneratedValue" minOccurs="0"/>
+            <xsd:element name="id" type="Id" minOccurs="0"/>
+            <xsd:element name="indexed" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="join-column" type="JoinColumn" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="join-table" type="JoinTable" minOccurs="0"/>
+            <xsd:element name="lob" type="Lob" minOccurs="0"/>
+            <xsd:element name="one-to-many" type="OneToMany" minOccurs="0"/>
+            <xsd:element name="sequence-generator" type="SequenceGenerator" minOccurs="0"/>
+            <xsd:element name="table-generator" type="TableGenerator" minOccurs="0"/>
+            <xsd:element name="temporal" type="TemporalType" minOccurs="0"/>
+            <xsd:element name="unique" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="version" type="Version" minOccurs="0"/>
+        </xsd:choice>
+        <xsd:attribute name="name" type="xsd:token" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="EReference">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="attribute-override" type="AttributeOverride" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">attributeOverrides</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="column" type="Column" minOccurs="0"/>
+            <xsd:element name="embedded" type="Embedded" minOccurs="0"/>
+            <xsd:element name="embedded-id" type="EmbeddedId" minOccurs="0"/>
+            <xsd:element name="indexed" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="join-column" type="JoinColumn" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="join-table" type="JoinTable" minOccurs="0"/>
+            <xsd:element name="many-to-many" type="ManyToMany" minOccurs="0"/>
+            <xsd:element name="many-to-one" type="ManyToOne" minOccurs="0"/>
+            <xsd:element name="one-to-many" type="OneToMany" minOccurs="0"/>
+            <xsd:element name="one-to-one" type="OneToOne" minOccurs="0"/>
+            <xsd:element name="order-by" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="primary-key-join-column" type="PrimaryKeyJoinColumn" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">primaryKeyJoinColumns</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="sequence-generator" type="SequenceGenerator" minOccurs="0"/>
+            <xsd:element name="table-generator" type="TableGenerator" minOccurs="0"/>
+            <xsd:element name="unique" type="xsd:boolean" minOccurs="0"/>
+        </xsd:choice>
+        <xsd:attribute name="name" type="xsd:token" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="Property">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="attribute-override" type="AttributeOverride" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">attributeOverrides</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="basic" type="Basic" minOccurs="0"/>
+            <xsd:element name="column" type="Column" minOccurs="0"/>
+            <xsd:element name="embedded" type="Embedded" minOccurs="0"/>
+            <xsd:element name="embedded-id" type="EmbeddedId" minOccurs="0"/>
+            <xsd:element name="enumerated" type="EnumType" minOccurs="0"/>
+            <xsd:element name="generated-value" type="GeneratedValue" minOccurs="0"/>
+            <xsd:element name="id" type="Id" minOccurs="0"/>
+            <xsd:element name="indexed" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="join-column" type="JoinColumn" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="join-table" type="JoinTable" minOccurs="0"/>
+            <xsd:element name="lob" type="Lob" minOccurs="0"/>
+            <xsd:element name="many-to-many" type="ManyToMany" minOccurs="0"/>
+            <xsd:element name="many-to-one" type="ManyToOne" minOccurs="0"/>
+            <xsd:element name="one-to-many" type="OneToMany" minOccurs="0"/>
+            <xsd:element name="one-to-one" type="OneToOne" minOccurs="0"/>
+            <xsd:element name="order-by" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="primary-key-join-column" type="PrimaryKeyJoinColumn" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">primaryKeyJoinColumns</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="sequence-generator" type="SequenceGenerator" minOccurs="0"/>
+            <xsd:element name="table-generator" type="TableGenerator" minOccurs="0"/>
+            <xsd:element name="temporal" type="TemporalType" minOccurs="0"/>
+            <xsd:element name="unique" type="xsd:boolean" minOccurs="0"/>
+            <xsd:element name="version" type="Version" minOccurs="0"/>
+        </xsd:choice>
+        <xsd:attribute name="name" type="xsd:token" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="AssociationOverride">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="join-column" type="JoinColumn" minOccurs="1" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="AttributeOverride">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="column" type="Column" minOccurs="1"/>
+        </xsd:choice>
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+    </xsd:complexType>
+    <xsd:complexType name="Basic">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:attribute name="fetch" type="FetchType" use="optional"/>
+        <xsd:attribute name="optional" type="xsd:boolean" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="Column">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:attribute name="column-definition" type="xsd:string" use="optional"/>
+        <xsd:attribute name="insertable" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="length" type="xsd:int" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="nullable" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="precision" type="xsd:int" use="optional"/>
+        <xsd:attribute name="scale" type="xsd:int" use="optional"/>
+        <xsd:attribute name="table" type="xsd:string" use="optional"/>
+        <xsd:attribute name="unique" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="updatable" type="xsd:boolean" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="DiscriminatorColumn">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:attribute name="column-definition" type="xsd:string" use="optional"/>
+        <xsd:attribute name="discriminator-type" type="DiscriminatorType" use="optional"/>
+        <xsd:attribute name="length" type="xsd:int" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="Embeddable"/>
+    <xsd:complexType name="Embedded"/>
+    <xsd:complexType name="EmbeddedId"/>
+    <xsd:complexType name="GeneratedValue">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:attribute name="generator" type="xsd:string" use="optional"/>
+        <xsd:attribute name="strategy" type="GenerationType" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="Id"/>
+    <xsd:complexType name="JoinColumn">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:attribute name="column-definition" type="xsd:string" use="optional"/>
+        <xsd:attribute name="insertable" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="nullable" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="referenced-column-name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="table" type="xsd:string" use="optional"/>
+        <xsd:attribute name="unique" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="updatable" type="xsd:boolean" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="JoinTable">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="inverse-join-column" type="JoinColumn" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">inverseJoinColumns</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="join-column" type="JoinColumn" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">joinColumns</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="unique-constraint" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">uniqueConstraints</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="catalog" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="schema" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="Lob"/>
+    <xsd:complexType name="ManyToMany">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="cascade" type="CascadeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+        <xsd:attribute name="cascade" type="CascadeType" use="optional"/>
+        <xsd:attribute name="fetch" type="FetchType" use="optional"/>
+        <xsd:attribute name="mapped-by" type="xsd:string" use="optional"/>
+        <xsd:attribute name="target-entity" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="ManyToOne">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="cascade" type="CascadeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+        <xsd:attribute name="cascade" type="CascadeType" use="optional"/>
+        <xsd:attribute name="fetch" type="FetchType" use="optional"/>
+        <xsd:attribute name="optional" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="target-entity" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="MappedSuperclass"/>
+    <xsd:complexType name="OneToMany">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="cascade" type="CascadeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+        <xsd:attribute name="cascade" type="CascadeType" use="optional"/>
+        <xsd:attribute name="fetch" type="FetchType" use="optional"/>
+        <xsd:attribute name="mapped-by" type="xsd:string" use="optional"/>
+        <xsd:attribute name="target-entity" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="OneToOne">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="cascade" type="CascadeType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+        <xsd:attribute name="cascade" type="CascadeType" use="optional"/>
+        <xsd:attribute name="fetch" type="FetchType" use="optional"/>
+        <xsd:attribute name="mapped-by" type="xsd:string" use="optional"/>
+        <xsd:attribute name="optional" type="xsd:boolean" use="optional"/>
+        <xsd:attribute name="target-entity" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="PrimaryKeyJoinColumn">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:attribute name="column-definition" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="referenced-column-name" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="SecondaryTable">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="pk-join-column" type="PrimaryKeyJoinColumn" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">pkJoinColumns</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="unique-constraint" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">uniqueConstraints</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="catalog" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="schema" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="SequenceGenerator">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded"/>
+        <xsd:attribute name="allocation-size" type="xsd:int" use="optional"/>
+        <xsd:attribute name="initial-value" type="xsd:int" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="sequence-name" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="Table">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="unique-constraint" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">uniqueConstraints</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="catalog" type="xsd:string" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="schema" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="TableGenerator">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="unique-constraint" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:appinfo source="http://annotation.elver.org/internal/EStructuralFeatureName">uniqueConstraints</xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="allocation-size" type="xsd:int" use="optional"/>
+        <xsd:attribute name="catalog" type="xsd:string" use="optional"/>
+        <xsd:attribute name="initial-value" type="xsd:int" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="required"/>
+        <xsd:attribute name="pk-column-name" type="xsd:string" use="optional"/>
+        <xsd:attribute name="pk-column-value" type="xsd:string" use="optional"/>
+        <xsd:attribute name="schema" type="xsd:string" use="optional"/>
+        <xsd:attribute name="table" type="xsd:string" use="optional"/>
+        <xsd:attribute name="value-column-name" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+    <xsd:complexType name="Transient"/>
+    <xsd:complexType name="Version"/>
+    <xsd:simpleType name="CascadeType">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="ALL"/>
+            <xsd:enumeration value="PERSIST"/>
+            <xsd:enumeration value="MERGE"/>
+            <xsd:enumeration value="REMOVE"/>
+            <xsd:enumeration value="REFRESH"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="DiscriminatorType">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="STRING"/>
+            <xsd:enumeration value="CHAR"/>
+            <xsd:enumeration value="INTEGER"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="EnumType">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="ORDINAL"/>
+            <xsd:enumeration value="STRING"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="FetchType">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="LAZY"/>
+            <xsd:enumeration value="EAGER"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="GenerationType">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="TABLE"/>
+            <xsd:enumeration value="SEQUENCE"/>
+            <xsd:enumeration value="IDENTITY"/>
+            <xsd:enumeration value="AUTO"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="InheritanceType">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="SINGLE_TABLE"/>
+            <xsd:enumeration value="TABLE_PER_CLASS"/>
+            <xsd:enumeration value="JOINED"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+    <xsd:simpleType name="TemporalType">
+        <xsd:restriction base="xsd:token">
+            <xsd:enumeration value="DATE"/>
+            <xsd:enumeration value="TIME"/>
+            <xsd:enumeration value="TIMESTAMP"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+</xsd:schema>
