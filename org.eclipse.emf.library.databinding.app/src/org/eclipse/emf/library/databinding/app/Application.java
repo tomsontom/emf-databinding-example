@@ -26,6 +26,9 @@ public class Application implements IApplication {
 	 * @see org.eclipse.equinox.app.IApplication#start(org.eclipse.equinox.app.IApplicationContext)
 	 */
 	public Object start(IApplicationContext context) throws Exception {
+		for( String s: Platform.getCommandLineArgs()) {
+			System.err.println(s); 
+		}
 		Platform.getBundle("org.eclipse.equinox.ds").start();
 		Display display = PlatformUI.createDisplay();
 		try {

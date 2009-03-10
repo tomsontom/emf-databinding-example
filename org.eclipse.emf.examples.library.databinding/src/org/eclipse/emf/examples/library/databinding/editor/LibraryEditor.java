@@ -27,6 +27,10 @@ import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.observable.masterdetail.IObservableFactory;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.value.IValueProperty;
+import org.eclipse.core.expressions.EvaluationResult;
+import org.eclipse.core.expressions.Expression;
+import org.eclipse.core.expressions.ExpressionInfo;
+import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.CommandStack;
@@ -64,22 +68,28 @@ import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISaveablePart2;
+import org.eclipse.ui.ISources;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.commands.ICommandService;
+import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.swt.IFocusService;
 
 public class LibraryEditor extends EditorPart implements IEditingDomainProvider {
 	private Listener listener = new Listener() {
@@ -141,7 +151,13 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 	private int[] weights = new int[] { 30, 70 };
 	private java.util.List<AbstractForm> subforms = new ArrayList<AbstractForm>();
 	private TabFolder subfolder;
-
+	
+	private static final String PREFIX = "org.eclipse.emf.examples.library.databinding";
+	
+	private static final String LIBRARY_TREE = PREFIX + ".library";
+	private static final String LIBRARY_NAME = PREFIX + ".name";
+	private static final String LIBRARY_ADDRESS = PREFIX + ".address";
+	
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		p.save();
@@ -185,11 +201,36 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 		return false;
 	}
 
+	private void initContextHandling() {
+		((IContextService)getSite().getService(IContextService.class)).activateContext("org.eclipse.emf.examples.library.databinding.context", new Expression() {
+
+			@Override
+			public void collectExpressionInfo(ExpressionInfo info) {
+				super.collectExpressionInfo(info);
+				info.addVariableNameAccess(ISources.ACTIVE_FOCUS_CONTROL_ID_NAME);
+			}
+
+			@Override
+			public EvaluationResult evaluate(IEvaluationContext context)
+					throws CoreException {
+				if( context.getVariable(ISources.ACTIVE_FOCUS_CONTROL_ID_NAME) != null && context.getVariable(ISources.ACTIVE_FOCUS_CONTROL_ID_NAME).toString().startsWith(PREFIX) ) {
+					return EvaluationResult.TRUE;
+				}
+				return EvaluationResult.FALSE;
+			}
+			
+		});
+	}
+	
 	@Override
 	public void createPartControl(Composite parent) {
+		initContextHandling();
+		
 		SashForm form = new SashForm(parent, SWT.HORIZONTAL);
-		createViewer(form);
-		createDetailArea(form);
+		IFocusService focusService = (IFocusService) getSite().getService(IFocusService.class);
+
+		createViewer(form,focusService);
+		createDetailArea(form,focusService);
 		initListener();
 		form.setWeights(weights);
 	}
@@ -246,7 +287,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 		});
 	}
 
-	private void createDetailArea(SashForm sashform) {
+	private void createDetailArea(SashForm sashform, IFocusService focusService) {
 		FormToolkit toolkit = new FormToolkit(sashform.getDisplay());
 
 		final DataBindingContext dbc = new DataBindingContext();
@@ -266,6 +307,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 
 		Text t = toolkit.createText(form.getBody(), "");
 		t.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		focusService.addFocusTracker(t, LIBRARY_NAME);
 
 		final IObservableValue viewerSelection = viewerProp.observe(viewer);
 
@@ -288,12 +330,30 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		gd.heightHint = t.getLineHeight() * 7;
 		t.setLayoutData(gd);
+		focusService.addFocusTracker(t, LIBRARY_ADDRESS);
 
 		prop = EMFEditProperties.value(p.getEditingDomain(),
 				EXTLibraryPackage.Literals.ADDRESSABLE__ADDRESS);
 		dbc.bindValue(SWTObservables.observeDelayedValue(400, (ISWTObservableValue) textProp.observe(t)), prop.observeDetail(viewerSelection));
 
 		subfolder = new TabFolder(form.getBody(), SWT.NONE);
+		subfolder.addSelectionListener(new SelectionListener(){
+		
+			public void widgetSelected(SelectionEvent e) {
+				for( AbstractForm f : subforms ) {
+					if( e.item == f.getItem() ) {
+						f.activate();
+					} else {
+						f.deactivate();
+					}
+				}
+				
+			}
+		
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
 		gd = new GridData(GridData.FILL_BOTH);
 		gd.horizontalSpan = 2;
 		subfolder.setLayoutData(gd);
@@ -311,6 +371,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 
 		if (subfolder.getItemCount() > 0) {
 			subfolder.setSelection(0);
+			subforms.get(0).activate();
 		} else {
 			subfolder.setVisible(false);
 		}
@@ -380,9 +441,12 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 				viewerSelection);
 	}
 
-	private void createViewer(SashForm form) {
+	private void createViewer(SashForm form, IFocusService focusService) {
 		viewer = new TreeViewer(form);
 		viewer.setUseHashlookup(true);
+
+		focusService.addFocusTracker(viewer.getControl(), LIBRARY_TREE);
+
 		ObservableListTreeContentProvider cp = new ObservableListTreeContentProvider(
 				new ListFactory(), new StructureAdvisor());
 		viewer.setContentProvider(cp);

@@ -56,6 +56,9 @@ public class WriterForm extends AbstractForm {
 		}
 		
 	}
+	
+	private static final String PREFIX = "org.eclipse.emf.examples.library.databinding.writer";
+	
 	@Override
 	public void doCreateForm(TabFolder folder,TabItem item,
 			EditingDomain domain, DataBindingContext dbc,
@@ -148,4 +151,8 @@ public class WriterForm extends AbstractForm {
 		
 	}
 
+	@Override
+	protected String getContextIdPrefix() {
+		return PREFIX;
+	}
 }

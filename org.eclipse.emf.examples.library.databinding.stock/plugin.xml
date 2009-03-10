@@ -206,5 +206,63 @@
          </enabledWhen>
       </handler>
    </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.eclipse.emf.examples.library.databinding.stock.new"
+            contextId="org.eclipse.emf.examples.library.databinding.stock.context"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+B">
+         <parameter
+               id="org.eclipse.emf.examples.library.databinding.stock.type"
+               value="book">
+         </parameter>
+      </key>
+      <key
+            commandId="org.eclipse.emf.examples.library.databinding.stock.new"
+            contextId="org.eclipse.emf.examples.library.databinding.stock.context"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+T">
+         <parameter
+               id="org.eclipse.emf.examples.library.databinding.stock.type"
+               value="tapebook">
+         </parameter>
+      </key>
+      <key
+            commandId="org.eclipse.emf.examples.library.databinding.stock.new"
+            contextId="org.eclipse.emf.examples.library.databinding.stock.context"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+V">
+         <parameter
+               id="org.eclipse.emf.examples.library.databinding.stock.type"
+               value="video">
+         </parameter>
+      </key>
+      <key
+            commandId="org.eclipse.emf.examples.library.databinding.stock.new"
+            contextId="org.eclipse.emf.examples.library.databinding.stock.context"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+P">
+         <parameter
+               id="org.eclipse.emf.examples.library.databinding.stock.type"
+               value="periodical">
+         </parameter>
+      </key>
+      <key
+            commandId="org.eclipse.emf.examples.library.databinding.stock.edititem"
+            contextId="org.eclipse.emf.examples.library.databinding.stock.context"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+E">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            description="Stock context"
+            id="org.eclipse.emf.examples.library.databinding.stock.context"
+            name="Stock context"
+            parentId="org.eclipse.emf.examples.library.databinding.context">
+      </context>
+   </extension>
 
 </plugin>

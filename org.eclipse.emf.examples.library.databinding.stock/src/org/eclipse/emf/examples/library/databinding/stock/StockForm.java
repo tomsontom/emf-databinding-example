@@ -56,11 +56,9 @@ import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.services.ISourceProviderService;
+import org.eclipse.ui.swt.IFocusService;
 
 public class StockForm extends AbstractForm {
-	
-	private TableViewer itemViewer;
-	
 	private class LengthConverter extends Converter {
 
 		public LengthConverter() {
@@ -73,6 +71,11 @@ public class StockForm extends AbstractForm {
 		
 	}
 	
+	private TableViewer itemViewer;
+	
+	private static final String PREFIX = "org.eclipse.emf.examples.library.databinding.stock";
+	private static final String STOCK_TABLE = PREFIX + ".table";
+	
 	@Override
 	public void doCreateForm(TabFolder folder, TabItem item, EditingDomain domain, DataBindingContext dbc,
 			IObservableValue master) {
@@ -84,6 +87,8 @@ public class StockForm extends AbstractForm {
 		comp.setLayout(layout);
 		
 		itemViewer = new TableViewer(comp,SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL|SWT.FULL_SELECTION|SWT.MULTI);
+		IFocusService focusService = (IFocusService) getSite().getService(IFocusService.class);
+		focusService.addFocusTracker(itemViewer.getControl(), STOCK_TABLE);
 		itemViewer.getTable().setHeaderVisible(true);
 		itemViewer.getTable().setLinesVisible(true);
 		ObservableListContentProvider cp = new ObservableListContentProvider();
@@ -214,6 +219,11 @@ public class StockForm extends AbstractForm {
 	@Override
 	protected void doDispose() {
 		
+	}
+	
+	@Override
+	protected String getContextIdPrefix() {
+		return PREFIX;
 	}
 
 }

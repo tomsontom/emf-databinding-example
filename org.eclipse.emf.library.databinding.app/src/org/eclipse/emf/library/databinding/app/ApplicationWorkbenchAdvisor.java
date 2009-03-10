@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.emf.library.databinding.app;
 
+import org.eclipse.ui.IWorkbenchPreferenceConstants;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchAdvisor;
@@ -27,6 +29,13 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 		return PERSPECTIVE_ID;
 	}
 
+	@Override
+	public void preStartup() {
+		super.preStartup();
+		System.err.println(PlatformUI.getPreferenceStore().getString(IWorkbenchPreferenceConstants.KEY_CONFIGURATION_ID));
+//		PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.KEY_CONFIGURATION_ID,"org.eclipse.emf.library.databinding.app.scheme");
+	}
+	
 	@Override
 	public void initialize(IWorkbenchConfigurer configurer) {
 		super.initialize(configurer);

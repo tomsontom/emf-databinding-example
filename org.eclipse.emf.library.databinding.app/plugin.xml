@@ -19,5 +19,13 @@
             id="org.eclipse.emf.library.databinding.app.perspective">
       </perspective>
    </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <scheme
+            description="The keyboard scheme for the Library RCP"
+            id="org.eclipse.emf.library.databinding.app.scheme"
+            name="Library Scheme">
+      </scheme>
+   </extension>
 
 </plugin>

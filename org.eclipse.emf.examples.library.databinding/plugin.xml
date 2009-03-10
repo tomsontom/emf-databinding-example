@@ -82,5 +82,33 @@
          </variable>
       </sourceProvider>
    </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.eclipse.ui.file.save"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+S">
+      </key>
+      <key
+            commandId="org.eclipse.ui.file.saveAll"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+M2+S">
+      </key>
+      <key
+            commandId="org.eclipse.emf.examples.library.databinding.library.new"
+            contextId="org.eclipse.emf.examples.library.databinding.context"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+N">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            id="org.eclipse.emf.examples.library.databinding.context"
+            name="Library context">
+      </context>
+   </extension>
 
 </plugin>
