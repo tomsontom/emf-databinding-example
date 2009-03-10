@@ -42,5 +42,23 @@
          </command>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.ui.contexts">
+      <context
+            description="Writer context"
+            id="org.eclipse.emf.examples.library.databinding.writer.context"
+            name="Writer context"
+            parentId="org.eclipse.emf.examples.library.databinding.context">
+      </context>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.eclipse.emf.examples.library.databinding.writer.new"
+            contextId="org.eclipse.emf.examples.library.databinding.writer.context"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+N">
+      </key>
+   </extension>
 
 </plugin>

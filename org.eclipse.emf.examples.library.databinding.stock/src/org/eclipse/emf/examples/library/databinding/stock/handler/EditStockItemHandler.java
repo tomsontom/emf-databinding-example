@@ -14,6 +14,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.example.library.service.ILibraryPersistenceService;
 import org.eclipse.emf.examples.extlibrary.Book;
 import org.eclipse.emf.examples.extlibrary.BookOnTape;
@@ -25,6 +26,7 @@ import org.eclipse.emf.examples.library.databinding.stock.dialog.BookDialog;
 import org.eclipse.emf.examples.library.databinding.stock.dialog.BookOnTapeDialog;
 import org.eclipse.emf.examples.library.databinding.stock.dialog.PeriodicalDialog;
 import org.eclipse.emf.examples.library.databinding.stock.dialog.VideoDialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISources;
@@ -41,21 +43,22 @@ public class EditStockItemHandler extends AbstractHandler {
 		
 		Item item = (Item) ((IStructuredSelection) ctx.getVariable(org.eclipse.emf.examples.library.databinding.ISources.SELECTED_STOCK_ITEM_NAME)).getFirstElement();
 		
+		int rv = 0;
 		if( item instanceof Book ) {
 			BookDialog dialog = new BookDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),parent,(Book)item);
-			dialog.open();
+			rv = dialog.open();
 		} else if( item instanceof BookOnTape ) {
 			BookOnTapeDialog dialog = new BookOnTapeDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),parent,(BookOnTape)item);
-			dialog.open();
+			rv = dialog.open();
 		} else if( item instanceof VideoCassette ) {
 			VideoDialog dialog = new VideoDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),parent,(VideoCassette)item);
-			dialog.open();
+			rv = dialog.open();
 		} else if( item instanceof Periodical ) {
 			PeriodicalDialog dialog = new PeriodicalDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),service.getEditingDomain(),(Periodical)item);
-			dialog.open();
+			rv = dialog.open();
 		}
 		
-		return null;
+		return rv == IDialogConstants.OK_ID ? Status.OK_STATUS : Status.CANCEL_STATUS;
 	}
 
 }

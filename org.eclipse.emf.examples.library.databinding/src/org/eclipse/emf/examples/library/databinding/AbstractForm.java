@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.emf.examples.library.databinding;
 
+import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
@@ -19,9 +20,8 @@ import org.eclipse.core.expressions.ExpressionInfo;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.example.library.service.ISavePointEditingDomain;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
@@ -34,6 +34,7 @@ public abstract class AbstractForm {
 	private TabItem item;
 	private IWorkbenchPartSite site;
 	private IContextActivation activation;
+	private ISavePointEditingDomain domain;
 	
 	public String getId() {
 		return id;
@@ -49,6 +50,10 @@ public abstract class AbstractForm {
 	
 	protected IWorkbenchPartSite getSite() {
 		return site;
+	}
+	
+	protected ISavePointEditingDomain getDomain() {
+		return domain;
 	}
 	
 	public void activate() {
@@ -85,15 +90,19 @@ public abstract class AbstractForm {
 		activation = null;
 	}
 	
-	public void createForm(IWorkbenchPartSite site, TabFolder folder, int index, EditingDomain domain, DataBindingContext context, IObservableValue master) {
+	public void createForm(IWorkbenchPartSite site, TabFolder folder, int index, ISavePointEditingDomain domain, DataBindingContext context, IObservableValue master) {
 		this.site = site;
+		this.domain = domain;
 		item = new TabItem(folder,SWT.NONE,index);
 		doCreateForm(folder, item, domain, context, master);
 	}
 	
 	public abstract void doCreateForm(TabFolder folder, TabItem item, EditingDomain domain, DataBindingContext context, IObservableValue master);
+	
 	public abstract void postExecuteFailure(String commandId,ExecutionException exception);
 	public abstract void postExecuteSuccess(String commandId, Object returnValue);
+	public abstract void preExecute(String commandId, ExecutionEvent event);
+	
 	protected abstract void doDispose();
 	
 	public void dispose() {

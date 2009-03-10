@@ -12,7 +12,9 @@ package org.eclipse.emf.examples.library.databinding.stock;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.UUID;
 
+import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
@@ -21,9 +23,12 @@ import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.databinding.observable.map.IObservableMap;
 import org.eclipse.core.databinding.observable.value.IObservableValue;
 import org.eclipse.core.databinding.property.value.IValueProperty;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.example.library.service.ISavePoint;
+import org.eclipse.emf.example.library.service.ISavePointEditingDomain;
 import org.eclipse.emf.examples.extlibrary.AudioVisualItem;
 import org.eclipse.emf.examples.extlibrary.Book;
 import org.eclipse.emf.examples.extlibrary.BookOnTape;
@@ -75,6 +80,7 @@ public class StockForm extends AbstractForm {
 	
 	private static final String PREFIX = "org.eclipse.emf.examples.library.databinding.stock";
 	private static final String STOCK_TABLE = PREFIX + ".table";
+	private static ISavePoint createSavePoint;
 	
 	@Override
 	public void doCreateForm(TabFolder folder, TabItem item, EditingDomain domain, DataBindingContext dbc,
@@ -200,6 +206,13 @@ public class StockForm extends AbstractForm {
 			MessageDialog.openError(getItem().getParent().getShell(), "Creating Stock item failed", exception.getMessage());
 		}
 	}
+	
+	@Override
+	public void preExecute(String commandId, ExecutionEvent event) {
+		if( commandId.equals(CreateNewStockItemHandler.commandId) ) {
+			createSavePoint = getDomain().addSavePoint(UUID.randomUUID().toString());	
+		}
+	}
 
 	@Override
 	public void postExecuteSuccess(String commandId, Object returnValue) {
@@ -209,7 +222,16 @@ public class StockForm extends AbstractForm {
 			
 			IHandlerService hs = (IHandlerService) getSite().getService(IHandlerService.class);
 			try {
-				hs.executeCommand(EditStockItemHandler.commandId, null);
+				IStatus s = (IStatus) hs.executeCommand(EditStockItemHandler.commandId, null);
+				if( s.isOK() ) {
+					createSavePoint.dispose();
+					createSavePoint = null;
+				} else {
+					if( createSavePoint.canRollback() ) {
+						createSavePoint.rollback();
+					}
+					createSavePoint = null;
+				}
 			} catch (Exception e) {
 				MessageDialog.openError(getItem().getParent().getShell(), "Creating Stock item failed", e.getMessage());
 			}

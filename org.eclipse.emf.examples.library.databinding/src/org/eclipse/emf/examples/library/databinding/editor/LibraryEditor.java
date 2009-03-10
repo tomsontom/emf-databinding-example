@@ -263,7 +263,6 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 
 			public void postExecuteSuccess(String commandId, Object returnValue) {
 				// FIXME Only handle if the editor is the active one
-				System.err.println("Successfull");
 				if (commandId.equals(CreateNewLibraryHandler.commandId)) {
 					Library l = (Library) returnValue;
 					
@@ -281,7 +280,9 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 			}
 
 			public void preExecute(String commandId, ExecutionEvent event) {
-
+				for (AbstractForm form : subforms) {
+					form.preExecute(commandId, event);
+				}
 			}
 
 		});

@@ -13,6 +13,7 @@ package org.eclipse.emf.examples.library.databinding.writer;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.databinding.DataBindingContext;
 import org.eclipse.core.databinding.UpdateValueStrategy;
@@ -43,6 +44,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.ui.swt.IFocusService;
 
 public class WriterForm extends AbstractForm {
 	private class LengthConverter extends Converter {
@@ -58,6 +60,7 @@ public class WriterForm extends AbstractForm {
 	}
 	
 	private static final String PREFIX = "org.eclipse.emf.examples.library.databinding.writer";
+	private static final String WRITER_TABLE = PREFIX + ".table";
 	
 	@Override
 	public void doCreateForm(TabFolder folder,TabItem item,
@@ -74,6 +77,9 @@ public class WriterForm extends AbstractForm {
 		TableViewer writerViewer = new TableViewer(comp,SWT.FULL_SELECTION|SWT.BORDER|SWT.H_SCROLL|SWT.V_SCROLL|SWT.MULTI);
 		writerViewer.getTable().setHeaderVisible(true);
 		writerViewer.getTable().setLinesVisible(true);
+		
+		IFocusService focusService = (IFocusService) getSite().getService(IFocusService.class);
+		focusService.addFocusTracker(writerViewer.getControl(), WRITER_TABLE);
 		
 		ObservableListContentProvider cp = new ObservableListContentProvider();
 		writerViewer.setContentProvider(cp);
@@ -130,6 +136,11 @@ public class WriterForm extends AbstractForm {
 		
 	}
 
+	@Override
+	public void preExecute(String commandId, ExecutionEvent event) {
+		
+	}
+	
 	@Override
 	public void postExecuteFailure(String commandId,
 			ExecutionException exception) { 
