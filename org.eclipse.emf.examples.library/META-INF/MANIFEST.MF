@@ -13,6 +13,8 @@ Export-Package: org.eclipse.emf.examples.extlibrary,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
- org.eclipse.emf.cdo;bundle-version="2.0.0"
+ org.eclipse.emf.cdo;bundle-version="2.0.0",
+ org.hibernate;bundle-version="3.2.6",
+ org.eclipse.emf.teneo;bundle-version="1.0.1"
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy

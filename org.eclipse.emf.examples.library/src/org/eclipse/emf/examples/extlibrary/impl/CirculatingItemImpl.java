@@ -81,7 +81,7 @@ public abstract class CirculatingItemImpl extends ItemImpl implements Circulatin
 	 */
   public int getCopies()
   {
-		return (Integer)eGet(EXTLibraryPackage.Literals.LENDABLE__COPIES, true);
+		return ((Integer)eGet(EXTLibraryPackage.Literals.LENDABLE__COPIES, true)).intValue();
 	}
 
   /**
@@ -91,7 +91,7 @@ public abstract class CirculatingItemImpl extends ItemImpl implements Circulatin
 	 */
   public void setCopies(int newCopies)
   {
-		eSet(EXTLibraryPackage.Literals.LENDABLE__COPIES, newCopies);
+		eSet(EXTLibraryPackage.Literals.LENDABLE__COPIES, new Integer(newCopies));
 	}
 
   /**

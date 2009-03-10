@@ -91,7 +91,7 @@ public abstract class AudioVisualItemImpl extends CirculatingItemImpl implements
 	 */
   public int getMinutesLength()
   {
-		return (Integer)eGet(EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__MINUTES_LENGTH, true);
+		return ((Integer)eGet(EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__MINUTES_LENGTH, true)).intValue();
 	}
 
   /**
@@ -101,7 +101,7 @@ public abstract class AudioVisualItemImpl extends CirculatingItemImpl implements
 	 */
   public void setMinutesLength(int newMinutesLength)
   {
-		eSet(EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__MINUTES_LENGTH, newMinutesLength);
+		eSet(EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__MINUTES_LENGTH, new Integer(newMinutesLength));
 	}
 
   /**
@@ -111,7 +111,7 @@ public abstract class AudioVisualItemImpl extends CirculatingItemImpl implements
 	 */
   public boolean isDamaged()
   {
-		return (Boolean)eGet(EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__DAMAGED, true);
+		return ((Boolean)eGet(EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__DAMAGED, true)).booleanValue();
 	}
 
   /**
@@ -121,7 +121,7 @@ public abstract class AudioVisualItemImpl extends CirculatingItemImpl implements
 	 */
   public void setDamaged(boolean newDamaged)
   {
-		eSet(EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__DAMAGED, newDamaged);
+		eSet(EXTLibraryPackage.Literals.AUDIO_VISUAL_ITEM__DAMAGED, new Boolean(newDamaged));
 	}
 
 } //AudioVisualItemImpl

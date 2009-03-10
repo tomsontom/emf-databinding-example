@@ -10,11 +10,16 @@
  *******************************************************************************/
 package org.eclipse.emf.examples.library.databinding.internal.handler;
 
+import java.util.List;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.edit.command.AddCommand;
 import org.eclipse.emf.example.library.service.ILibraryPersistenceService;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryFactory;
@@ -45,7 +50,45 @@ public class CreateNewLibraryHandler extends AbstractHandler {
 			}
 			
 			if( cmd.canExecute() ) {
+//				List<?> list = parent.getBranches();
+//				parent.eAdapters().add(new Adapter() {
+//
+//					public Notifier getTarget() {
+//						// TODO Auto-generated method stub
+//						return null;
+//					}
+//
+//					public boolean isAdapterForType(Object type) {
+//						// TODO Auto-generated method stub
+//						return false;
+//					}
+//
+//					public void notifyChanged(Notification notification) {
+//						System.err.println("Notification: " + notification.getFeature());
+//						
+//						if( EXTLibraryPackage.Literals.LIBRARY__BRANCHES.equals(notification.getFeature()) ) {
+//							System.err.println("New Value" + notification.getNewValue());
+//							System.err.println(notification.getEventType() + "==" + Notification.ADD + " => " + (notification.getEventType() == Notification.ADD));
+//						}
+//						
+//						System.err.println("========= DONE ============");
+//					}
+//
+//					public void setTarget(Notifier newTarget) {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//					
+//				});
 				service.getEditingDomain().getCommandStack().execute(cmd);
+				
+//				System.err.println(l.getParentBranch() == parent);
+//				System.err.println("Parent: " + l.getParentBranch());
+//				System.err.println("Branches: " + l.getParentBranch().getBranches());
+//				System.err.println("Branches: " + l.getParentBranch().getBranches().getClass());
+//				System.err.println("Content-Class: " + l.eContents().getClass());
+//				System.err.println("Content: " + l.eContents());
+//				System.err.println("List: " + list);
 				return l;
 			} else {
 				throw new ExecutionException("Could not execute add library command.");

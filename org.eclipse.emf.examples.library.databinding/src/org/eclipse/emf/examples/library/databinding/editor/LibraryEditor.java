@@ -30,6 +30,7 @@ import org.eclipse.core.databinding.property.value.IValueProperty;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.CommandStack;
+import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.databinding.edit.properties.EMFEditProperties;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditValueProperty;
@@ -95,8 +96,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 			if (target instanceof IObservable) {
 				return (IObservable) target;
 			} else {
-				return EMFEditObservables.observeList(Realm.getDefault(), p
-						.getEditingDomain(), (EObject) target,
+				return EMFObservables.observeList(Realm.getDefault(), (EObject) target,
 						EXTLibraryPackage.Literals.LIBRARY__BRANCHES);
 			}
 
@@ -206,6 +206,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 
 			public void postExecuteFailure(String commandId,
 					ExecutionException exception) {
+				System.err.println("Fail");
 				// FIXME Only handle if the editor is the active one
 				Shell shell = viewer.getControl().getShell();
 				if (commandId.equals(CreateNewLibraryHandler.commandId)) {
@@ -221,8 +222,10 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 
 			public void postExecuteSuccess(String commandId, Object returnValue) {
 				// FIXME Only handle if the editor is the active one
+				System.err.println("Successfull");
 				if (commandId.equals(CreateNewLibraryHandler.commandId)) {
 					Library l = (Library) returnValue;
+					
 					if (l.getParentBranch() != null) {
 						((TreeViewer) viewer).setExpandedState(l
 								.getParentBranch(), true);

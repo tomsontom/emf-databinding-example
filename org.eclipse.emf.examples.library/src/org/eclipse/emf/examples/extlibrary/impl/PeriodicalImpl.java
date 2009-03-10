@@ -90,7 +90,7 @@ public class PeriodicalImpl extends ItemImpl implements Periodical
 	 */
   public int getIssuesPerYear()
   {
-		return (Integer)eGet(EXTLibraryPackage.Literals.PERIODICAL__ISSUES_PER_YEAR, true);
+		return ((Integer)eGet(EXTLibraryPackage.Literals.PERIODICAL__ISSUES_PER_YEAR, true)).intValue();
 	}
 
   /**
@@ -100,7 +100,7 @@ public class PeriodicalImpl extends ItemImpl implements Periodical
 	 */
   public void setIssuesPerYear(int newIssuesPerYear)
   {
-		eSet(EXTLibraryPackage.Literals.PERIODICAL__ISSUES_PER_YEAR, newIssuesPerYear);
+		eSet(EXTLibraryPackage.Literals.PERIODICAL__ISSUES_PER_YEAR, new Integer(newIssuesPerYear));
 	}
 
 } //PeriodicalImpl

@@ -97,7 +97,7 @@ public class BookImpl extends CirculatingItemImpl implements Book
 	 */
   public int getPages()
   {
-		return (Integer)eGet(EXTLibraryPackage.Literals.BOOK__PAGES, true);
+		return ((Integer)eGet(EXTLibraryPackage.Literals.BOOK__PAGES, true)).intValue();
 	}
 
   /**
@@ -107,7 +107,7 @@ public class BookImpl extends CirculatingItemImpl implements Book
 	 */
   public void setPages(int newPages)
   {
-		eSet(EXTLibraryPackage.Literals.BOOK__PAGES, newPages);
+		eSet(EXTLibraryPackage.Literals.BOOK__PAGES, new Integer(newPages));
 	}
 
   /**
