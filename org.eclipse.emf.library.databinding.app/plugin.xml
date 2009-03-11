@@ -26,6 +26,18 @@
             id="org.eclipse.emf.library.databinding.app.scheme"
             name="Library Scheme">
       </scheme>
+      <key
+            commandId="org.eclipse.ui.edit.undo"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+Z">
+      </key>
+      <key
+            commandId="org.eclipse.ui.edit.redo"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.emf.library.databinding.app.scheme"
+            sequence="M1+Y">
+      </key>
    </extension>
 
 </plugin>
