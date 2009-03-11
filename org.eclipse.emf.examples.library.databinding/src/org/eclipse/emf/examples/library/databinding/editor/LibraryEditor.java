@@ -247,41 +247,43 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 
 			public void postExecuteFailure(String commandId,
 					ExecutionException exception) {
-				System.err.println("Fail");
-				// FIXME Only handle if the editor is the active one
-				Shell shell = viewer.getControl().getShell();
-				if (commandId.equals(CreateNewLibraryHandler.commandId)) {
-					MessageDialog.openError(shell, "Creating Library failed",
-							exception.getMessage());
-				}
+				if( getSite().getWorkbenchWindow().getActivePage().getActiveEditor() == LibraryEditor.this ) {
+					Shell shell = viewer.getControl().getShell();
+					if (commandId.equals(CreateNewLibraryHandler.commandId)) {
+						MessageDialog.openError(shell, "Creating Library failed",
+								exception.getMessage());
+					}
 
-				for (AbstractForm form : subforms) {
-					form.postExecuteFailure(commandId, exception);
+					for (AbstractForm form : subforms) {
+						form.postExecuteFailure(commandId, exception);
+					}
+					
 				}
-
 			}
 
 			public void postExecuteSuccess(String commandId, Object returnValue) {
-				// FIXME Only handle if the editor is the active one
-				if (commandId.equals(CreateNewLibraryHandler.commandId)) {
-					Library l = (Library) returnValue;
-					
-					if (l.getParentBranch() != null) {
-						((TreeViewer) viewer).setExpandedState(l
-								.getParentBranch(), true);
+				if( getSite().getWorkbenchWindow().getActivePage().getActiveEditor() == LibraryEditor.this ) {
+					if (commandId.equals(CreateNewLibraryHandler.commandId)) {
+						Library l = (Library) returnValue;
+						
+						if (l.getParentBranch() != null) {
+							((TreeViewer) viewer).setExpandedState(l
+									.getParentBranch(), true);
+						}
+						viewer.setSelection(new StructuredSelection(l));
 					}
-					viewer.setSelection(new StructuredSelection(l));
-				}
 
-				for (AbstractForm form : subforms) {
-					form.postExecuteSuccess(commandId, returnValue);
+					for (AbstractForm form : subforms) {
+						form.postExecuteSuccess(commandId, returnValue);
+					}					
 				}
-
 			}
 
 			public void preExecute(String commandId, ExecutionEvent event) {
-				for (AbstractForm form : subforms) {
-					form.preExecute(commandId, event);
+				if( getSite().getWorkbenchWindow().getActivePage().getActiveEditor() == LibraryEditor.this ) {
+					for (AbstractForm form : subforms) {
+						form.preExecute(commandId, event);
+					}					
 				}
 			}
 
