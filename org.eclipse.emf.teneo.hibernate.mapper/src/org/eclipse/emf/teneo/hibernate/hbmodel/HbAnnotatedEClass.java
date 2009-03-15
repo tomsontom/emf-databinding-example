@@ -2,12 +2,13 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbAnnotatedEClass.java,v 1.13 2008/08/26 21:19:07 mtaal Exp $
+ * $Id: HbAnnotatedEClass.java,v 1.14 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbmodel;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.teneo.annotations.pamodel.PAnnotatedEClass;
+import org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Cache;
 import org.eclipse.emf.teneo.hibernate.hbannotation.DiscriminatorFormula;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Filter;
@@ -38,6 +39,7 @@ import org.eclipse.emf.teneo.hibernate.hbannotation.Where;
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEClass#getForceDiscriminator <em>Force Discriminator</em>}</li>
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEClass#getImmutable <em>Immutable</em>}</li>
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEClass#getHbEntity <em>Hb Entity</em>}</li>
+ *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEClass#getBatchSize <em>Batch Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -300,5 +302,31 @@ public interface HbAnnotatedEClass extends PAnnotatedEClass {
 	 * @generated
 	 */
 	void setHbEntity(HbEntity value);
+
+	/**
+	 * Returns the value of the '<em><b>Batch Size</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Batch Size</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Batch Size</em>' reference.
+	 * @see #setBatchSize(BatchSize)
+	 * @see org.eclipse.emf.teneo.hibernate.hbmodel.HbmodelPackage#getHbAnnotatedEClass_BatchSize()
+	 * @model
+	 * @generated
+	 */
+	BatchSize getBatchSize();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEClass#getBatchSize <em>Batch Size</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Batch Size</em>' reference.
+	 * @see #getBatchSize()
+	 * @generated
+	 */
+	void setBatchSize(BatchSize value);
 
 } // HbAnnotatedEClass

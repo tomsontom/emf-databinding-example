@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 import org.eclipse.emf.teneo.DataStore;
 import org.eclipse.emf.teneo.PersistenceOptions;
 import org.eclipse.emf.teneo.TeneoException;
+import org.eclipse.emf.teneo.PersistenceOptions.EContainerFeaturePersistenceStrategy;
 import org.eclipse.emf.teneo.annotations.mapper.PersistenceMappingBuilder;
 import org.eclipse.emf.teneo.annotations.pamodel.PAnnotatedModel;
 import org.eclipse.emf.teneo.classloader.StoreClassLoadException;
@@ -46,7 +47,9 @@ import org.eclipse.emf.teneo.hibernate.mapper.HibernateMappingGenerator;
 import org.eclipse.emf.teneo.hibernate.mapper.MappingUtil;
 import org.eclipse.emf.teneo.hibernate.mapping.econtainer.EContainerAccessor;
 import org.eclipse.emf.teneo.hibernate.mapping.econtainer.EContainerFeatureIDAccessor;
+import org.eclipse.emf.teneo.hibernate.mapping.econtainer.EContainerFeatureIDUserType;
 import org.eclipse.emf.teneo.hibernate.mapping.econtainer.EContainerUserType;
+import org.eclipse.emf.teneo.hibernate.mapping.econtainer.NewEContainerFeatureIDPropertyHandler;
 import org.eclipse.emf.teneo.hibernate.mapping.elist.HibernateFeatureMapEntry;
 import org.eclipse.emf.teneo.hibernate.resource.HibernateResource;
 import org.eclipse.emf.teneo.hibernate.resource.HibernateResourceFactory;
@@ -78,7 +81,7 @@ import org.hibernate.mapping.Value;
  * oriented datastore.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.47 $
+ * @version $Revision: 1.48 $
  */
 public abstract class HbDataStore implements DataStore {
 
@@ -403,7 +406,7 @@ public abstract class HbDataStore implements DataStore {
 	}
 
 	/** Return the Classmappings as an iterator */
-	protected abstract Iterator<?> getClassMappings();
+	public abstract Iterator<?> getClassMappings();
 
 	/**
 	 * Returns an array of EObjects and FeatureMapEntries which refer to a
@@ -761,6 +764,8 @@ public abstract class HbDataStore implements DataStore {
 
 		log.debug("Adding eContainer and econtainerfeatureid properties to "
 				+ pc.getClassName());
+		final EContainerFeaturePersistenceStrategy featurePersistenceStrategy = getPersistenceOptions()
+				.getEContainerFeaturePersistenceStrategy();
 
 		final Property eContainer = new Property();
 		eContainer.setName(HbConstants.PROPERTY_ECONTAINER);
@@ -780,21 +785,55 @@ public abstract class HbDataStore implements DataStore {
 		eContainer.setValue(sv);
 		pc.addProperty(eContainer);
 
-		final Property ecFID = new Property();
-		ecFID.setName(HbConstants.PROPERTY_ECONTAINER_FEATURE_ID);
-		ecFID.setMetaAttributes(new HashMap<Object, Object>());
-		ecFID.setNodeName(ecFID.getName());
-		ecFID.setPropertyAccessorName(EContainerFeatureIDAccessor.class
-				.getName());
-		final SimpleValue svfid = new SimpleValue(pc.getTable());
-		svfid.setTypeName("integer");
+		if (featurePersistenceStrategy
+				.equals(EContainerFeaturePersistenceStrategy.FEATUREID)
+				|| featurePersistenceStrategy
+						.equals(EContainerFeaturePersistenceStrategy.BOTH)) {
+			final Property ecFID = new Property();
+			ecFID.setName(HbConstants.PROPERTY_ECONTAINER_FEATURE_ID);
+			ecFID.setMetaAttributes(new HashMap<Object, Object>());
+			ecFID.setNodeName(ecFID.getName());
+			ecFID.setPropertyAccessorName(EContainerFeatureIDAccessor.class
+					.getName());
+			final SimpleValue svfid = new SimpleValue(pc.getTable());
+			svfid.setTypeName("integer");
 
-		final Column ecfColumn = new Column(
-				HbConstants.COLUMN_ECONTAINER_FEATUREID);
-		svfid.addColumn(checkColumnExists(pc.getTable(), ecfColumn));
+			final Column ecfColumn = new Column(
+					HbConstants.COLUMN_ECONTAINER_FEATUREID);
+			svfid.addColumn(checkColumnExists(pc.getTable(), ecfColumn));
 
-		ecFID.setValue(svfid);
-		pc.addProperty(ecFID);
+			ecFID.setValue(svfid);
+			pc.addProperty(ecFID);
+		}
+		if (featurePersistenceStrategy
+				.equals(EContainerFeaturePersistenceStrategy.FEATURENAME)
+				|| featurePersistenceStrategy
+						.equals(EContainerFeaturePersistenceStrategy.BOTH)) {
+			final Property ecFID = new Property();
+			ecFID.setName(HbConstants.PROPERTY_ECONTAINER_FEATURE_NAME);
+			ecFID.setMetaAttributes(new HashMap<Object, Object>());
+			ecFID.setNodeName(ecFID.getName());
+			ecFID
+					.setPropertyAccessorName(NewEContainerFeatureIDPropertyHandler.class
+							.getName());
+			final SimpleValue svfid = new SimpleValue(pc.getTable());
+			svfid.setTypeName(EContainerFeatureIDUserType.class.getName());
+
+			final Column ecfColumn = new Column(
+					HbConstants.COLUMN_ECONTAINER_FEATURE_NAME);
+
+			ecfColumn.setLength(getEContainerFeatureNameColumnLength());
+
+			svfid.addColumn(checkColumnExists(pc.getTable(), ecfColumn));
+
+			ecFID.setValue(svfid);
+			pc.addProperty(ecFID);
+		}
+	}
+
+	// returns the length for string columns used for mapping econtainers
+	protected int getEContainerFeatureNameColumnLength() {
+		return 255;
 	}
 
 	/** Checks if a certain column already exists in a class */

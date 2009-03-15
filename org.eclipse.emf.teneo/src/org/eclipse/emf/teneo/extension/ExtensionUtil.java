@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: ExtensionUtil.java,v 1.11 2009/02/24 12:05:05 mtaal Exp $
+ * $Id: ExtensionUtil.java,v 1.12 2009/03/15 14:49:49 mtaal Exp $
  */
 
 package org.eclipse.emf.teneo.extension;
@@ -45,7 +45,7 @@ import org.eclipse.emf.teneo.mapping.strategy.impl.TeneoSQLNameStrategy;
  * Contains simple utility methods.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 
 public class ExtensionUtil {
@@ -175,6 +175,12 @@ public class ExtensionUtil {
 				.registerExtension(createExtension(
 						"org.eclipse.emf.teneo.hibernate.mapping.property.FeatureMapEntryFeatureURIPropertyHandler",
 						false));
+
+		em
+				.registerExtension(createExtension(
+						"org.eclipse.emf.teneo.hibernate.mapping.econtainer.NewEContainerFeatureIDPropertyHandler",
+						false));
+
 		em
 				.registerExtension(createExtension(
 						"org.eclipse.emf.teneo.hibernate.mapping.property.FeatureMapEntryPropertyHandler",

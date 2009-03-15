@@ -40,7 +40,6 @@ public class Activator extends AbstractUIPlugin {
 	private ExtensionTracker extensionTracker = new ExtensionTracker();
 	
 	private FormExtensionHandler extensionHandler;
-
 	
 	private ILibraryServiceRegistry registry = new LibraryServiceRegistryImpl();
 	

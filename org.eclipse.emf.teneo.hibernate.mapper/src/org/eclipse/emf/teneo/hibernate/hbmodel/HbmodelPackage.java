@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbmodelPackage.java,v 1.14 2009/03/07 21:15:20 mtaal Exp $
+ * $Id: HbmodelPackage.java,v 1.15 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbmodel;
 
@@ -865,13 +865,22 @@ public interface HbmodelPackage extends EPackage {
 	int HB_ANNOTATED_ECLASS__HB_ENTITY = PamodelPackage.PANNOTATED_ECLASS_FEATURE_COUNT + 10;
 
 	/**
+	 * The feature id for the '<em><b>Batch Size</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HB_ANNOTATED_ECLASS__BATCH_SIZE = PamodelPackage.PANNOTATED_ECLASS_FEATURE_COUNT + 11;
+
+	/**
 	 * The number of structural features of the '<em>Hb Annotated EClass</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HB_ANNOTATED_ECLASS_FEATURE_COUNT = PamodelPackage.PANNOTATED_ECLASS_FEATURE_COUNT + 11;
+	int HB_ANNOTATED_ECLASS_FEATURE_COUNT = PamodelPackage.PANNOTATED_ECLASS_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEModelElement <em>Hb Annotated EModel Element</em>}' class.
@@ -1417,13 +1426,22 @@ public interface HbmodelPackage extends EPackage {
 	int HB_ANNOTATED_EREFERENCE__HB_TYPE = PamodelPackage.PANNOTATED_EREFERENCE_FEATURE_COUNT + 16;
 
 	/**
+	 * The feature id for the '<em><b>Batch Size</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int HB_ANNOTATED_EREFERENCE__BATCH_SIZE = PamodelPackage.PANNOTATED_EREFERENCE_FEATURE_COUNT + 17;
+
+	/**
 	 * The number of structural features of the '<em>Hb Annotated EReference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int HB_ANNOTATED_EREFERENCE_FEATURE_COUNT = PamodelPackage.PANNOTATED_EREFERENCE_FEATURE_COUNT + 17;
+	int HB_ANNOTATED_EREFERENCE_FEATURE_COUNT = PamodelPackage.PANNOTATED_EREFERENCE_FEATURE_COUNT + 18;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEDataTypeImpl <em>Hb Annotated EData Type</em>}' class.
@@ -1893,6 +1911,17 @@ public interface HbmodelPackage extends EPackage {
 	EReference getHbAnnotatedEClass_HbEntity();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEClass#getBatchSize <em>Batch Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Batch Size</em>'.
+	 * @see org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEClass#getBatchSize()
+	 * @see #getHbAnnotatedEClass()
+	 * @generated
+	 */
+	EReference getHbAnnotatedEClass_BatchSize();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEModelElement <em>Hb Annotated EModel Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2042,6 +2071,17 @@ public interface HbmodelPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getHbAnnotatedEReference_HbType();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEReference#getBatchSize <em>Batch Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Batch Size</em>'.
+	 * @see org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEReference#getBatchSize()
+	 * @see #getHbAnnotatedEReference()
+	 * @generated
+	 */
+	EReference getHbAnnotatedEReference_BatchSize();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEDataType <em>Hb Annotated EData Type</em>}'.
@@ -2353,6 +2393,14 @@ public interface HbmodelPackage extends EPackage {
 		EReference HB_ANNOTATED_ECLASS__HB_ENTITY = eINSTANCE.getHbAnnotatedEClass_HbEntity();
 
 		/**
+		 * The meta object literal for the '<em><b>Batch Size</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HB_ANNOTATED_ECLASS__BATCH_SIZE = eINSTANCE.getHbAnnotatedEClass_BatchSize();
+
+		/**
 		 * The meta object literal for the '{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEModelElement <em>Hb Annotated EModel Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2469,6 +2517,14 @@ public interface HbmodelPackage extends EPackage {
 		 * @generated
 		 */
 		EReference HB_ANNOTATED_EREFERENCE__HB_TYPE = eINSTANCE.getHbAnnotatedEReference_HbType();
+
+		/**
+		 * The meta object literal for the '<em><b>Batch Size</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference HB_ANNOTATED_EREFERENCE__BATCH_SIZE = eINSTANCE.getHbAnnotatedEReference_BatchSize();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEDataTypeImpl <em>Hb Annotated EData Type</em>}' class.

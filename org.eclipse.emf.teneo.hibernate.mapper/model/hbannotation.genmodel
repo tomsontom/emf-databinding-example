@@ -159,6 +159,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//HbEntity/optimisticLock"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//HbEntity/polymorphism"/>
     </genClasses>
+    <genClasses ecoreClass="hbannotation.ecore#//BatchSize">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute hbannotation.ecore#//BatchSize/size"/>
+    </genClasses>
   </genPackages>
   <genPackages prefix="Hbmodel" basePackage="org.eclipse.emf.teneo.hibernate" disposableProviderFactory="true"
       ecorePackage="hbmodel.ecore#/">
@@ -191,6 +194,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/forceDiscriminator"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/immutable"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/hbEntity"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEClass/batchSize"/>
     </genClasses>
     <genClasses image="false" ecoreClass="hbmodel.ecore#//HbAnnotatedEModelElement"/>
     <genClasses ecoreClass="hbmodel.ecore#//HbAnnotatedEPackage">
@@ -207,6 +211,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/immutable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/notFound"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/hbType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEReference/batchSize"/>
     </genClasses>
     <genClasses ecoreClass="hbmodel.ecore#//HbAnnotatedEDataType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference hbmodel.ecore#//HbAnnotatedEDataType/hbTypeDef"/>

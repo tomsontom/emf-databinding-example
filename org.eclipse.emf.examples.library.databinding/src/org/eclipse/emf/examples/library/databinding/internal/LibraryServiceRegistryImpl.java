@@ -27,6 +27,7 @@ public class LibraryServiceRegistryImpl implements ILibraryServiceRegistry {
 
 	public void registerService(ILibraryPersistenceService libraryService) {
 		services.add(libraryService);
+		System.err.println("Register: " + libraryService);
 		for( Listener listener: listeners ) {
 			listener.serviceAdded(libraryService);
 		}

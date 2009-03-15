@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbannotationFactory.java,v 1.11 2008/08/26 21:19:08 mtaal Exp $
+ * $Id: HbannotationFactory.java,v 1.12 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbannotation;
 
@@ -264,6 +264,15 @@ public interface HbannotationFactory extends EFactory {
 	 * @generated
 	 */
 	HbEntity createHbEntity();
+
+	/**
+	 * Returns a new object of class '<em>Batch Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Batch Size</em>'.
+	 * @generated
+	 */
+	BatchSize createBatchSize();
 
 	/**
 	 * Returns the package supported by this factory.

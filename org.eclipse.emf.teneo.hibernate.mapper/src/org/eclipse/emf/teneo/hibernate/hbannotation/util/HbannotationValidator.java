@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbannotationValidator.java,v 1.16 2009/03/07 21:15:20 mtaal Exp $
+ * $Id: HbannotationValidator.java,v 1.17 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbannotation.util;
 
@@ -188,6 +188,8 @@ public class HbannotationValidator extends EObjectValidator {
 				return validateNotFound((NotFound)value, diagnostics, context);
 			case HbannotationPackage.HB_ENTITY:
 				return validateHbEntity((HbEntity)value, diagnostics, context);
+			case HbannotationPackage.BATCH_SIZE:
+				return validateBatchSize((BatchSize)value, diagnostics, context);
 			case HbannotationPackage.CACHE_CONCURRENCY_STRATEGY:
 				return validateCacheConcurrencyStrategy((CacheConcurrencyStrategy)value, diagnostics, context);
 			case HbannotationPackage.HB_FETCH_TYPE:
@@ -737,6 +739,24 @@ public class HbannotationValidator extends EObjectValidator {
 		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(hbEntity, diagnostics, context);
 		if (result || diagnostics != null) result &= validateHbAnnotation_CompatibleEModelElementType(hbEntity, diagnostics, context);
 		if (result || diagnostics != null) result &= validateHbAnnotation_AnnotationIsSupported(hbEntity, diagnostics, context);
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateBatchSize(BatchSize batchSize, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		boolean result = validate_EveryMultiplicityConforms(batchSize, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryDataValueConforms(batchSize, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryReferenceIsContained(batchSize, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryProxyResolves(batchSize, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_UniqueID(batchSize, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryKeyUnique(batchSize, diagnostics, context);
+		if (result || diagnostics != null) result &= validate_EveryMapEntryUnique(batchSize, diagnostics, context);
+		if (result || diagnostics != null) result &= validateHbAnnotation_CompatibleEModelElementType(batchSize, diagnostics, context);
+		if (result || diagnostics != null) result &= validateHbAnnotation_AnnotationIsSupported(batchSize, diagnostics, context);
 		return result;
 	}
 

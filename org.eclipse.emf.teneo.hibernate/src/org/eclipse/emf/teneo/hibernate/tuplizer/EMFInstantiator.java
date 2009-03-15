@@ -11,7 +11,7 @@
  *   Martin Taal
  * </copyright>
  *
- * $Id: EMFInstantiator.java,v 1.7 2008/02/28 07:08:24 mtaal Exp $
+ * $Id: EMFInstantiator.java,v 1.8 2009/03/15 08:09:22 mtaal Exp $
  */
 
 package org.eclipse.emf.teneo.hibernate.tuplizer;
@@ -24,6 +24,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.teneo.hibernate.HbMapperException;
+import org.eclipse.emf.teneo.hibernate.HbUtil;
+import org.eclipse.emf.teneo.type.PersistentStoreAdapter;
 import org.hibernate.mapping.Component;
 import org.hibernate.mapping.PersistentClass;
 import org.hibernate.tuple.Instantiator;
@@ -32,7 +34,7 @@ import org.hibernate.tuple.Instantiator;
  * Instantiates eobjects using the efactory.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
 public class EMFInstantiator implements Instantiator {
@@ -56,7 +58,8 @@ public class EMFInstantiator implements Instantiator {
 
 	/** Constructor */
 	public EMFInstantiator(EClass eclass, PersistentClass pc) {
-		log.debug("Creating eobject instantiator for " + pc.getEntityName() + " and eclass " + eclass.getName());
+		log.debug("Creating eobject instantiator for " + pc.getEntityName()
+				+ " and eclass " + eclass.getName());
 		proxyInterface = pc.getProxyInterface();
 		this.eclass = eclass;
 		mappedClass = eclass.getInstanceClass();
@@ -64,7 +67,8 @@ public class EMFInstantiator implements Instantiator {
 
 	/** Constructor */
 	public EMFInstantiator(EClass eclass, Component component) {
-		log.debug("Creating eobject instantiator for component eclass " + eclass.getName());
+		log.debug("Creating eobject instantiator for component eclass "
+				+ eclass.getName());
 		this.eclass = eclass;
 		mappedClass = eclass.getInstanceClass();
 		proxyInterface = null;
@@ -73,9 +77,17 @@ public class EMFInstantiator implements Instantiator {
 	/** Instantiates using EcoreUtil.create() */
 	public Object instantiate() {
 		final EObject eobject = EcoreUtil.create(eclass);
+
+		final PersistentStoreAdapter adapter = HbUtil
+				.getPersistentStoreAdapter(eobject);
+		adapter.setTargetCreatedByORM(true);
+
 		if (eobject == null) {
-			throw new HbMapperException("The mapped " + mappedClass.getName() + " class can not be instantiated." +
-					" Possibly the class it is not an eclass or it is abstract.");
+			throw new HbMapperException(
+					"The mapped "
+							+ mappedClass.getName()
+							+ " class can not be instantiated."
+							+ " Possibly the class it is not an eclass or it is abstract.");
 		}
 		return eobject;
 	}
@@ -83,9 +95,17 @@ public class EMFInstantiator implements Instantiator {
 	/** Instantiates using EcoreUtil.create() */
 	public Object instantiate(Serializable id) {
 		final EObject eobject = EcoreUtil.create(eclass);
+
+		final PersistentStoreAdapter adapter = HbUtil
+				.getPersistentStoreAdapter(eobject);
+		adapter.setTargetCreatedByORM(true);
+
 		if (eobject == null) {
-			throw new HbMapperException("The mapped " + mappedClass.getName() + " class can not be instantiated." +
-					" Possibly the class it is not an eclass or it is abstract.");
+			throw new HbMapperException(
+					"The mapped "
+							+ mappedClass.getName()
+							+ " class can not be instantiated."
+							+ " Possibly the class it is not an eclass or it is abstract.");
 		}
 		return eobject;
 	}

@@ -11,16 +11,17 @@
  *   Martin Taal
  * </copyright>
  *
- * $Id: HbConstants.java,v 1.4 2008/02/28 07:08:24 mtaal Exp $
+ * $Id: HbConstants.java,v 1.5 2009/03/15 14:49:46 mtaal Exp $
  */
 
 package org.eclipse.emf.teneo.hibernate;
 
 /**
- * AnnotationUtil used in the runtime layer as well as the hibernate mapping step.
+ * AnnotationUtil used in the runtime layer as well as the hibernate mapping
+ * step.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class HbConstants {
 	/** Column names used to store the econtainer class */
@@ -32,8 +33,14 @@ public class HbConstants {
 	/** Column names used to store the econtainer hibernate id */
 	public final static String COLUMN_ECONTAINER = "e_container";
 
+	/** Column names used to store the econtainer feature name */
+	public final static String COLUMN_ECONTAINER_FEATURE_NAME = "e_container_feature_name";
+
 	/** Property Name of the econtainer feature id property */
 	public final static String PROPERTY_ECONTAINER_FEATURE_ID = "e_container_featureid";
+
+	/** Property Name of the econtainer feature name property */
+	public final static String PROPERTY_ECONTAINER_FEATURE_NAME = "e_container_featurename";
 
 	/** Column names used to store the econtainer feature id */
 	public final static String COLUMN_ECONTAINER_FEATUREID = "e_container_featureid";

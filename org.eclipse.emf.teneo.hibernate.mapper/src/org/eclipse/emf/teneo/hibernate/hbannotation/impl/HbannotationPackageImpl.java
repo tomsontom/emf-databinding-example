@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbannotationPackageImpl.java,v 1.13 2008/09/01 12:45:16 mtaal Exp $
+ * $Id: HbannotationPackageImpl.java,v 1.14 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbannotation.impl;
 
@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.teneo.annotations.pamodel.PamodelPackage;
 import org.eclipse.emf.teneo.annotations.pannotation.PannotationPackage;
+import org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Cache;
 import org.eclipse.emf.teneo.hibernate.hbannotation.CacheConcurrencyStrategy;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Cascade;
@@ -246,6 +247,13 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 	 * @generated
 	 */
 	private EClass hbEntityEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass batchSizeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1038,6 +1046,24 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBatchSize() {
+		return batchSizeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBatchSize_Size() {
+		return (EAttribute)batchSizeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -1236,6 +1262,9 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 		createEAttribute(hbEntityEClass, HB_ENTITY__OPTIMISTIC_LOCK);
 		createEAttribute(hbEntityEClass, HB_ENTITY__POLYMORPHISM);
 
+		batchSizeEClass = createEClass(BATCH_SIZE);
+		createEAttribute(batchSizeEClass, BATCH_SIZE__SIZE);
+
 		// Create enums
 		cacheConcurrencyStrategyEEnum = createEEnum(CACHE_CONCURRENCY_STRATEGY);
 		hbFetchTypeEEnum = createEEnum(HB_FETCH_TYPE);
@@ -1304,6 +1333,7 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 		formulaEClass.getESuperTypes().add(this.getHbAnnotation());
 		notFoundEClass.getESuperTypes().add(this.getHbAnnotation());
 		hbEntityEClass.getESuperTypes().add(this.getHbAnnotation());
+		batchSizeEClass.getESuperTypes().add(this.getHbAnnotation());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(hbAnnotationEClass, HbAnnotation.class, "HbAnnotation", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1411,6 +1441,9 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 		initEAttribute(getHbEntity_OptimisticLock(), this.getOptimisticLockType(), "optimisticLock", "VERSION", 0, 1, HbEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getHbEntity_Polymorphism(), this.getPolymorphismType(), "polymorphism", "IMPLICIT", 0, 1, HbEntity.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(batchSizeEClass, BatchSize.class, "BatchSize", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBatchSize_Size(), ecorePackage.getEInt(), "size", null, 1, 1, BatchSize.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(cacheConcurrencyStrategyEEnum, CacheConcurrencyStrategy.class, "CacheConcurrencyStrategy");
 		addEEnumLiteral(cacheConcurrencyStrategyEEnum, CacheConcurrencyStrategy.NONE);
@@ -1489,7 +1522,7 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 		   source, 
 		   new String[] {
 			 "1", "http://hibernate.elver.org/"
-		   });																														
+		   });																															
 	}
 
 	/**
@@ -1505,7 +1538,7 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 		   source, 
 		   new String[] {
 			 "constraints", "CompatibleEModelElementType AnnotationIsSupported"
-		   });																													
+		   });																														
 	}
 
 	/**
@@ -1663,7 +1696,7 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 		   source, 
 		   new String[] {
 			 "0", "EStructuralFeature"
-		   });
+		   });	
 	}
 
 	/**
@@ -1687,7 +1720,7 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 		   new String[] {
 			 "name", "GenericGenerators",
 			 "packageNS", "http://www.eclipse.org/emf/teneo/2006/HbAnnotation"
-		   });																			
+		   });																				
 	}
 
 	/**
@@ -1722,7 +1755,14 @@ public class HbannotationPackageImpl extends EPackageImpl implements Hbannotatio
 		   source, 
 		   new String[] {
 			 "0", "EAttribute"
-		   });		
+		   });				
+		addAnnotation
+		  (batchSizeEClass, 
+		   source, 
+		   new String[] {
+			 "0", "EClass",
+			 "1", "EReference"
+		   });
 	}
 
 } // HbannotationPackageImpl

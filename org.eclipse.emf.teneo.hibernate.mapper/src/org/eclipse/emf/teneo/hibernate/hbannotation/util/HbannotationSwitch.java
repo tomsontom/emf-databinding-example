@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbannotationSwitch.java,v 1.11 2008/08/26 21:19:08 mtaal Exp $
+ * $Id: HbannotationSwitch.java,v 1.12 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbannotation.util;
 
@@ -314,6 +314,14 @@ public class HbannotationSwitch<T> {
 				T result = caseHbEntity(hbEntity);
 				if (result == null) result = caseHbAnnotation(hbEntity);
 				if (result == null) result = casePAnnotation(hbEntity);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case HbannotationPackage.BATCH_SIZE: {
+				BatchSize batchSize = (BatchSize)theEObject;
+				T result = caseBatchSize(batchSize);
+				if (result == null) result = caseHbAnnotation(batchSize);
+				if (result == null) result = casePAnnotation(batchSize);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -728,6 +736,21 @@ public class HbannotationSwitch<T> {
 	 * @generated
 	 */
 	public T caseHbEntity(HbEntity object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Batch Size</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Batch Size</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBatchSize(BatchSize object) {
 		return null;
 	}
 

@@ -679,6 +679,15 @@ public abstract class AbstractAssociationMapper extends AbstractMapper {
 							.getClause());
 		}
 
+		final boolean hasBatchSize = paFeature instanceof HbAnnotatedEReference
+				&& ((HbAnnotatedEReference) paFeature).getBatchSize() != null;
+
+		if (hasBatchSize) {
+			collectionElement.addAttribute("batch-size", ""
+					+ ((HbAnnotatedEReference) paFeature).getBatchSize()
+							.getSize());
+		}
+
 		return collectionElement;
 	}
 

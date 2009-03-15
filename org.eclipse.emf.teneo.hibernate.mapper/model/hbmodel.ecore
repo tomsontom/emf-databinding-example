@@ -61,6 +61,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="immutable" eType="ecore:EClass hbannotation.ecore#//Immutable"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hbEntity" eType="ecore:EClass hbannotation.ecore#//HbEntity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="batchSize" eType="ecore:EClass hbannotation.ecore#//BatchSize"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HbAnnotatedEModelElement" abstract="true"
       interface="true" eSuperTypes="../../org.eclipse.emf.teneo.annotations/model/pamodel.ecore#//PAnnotatedEModelElement"/>
@@ -87,6 +88,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hbType" eType="ecore:EClass hbannotation.ecore#//Type"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="batchSize" eType="ecore:EClass hbannotation.ecore#//BatchSize"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="HbAnnotatedEDataType" eSuperTypes="../../org.eclipse.emf.teneo.annotations/model/pamodel.ecore#//PAnnotatedEDataType #//HbAnnotatedEModelElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="hbTypeDef" eType="ecore:EClass hbannotation.ecore#//TypeDef"

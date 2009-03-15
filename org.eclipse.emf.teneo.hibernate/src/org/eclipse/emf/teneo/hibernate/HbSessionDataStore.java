@@ -11,7 +11,7 @@
  *   Martin Taal
  * </copyright>
  *
- * $Id: HbSessionDataStore.java,v 1.16 2009/02/24 12:04:50 mtaal Exp $
+ * $Id: HbSessionDataStore.java,v 1.17 2009/03/15 14:49:46 mtaal Exp $
  */
 
 package org.eclipse.emf.teneo.hibernate;
@@ -38,7 +38,7 @@ import org.hibernate.event.InitializeCollectionEventListener;
  * implementing/registering your own HbDataStoreFactory in the HibernateHelper.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 
 public class HbSessionDataStore extends HbBaseSessionDataStore {
@@ -107,7 +107,7 @@ public class HbSessionDataStore extends HbBaseSessionDataStore {
 
 	/** Return the Classmappings as an iterator */
 	@Override
-	protected Iterator<?> getClassMappings() {
+	public Iterator<?> getClassMappings() {
 		return getConfiguration().getClassMappings();
 	}
 

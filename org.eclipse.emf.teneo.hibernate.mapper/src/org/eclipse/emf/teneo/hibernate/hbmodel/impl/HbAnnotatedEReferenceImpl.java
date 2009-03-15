@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbAnnotatedEReferenceImpl.java,v 1.15 2009/03/07 21:15:19 mtaal Exp $
+ * $Id: HbAnnotatedEReferenceImpl.java,v 1.16 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbmodel.impl;
 
@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.emf.teneo.annotations.pamodel.impl.PAnnotatedEReferenceImpl;
 import org.eclipse.emf.teneo.annotations.pannotation.Column;
+import org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Cache;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Cascade;
 import org.eclipse.emf.teneo.hibernate.hbannotation.CollectionOfElements;
@@ -64,6 +65,7 @@ import org.eclipse.emf.teneo.hibernate.hbmodel.HbmodelPackage;
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEReferenceImpl#getImmutable <em>Immutable</em>}</li>
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEReferenceImpl#getNotFound <em>Not Found</em>}</li>
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEReferenceImpl#getHbType <em>Hb Type</em>}</li>
+ *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEReferenceImpl#getBatchSize <em>Batch Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -238,6 +240,16 @@ public class HbAnnotatedEReferenceImpl extends PAnnotatedEReferenceImpl implemen
 	 * @ordered
 	 */
 	protected Type hbType;
+
+	/**
+	 * The cached value of the '{@link #getBatchSize() <em>Batch Size</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBatchSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected BatchSize batchSize;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -889,6 +901,44 @@ public class HbAnnotatedEReferenceImpl extends PAnnotatedEReferenceImpl implemen
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BatchSize getBatchSize() {
+		if (batchSize != null && batchSize.eIsProxy()) {
+			InternalEObject oldBatchSize = (InternalEObject)batchSize;
+			batchSize = (BatchSize)eResolveProxy(oldBatchSize);
+			if (batchSize != oldBatchSize) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, HbmodelPackage.HB_ANNOTATED_EREFERENCE__BATCH_SIZE, oldBatchSize, batchSize));
+			}
+		}
+		return batchSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BatchSize basicGetBatchSize() {
+		return batchSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBatchSize(BatchSize newBatchSize) {
+		BatchSize oldBatchSize = batchSize;
+		batchSize = newBatchSize;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, HbmodelPackage.HB_ANNOTATED_EREFERENCE__BATCH_SIZE, oldBatchSize, batchSize));
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -968,6 +1018,9 @@ public class HbAnnotatedEReferenceImpl extends PAnnotatedEReferenceImpl implemen
 				return getNotFound();
 			case HbmodelPackage.HB_ANNOTATED_EREFERENCE__HB_TYPE:
 				return getHbType();
+			case HbmodelPackage.HB_ANNOTATED_EREFERENCE__BATCH_SIZE:
+				if (resolve) return getBatchSize();
+				return basicGetBatchSize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -1033,6 +1086,9 @@ public class HbAnnotatedEReferenceImpl extends PAnnotatedEReferenceImpl implemen
 			case HbmodelPackage.HB_ANNOTATED_EREFERENCE__HB_TYPE:
 				setHbType((Type)newValue);
 				return;
+			case HbmodelPackage.HB_ANNOTATED_EREFERENCE__BATCH_SIZE:
+				setBatchSize((BatchSize)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -1095,6 +1151,9 @@ public class HbAnnotatedEReferenceImpl extends PAnnotatedEReferenceImpl implemen
 			case HbmodelPackage.HB_ANNOTATED_EREFERENCE__HB_TYPE:
 				setHbType((Type)null);
 				return;
+			case HbmodelPackage.HB_ANNOTATED_EREFERENCE__BATCH_SIZE:
+				setBatchSize((BatchSize)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -1140,6 +1199,8 @@ public class HbAnnotatedEReferenceImpl extends PAnnotatedEReferenceImpl implemen
 				return notFound != null;
 			case HbmodelPackage.HB_ANNOTATED_EREFERENCE__HB_TYPE:
 				return hbType != null;
+			case HbmodelPackage.HB_ANNOTATED_EREFERENCE__BATCH_SIZE:
+				return batchSize != null;
 		}
 		return super.eIsSet(featureID);
 	}

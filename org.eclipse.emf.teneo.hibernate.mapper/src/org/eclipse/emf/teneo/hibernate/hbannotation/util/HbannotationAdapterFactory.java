@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbannotationAdapterFactory.java,v 1.12 2008/08/26 21:19:07 mtaal Exp $
+ * $Id: HbannotationAdapterFactory.java,v 1.13 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbannotation.util;
 
@@ -196,6 +196,10 @@ public class HbannotationAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseHbEntity(HbEntity object) {
 				return createHbEntityAdapter();
+			}
+			@Override
+			public Adapter caseBatchSize(BatchSize object) {
+				return createBatchSizeAdapter();
 			}
 			@Override
 			public Adapter casePAnnotation(PAnnotation object) {
@@ -610,6 +614,20 @@ public class HbannotationAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createHbEntityAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize <em>Batch Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize
+	 * @generated
+	 */
+	public Adapter createBatchSizeAdapter() {
 		return null;
 	}
 

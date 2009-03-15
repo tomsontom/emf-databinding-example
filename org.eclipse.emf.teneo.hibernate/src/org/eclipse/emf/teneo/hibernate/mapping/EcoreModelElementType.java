@@ -13,7 +13,7 @@ package org.eclipse.emf.teneo.hibernate.mapping;
  *   Martin Taal
  * </copyright>
  *
- * $Id: EcoreModelElementType.java,v 1.1 2009/03/07 21:15:24 mtaal Exp $
+ * $Id: EcoreModelElementType.java,v 1.2 2009/03/15 14:49:46 mtaal Exp $
  */
 
 import java.io.Serializable;
@@ -34,7 +34,7 @@ import org.hibernate.usertype.UserType;
  * field.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.1 $ $Date: 2009/03/07 21:15:24 $
+ * @version $Revision: 1.2 $ $Date: 2009/03/15 14:49:46 $
  */
 
 public class EcoreModelElementType implements UserType {
@@ -44,7 +44,7 @@ public class EcoreModelElementType implements UserType {
 
 	public Object assemble(Serializable cached, Object owner)
 			throws HibernateException {
-		return cached;
+		return convertFromString((String) cached);
 	}
 
 	public Object deepCopy(Object value) throws HibernateException {
@@ -52,7 +52,7 @@ public class EcoreModelElementType implements UserType {
 	}
 
 	public Serializable disassemble(Object value) throws HibernateException {
-		return (Serializable) value;
+		return convertToString(value);
 	}
 
 	public boolean equals(Object x, Object y) throws HibernateException {
@@ -84,7 +84,10 @@ public class EcoreModelElementType implements UserType {
 		if (rs.wasNull()) {
 			return null;
 		}
+		return convertFromString(value);
+	}
 
+	private Object convertFromString(String value) {
 		final String[] values = value.split(SEPARATOR);
 		final String nsuri = values[0];
 		final EPackage ePackage = EPackage.Registry.INSTANCE.getEPackage(nsuri);
@@ -110,28 +113,28 @@ public class EcoreModelElementType implements UserType {
 		if (value == null) {
 			st.setNull(index, Types.VARCHAR);
 		} else {
-			if (value instanceof EPackage) {
-				final String uri = ((EPackage) value).getNsURI();
-				st.setString(index, uri);
+			st.setString(index, convertToString(value));
+		}
+	}
 
-			} else if (value instanceof EClassifier) {
-				final EClassifier eClassifier = (EClassifier) value;
-				final String uri = eClassifier.getEPackage().getNsURI();
-				final String eClassifierName = eClassifier.getName();
+	private String convertToString(Object value) {
+		if (value instanceof EPackage) {
+			final String uri = ((EPackage) value).getNsURI();
+			return uri;
 
-				st.setString(index, uri + SEPARATOR + eClassifierName);
+		} else if (value instanceof EClassifier) {
+			final EClassifier eClassifier = (EClassifier) value;
+			final String uri = eClassifier.getEPackage().getNsURI();
+			final String eClassifierName = eClassifier.getName();
+			return uri + SEPARATOR + eClassifierName;
 
-			} else {
-				final EStructuralFeature feature = (EStructuralFeature) value;
-				final String uri = feature.getEContainingClass().getEPackage()
-						.getNsURI();
-				final String eClassName = feature.getEContainingClass()
-						.getName();
-				final String eFeatureName = feature.getName();
-
-				st.setString(index, uri + SEPARATOR + eClassName + SEPARATOR
-						+ eFeatureName);
-			}
+		} else {
+			final EStructuralFeature feature = (EStructuralFeature) value;
+			final String uri = feature.getEContainingClass().getEPackage()
+					.getNsURI();
+			final String eClassName = feature.getEContainingClass().getName();
+			final String eFeatureName = feature.getName();
+			return uri + SEPARATOR + eClassName + SEPARATOR + eFeatureName;
 		}
 	}
 

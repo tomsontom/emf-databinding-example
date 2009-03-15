@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbAnnotatedEClassImpl.java,v 1.15 2008/08/26 21:19:06 mtaal Exp $
+ * $Id: HbAnnotatedEClassImpl.java,v 1.16 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbmodel.impl;
 
@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.teneo.annotations.pamodel.impl.PAnnotatedEClassImpl;
+import org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Cache;
 import org.eclipse.emf.teneo.hibernate.hbannotation.DiscriminatorFormula;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Filter;
@@ -46,6 +47,7 @@ import org.eclipse.emf.teneo.hibernate.hbmodel.HbmodelPackage;
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEClassImpl#getForceDiscriminator <em>Force Discriminator</em>}</li>
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEClassImpl#getImmutable <em>Immutable</em>}</li>
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEClassImpl#getHbEntity <em>Hb Entity</em>}</li>
+ *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.impl.HbAnnotatedEClassImpl#getBatchSize <em>Batch Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -161,6 +163,16 @@ public class HbAnnotatedEClassImpl extends PAnnotatedEClassImpl implements HbAnn
 	 * @ordered
 	 */
 	protected HbEntity hbEntity;
+
+	/**
+	 * The cached value of the '{@link #getBatchSize() <em>Batch Size</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBatchSize()
+	 * @generated
+	 * @ordered
+	 */
+	protected BatchSize batchSize;
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -542,6 +554,44 @@ public class HbAnnotatedEClassImpl extends PAnnotatedEClassImpl implements HbAnn
 	}
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BatchSize getBatchSize() {
+		if (batchSize != null && batchSize.eIsProxy()) {
+			InternalEObject oldBatchSize = (InternalEObject)batchSize;
+			batchSize = (BatchSize)eResolveProxy(oldBatchSize);
+			if (batchSize != oldBatchSize) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, HbmodelPackage.HB_ANNOTATED_ECLASS__BATCH_SIZE, oldBatchSize, batchSize));
+			}
+		}
+		return batchSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BatchSize basicGetBatchSize() {
+		return batchSize;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBatchSize(BatchSize newBatchSize) {
+		BatchSize oldBatchSize = batchSize;
+		batchSize = newBatchSize;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, HbmodelPackage.HB_ANNOTATED_ECLASS__BATCH_SIZE, oldBatchSize, batchSize));
+	}
+
+	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -594,6 +644,9 @@ public class HbAnnotatedEClassImpl extends PAnnotatedEClassImpl implements HbAnn
 			case HbmodelPackage.HB_ANNOTATED_ECLASS__HB_ENTITY:
 				if (resolve) return getHbEntity();
 				return basicGetHbEntity();
+			case HbmodelPackage.HB_ANNOTATED_ECLASS__BATCH_SIZE:
+				if (resolve) return getBatchSize();
+				return basicGetBatchSize();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -642,6 +695,9 @@ public class HbAnnotatedEClassImpl extends PAnnotatedEClassImpl implements HbAnn
 			case HbmodelPackage.HB_ANNOTATED_ECLASS__HB_ENTITY:
 				setHbEntity((HbEntity)newValue);
 				return;
+			case HbmodelPackage.HB_ANNOTATED_ECLASS__BATCH_SIZE:
+				setBatchSize((BatchSize)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -686,6 +742,9 @@ public class HbAnnotatedEClassImpl extends PAnnotatedEClassImpl implements HbAnn
 			case HbmodelPackage.HB_ANNOTATED_ECLASS__HB_ENTITY:
 				setHbEntity((HbEntity)null);
 				return;
+			case HbmodelPackage.HB_ANNOTATED_ECLASS__BATCH_SIZE:
+				setBatchSize((BatchSize)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -719,6 +778,8 @@ public class HbAnnotatedEClassImpl extends PAnnotatedEClassImpl implements HbAnn
 				return immutable != null;
 			case HbmodelPackage.HB_ANNOTATED_ECLASS__HB_ENTITY:
 				return hbEntity != null;
+			case HbmodelPackage.HB_ANNOTATED_ECLASS__BATCH_SIZE:
+				return batchSize != null;
 		}
 		return super.eIsSet(featureID);
 	}

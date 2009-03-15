@@ -2,11 +2,12 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbAnnotatedEReference.java,v 1.12 2009/03/07 21:15:20 mtaal Exp $
+ * $Id: HbAnnotatedEReference.java,v 1.13 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbmodel;
 
 import org.eclipse.emf.teneo.annotations.pamodel.PAnnotatedEReference;
+import org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Cache;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Cascade;
 import org.eclipse.emf.teneo.hibernate.hbannotation.Fetch;
@@ -30,6 +31,7 @@ import org.eclipse.emf.teneo.hibernate.hbannotation.Type;
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEReference#getImmutable <em>Immutable</em>}</li>
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEReference#getNotFound <em>Not Found</em>}</li>
  *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEReference#getHbType <em>Hb Type</em>}</li>
+ *   <li>{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEReference#getBatchSize <em>Batch Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -218,5 +220,31 @@ public interface HbAnnotatedEReference extends PAnnotatedEReference, HbAnnotated
 	 * @generated
 	 */
 	void setHbType(Type value);
+
+	/**
+	 * Returns the value of the '<em><b>Batch Size</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Batch Size</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Batch Size</em>' reference.
+	 * @see #setBatchSize(BatchSize)
+	 * @see org.eclipse.emf.teneo.hibernate.hbmodel.HbmodelPackage#getHbAnnotatedEReference_BatchSize()
+	 * @model
+	 * @generated
+	 */
+	BatchSize getBatchSize();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.emf.teneo.hibernate.hbmodel.HbAnnotatedEReference#getBatchSize <em>Batch Size</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Batch Size</em>' reference.
+	 * @see #getBatchSize()
+	 * @generated
+	 */
+	void setBatchSize(BatchSize value);
 
 } // HbAnnotatedEReference

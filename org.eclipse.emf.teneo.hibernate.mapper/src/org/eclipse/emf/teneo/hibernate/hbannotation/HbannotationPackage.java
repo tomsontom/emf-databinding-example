@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbannotationPackage.java,v 1.13 2008/09/01 12:45:17 mtaal Exp $
+ * $Id: HbannotationPackage.java,v 1.14 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbannotation;
 
@@ -1270,13 +1270,50 @@ public interface HbannotationPackage extends EPackage {
 	int HB_ENTITY_FEATURE_COUNT = HB_ANNOTATION_FEATURE_COUNT + 7;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.impl.BatchSizeImpl <em>Batch Size</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.BatchSizeImpl
+	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getBatchSize()
+	 * @generated
+	 */
+	int BATCH_SIZE = 28;
+
+	/**
+	 * The feature id for the '<em><b>EModel Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BATCH_SIZE__EMODEL_ELEMENT = HB_ANNOTATION__EMODEL_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BATCH_SIZE__SIZE = HB_ANNOTATION_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Batch Size</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BATCH_SIZE_FEATURE_COUNT = HB_ANNOTATION_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.CacheConcurrencyStrategy <em>Cache Concurrency Strategy</em>}' enum.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.CacheConcurrencyStrategy
 	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getCacheConcurrencyStrategy()
 	 * @generated
 	 */
-	int CACHE_CONCURRENCY_STRATEGY = 28;
+	int CACHE_CONCURRENCY_STRATEGY = 29;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.HbFetchType <em>Hb Fetch Type</em>}' enum.
@@ -1285,7 +1322,7 @@ public interface HbannotationPackage extends EPackage {
 	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getHbFetchType()
 	 * @generated
 	 */
-	int HB_FETCH_TYPE = 29;
+	int HB_FETCH_TYPE = 30;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.OnDeleteAction <em>On Delete Action</em>}' enum.
@@ -1294,7 +1331,7 @@ public interface HbannotationPackage extends EPackage {
 	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getOnDeleteAction()
 	 * @generated
 	 */
-	int ON_DELETE_ACTION = 30;
+	int ON_DELETE_ACTION = 31;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.GenerationTime <em>Generation Time</em>}' enum.
@@ -1304,7 +1341,7 @@ public interface HbannotationPackage extends EPackage {
 	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getGenerationTime()
 	 * @generated
 	 */
-	int GENERATION_TIME = 31;
+	int GENERATION_TIME = 32;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.NotFoundAction <em>Not Found Action</em>}' enum.
@@ -1314,7 +1351,7 @@ public interface HbannotationPackage extends EPackage {
 	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getNotFoundAction()
 	 * @generated
 	 */
-	int NOT_FOUND_ACTION = 32;
+	int NOT_FOUND_ACTION = 33;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.OptimisticLockType <em>Optimistic Lock Type</em>}' enum.
@@ -1324,7 +1361,7 @@ public interface HbannotationPackage extends EPackage {
 	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getOptimisticLockType()
 	 * @generated
 	 */
-	int OPTIMISTIC_LOCK_TYPE = 33;
+	int OPTIMISTIC_LOCK_TYPE = 34;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.PolymorphismType <em>Polymorphism Type</em>}' enum.
@@ -1334,7 +1371,7 @@ public interface HbannotationPackage extends EPackage {
 	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getPolymorphismType()
 	 * @generated
 	 */
-	int POLYMORPHISM_TYPE = 34;
+	int POLYMORPHISM_TYPE = 35;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.HbCascadeType <em>Hb Cascade Type</em>}' enum.
@@ -1344,7 +1381,7 @@ public interface HbannotationPackage extends EPackage {
 	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getHbCascadeType()
 	 * @generated
 	 */
-	int HB_CASCADE_TYPE = 35;
+	int HB_CASCADE_TYPE = 36;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.emf.teneo.hibernate.hbannotation.HbAnnotation <em>Hb Annotation</em>}'.
@@ -2127,6 +2164,27 @@ public interface HbannotationPackage extends EPackage {
 	EAttribute getHbEntity_Polymorphism();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize <em>Batch Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Batch Size</em>'.
+	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize
+	 * @generated
+	 */
+	EClass getBatchSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize#getSize <em>Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Size</em>'.
+	 * @see org.eclipse.emf.teneo.hibernate.hbannotation.BatchSize#getSize()
+	 * @see #getBatchSize()
+	 * @generated
+	 */
+	EAttribute getBatchSize_Size();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.emf.teneo.hibernate.hbannotation.CacheConcurrencyStrategy <em>Cache Concurrency Strategy</em>}'.
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @return the meta object for enum '<em>Cache Concurrency Strategy</em>'.
@@ -2876,6 +2934,24 @@ public interface HbannotationPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute HB_ENTITY__POLYMORPHISM = eINSTANCE.getHbEntity_Polymorphism();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.impl.BatchSizeImpl <em>Batch Size</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.BatchSizeImpl
+		 * @see org.eclipse.emf.teneo.hibernate.hbannotation.impl.HbannotationPackageImpl#getBatchSize()
+		 * @generated
+		 */
+		EClass BATCH_SIZE = eINSTANCE.getBatchSize();
+
+		/**
+		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute BATCH_SIZE__SIZE = eINSTANCE.getBatchSize_Size();
 
 		/**
 		 * The meta object literal for the '{@link org.eclipse.emf.teneo.hibernate.hbannotation.CacheConcurrencyStrategy <em>Cache Concurrency Strategy</em>}' enum.

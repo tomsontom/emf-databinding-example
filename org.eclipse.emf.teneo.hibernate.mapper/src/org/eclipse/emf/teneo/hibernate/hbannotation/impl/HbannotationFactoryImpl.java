@@ -2,7 +2,7 @@
  * <copyright>
  * </copyright>
  *
- * $Id: HbannotationFactoryImpl.java,v 1.14 2008/09/01 12:45:16 mtaal Exp $
+ * $Id: HbannotationFactoryImpl.java,v 1.15 2009/03/15 15:08:01 mtaal Exp $
  */
 package org.eclipse.emf.teneo.hibernate.hbannotation.impl;
 
@@ -101,6 +101,7 @@ public class HbannotationFactoryImpl extends EFactoryImpl implements Hbannotatio
 			case HbannotationPackage.FORMULA: return createFormula();
 			case HbannotationPackage.NOT_FOUND: return createNotFound();
 			case HbannotationPackage.HB_ENTITY: return createHbEntity();
+			case HbannotationPackage.BATCH_SIZE: return createBatchSize();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -417,6 +418,16 @@ public class HbannotationFactoryImpl extends EFactoryImpl implements Hbannotatio
 	public HbEntity createHbEntity() {
 		HbEntityImpl hbEntity = new HbEntityImpl();
 		return hbEntity;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BatchSize createBatchSize() {
+		BatchSizeImpl batchSize = new BatchSizeImpl();
+		return batchSize;
 	}
 
 	/**

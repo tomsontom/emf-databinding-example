@@ -127,7 +127,9 @@ public class LibraryExplorerViewPart extends ViewPart {
 		reg.addListener(new Listener() {
 
 			public void serviceAdded(ILibraryPersistenceService service) {
+				System.err.println("Add: " + service);
 				for (LibraryCategory c : cp.categories) {
+					
 					if (c.categoryName.equals(service.getCategory())) {
 						final LibraryCategory tmp = c;
 						viewer.getControl().getDisplay().asyncExec(
