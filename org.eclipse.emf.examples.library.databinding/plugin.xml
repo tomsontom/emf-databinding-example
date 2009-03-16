@@ -80,6 +80,10 @@
                name="selectedStockItemName"
                priorityLevel="workbench">
          </variable>
+         <variable
+               name="userGroup"
+               priorityLevel="workbench">
+         </variable>
       </sourceProvider>
    </extension>
    <extension

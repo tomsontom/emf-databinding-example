@@ -13,24 +13,51 @@ package org.eclipse.emf.examples.library.databinding;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.emf.examples.library.databinding.core.ILoginService;
+import org.eclipse.emf.examples.library.databinding.core.ILoginService.ILoginListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.AbstractSourceProvider;
+import org.eclipse.ui.PlatformUI;
 
 public class SourceProvider extends AbstractSourceProvider {
 	private ISelection selection;
+	private String group = "admin";
+	private ILoginListener listener = new ILoginListener(){
+	
+		public void userLoginSuccessful(String user, String group, String pwd) {
+			SourceProvider.this.group = group;
+			fireSourceChanged(org.eclipse.ui.ISources.WORKBENCH, ISources.USER_GROUP, group);
+		}
+	
+		public void userLoginFailed(String user, String pwd) {
+			
+		}
+	};
+	
+	public SourceProvider() {
+		ILoginService s = (ILoginService) PlatformUI.getWorkbench().getService(ILoginService.class);
+		if( s != null ) {
+			s.addLoginListener(listener);
+		}
+	}
 	
 	public void dispose() {
 		selection = null;
+		ILoginService s = (ILoginService) PlatformUI.getWorkbench().getService(ILoginService.class);
+		if( s != null ) {
+			s.removeLoginListener(listener);
+		}
 	}
 
 	public Map<String,Object> getCurrentState() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("selectedStockItemName", selection);
+		map.put("userGroup", group);
 		return map;
 	}
 
 	public String[] getProvidedSourceNames() {
-		return new String[] { "selectedStockItemName" };
+		return new String[] { "selectedStockItemName", "userGroup" };
 	}
 	
 	public void setItemSelection(ISelection selection) {

@@ -10,4 +10,19 @@ public class CDOLoginServiceImpl implements ILoginService {
 		return null;
 	}
 
+	public void addLoginListener(ILoginListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void removeLoginListener(ILoginListener listener) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
