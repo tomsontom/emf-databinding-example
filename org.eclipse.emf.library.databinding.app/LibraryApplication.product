@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="library.app" id="org.eclipse.emf.library.databinding.app.product" application="org.eclipse.emf.library.databinding.app.application" useFeatures="false">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <splash
+      location="org.eclipse.emf.library.databinding.app"
+      handlerType="interactive" />
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="com.ibm.icu"/>
+      <plugin id="com.springsource.antlr"/>
+      <plugin id="com.springsource.javassist"/>
+      <plugin id="com.springsource.javax.xml.stream"/>
+      <plugin id="com.springsource.net.sf.cglib"/>
+      <plugin id="com.springsource.org.apache.commons.logging"/>
+      <plugin id="com.springsource.org.dom4j"/>
+      <plugin id="com.springsource.org.objectweb.asm"/>
+      <plugin id="com.springsource.org.objectweb.asm.attrs"/>
+      <plugin id="org.apache.commons.collections"/>
+      <plugin id="org.apache.commons.lang"/>
+      <plugin id="org.eclipse.core.commands"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.databinding"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.emf.cdo"/>
+      <plugin id="org.eclipse.emf.cdo.common"/>
+      <plugin id="org.eclipse.emf.common"/>
+      <plugin id="org.eclipse.emf.databinding"/>
+      <plugin id="org.eclipse.emf.databinding.edit"/>
+      <plugin id="org.eclipse.emf.ecore"/>
+      <plugin id="org.eclipse.emf.ecore.xmi"/>
+      <plugin id="org.eclipse.emf.edit"/>
+      <plugin id="org.eclipse.emf.example.library.service"/>
+      <plugin id="org.eclipse.emf.examples.library.databinding"/>
+      <plugin id="org.eclipse.emf.examples.library.databinding.core"/>
+      <plugin id="org.eclipse.emf.library.databinding.app"/>
+      <plugin id="org.eclipse.emf.teneo"/>
+      <plugin id="org.eclipse.emf.teneo.annotations"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.ds"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jface"/>
+      <plugin id="org.eclipse.jface.databinding"/>
+      <plugin id="org.eclipse.net4j"/>
+      <plugin id="org.eclipse.net4j.util"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.services"/>
+      <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.carbon.macosx" fragment="true"/>
+      <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.carbon" fragment="true"/>
+      <plugin id="org.eclipse.ui.forms"/>
+      <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.hibernate"/>
+   </plugins>
+
+
+</product>
