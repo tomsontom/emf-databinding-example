@@ -3,7 +3,7 @@
  * reserved. This program and the accompanying materials are made available under the terms of the
  * Eclipse Public License v1.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html Contributors: Martin Taal - Initial API and
- * implementation </copyright> $Id: StoreUtil.java,v 1.22 2009/03/15 08:09:24 mtaal Exp $
+ * implementation </copyright> $Id: StoreUtil.java,v 1.23 2009/03/16 08:33:26 mtaal Exp $
  */
 
 package org.eclipse.emf.teneo.util;
@@ -35,6 +35,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.impl.EStoreEObjectImpl;
+import org.eclipse.emf.ecore.impl.EStoreEObjectImpl.EStoreEList;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -51,7 +53,7 @@ import org.eclipse.emf.teneo.type.PersistentStoreAdapter;
  * Contains different util methods.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  */
 
 public class StoreUtil {
@@ -136,6 +138,19 @@ public class StoreUtil {
 				&& eclass.getEStructuralFeature("value") != null;
 	}
 
+	public static boolean isEStoreList(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (o instanceof EStoreEList<?>) {
+			return true;
+		}
+		if (o instanceof EStoreEObjectImpl.BasicEStoreEList) {
+			return true;
+		}
+		return false;
+	}
+	
 	/** The nsprefix, eclass separator */
 	// private static final String NSPREFIX_ECLASS_SEPARATOR = ".";
 	/** Returns the name of the entity used for this feature map entry */

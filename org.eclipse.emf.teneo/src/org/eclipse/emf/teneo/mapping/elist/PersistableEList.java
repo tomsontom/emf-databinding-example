@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: PersistableEList.java,v 1.19 2009/03/15 23:25:10 mtaal Exp $
+ * $Id: PersistableEList.java,v 1.20 2009/03/16 07:08:09 mtaal Exp $
  */
 
 package org.eclipse.emf.teneo.mapping.elist;
@@ -39,7 +39,7 @@ import org.eclipse.emf.teneo.util.StoreUtil;
  * PersistentList in Hibernate) is the delegate for this elist.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
 
 public abstract class PersistableEList<E> extends DelegatingEcoreEList<E>
@@ -172,10 +172,13 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E>
 	}
 
 	/**
-	 * If this instance is again wrapped then assume that the wrapper will be
-	 * smart enough to do all the inverse things....
+	 * If this instance is again wrapped by a NotifyingList then assume that the
+	 * wrapper will be smart enough to do all the inverse things.... Note that
+	 * the check if a list is wrapped is done once and then the result is
+	 * cached. So this assumes that a list will not be re-wrapped.
 	 * 
-	 * @return <code>false</code>.
+	 * @return false if the list is wrapped, otherwise the super hasInverse is
+	 *         called.
 	 */
 	@Override
 	protected boolean hasInverse() {

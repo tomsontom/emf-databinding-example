@@ -77,6 +77,7 @@ public class WriterForm extends AbstractForm {
 
 	private static final String PREFIX = "org.eclipse.emf.examples.library.databinding.writer";
 	private static final String WRITER_TABLE = PREFIX + ".table";
+	private TableViewer writerViewer;
 
 	@Override
 	public void doCreateForm(TabFolder folder, TabItem item,
@@ -94,7 +95,7 @@ public class WriterForm extends AbstractForm {
 		TableColumnLayout layout = new TableColumnLayout();
 		comp.setLayout(layout);
 
-		TableViewer writerViewer = new TableViewer(comp, SWT.FULL_SELECTION
+		writerViewer = new TableViewer(comp, SWT.FULL_SELECTION
 				| SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		writerViewer.getTable().setHeaderVisible(true);
 		writerViewer.getTable().setLinesVisible(true);
@@ -278,6 +279,7 @@ public class WriterForm extends AbstractForm {
 	public void postExecuteSuccess(String commandId, Object returnValue) {
 		if (commandId.equals(CreateNewWriterHandler.commandId)) {
 			getItem().getParent().setSelection(getItem());
+			writerViewer.editElement(returnValue, 0);
 		}
 	}
 

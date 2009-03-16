@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: NonLoadingEContentsEList.java,v 1.5 2008/02/28 07:08:33 mtaal Exp $
+ * $Id: NonLoadingEContentsEList.java,v 1.6 2009/03/16 08:33:26 mtaal Exp $
  */
 
 package org.eclipse.emf.teneo.resource;
@@ -23,16 +23,19 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.InternalEObject.EStore;
 import org.eclipse.emf.ecore.util.EContentsEList;
 import org.eclipse.emf.teneo.mapping.elist.PersistableEList;
 import org.eclipse.emf.teneo.mapping.elist.PersistableEMap;
 import org.eclipse.emf.teneo.mapping.elist.PersistableFeatureMap;
+import org.eclipse.emf.teneo.util.StoreUtil;
 
 /**
  * Is a contents elist which will only iterate over loaded efeatures.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
 public class NonLoadingEContentsEList<E> extends EContentsEList<E> {
@@ -42,10 +45,21 @@ public class NonLoadingEContentsEList<E> extends EContentsEList<E> {
 			boolean forValidation) {
 		final ArrayList<EStructuralFeature> result = new ArrayList<EStructuralFeature>();
 		for (EReference eref : eObject.eClass().getEAllReferences()) {
-			if (!eref.isContainment())
+			if (!eref.isContainment()) {
 				continue;
+			}
 			if (eref.isMany()) {
 				List<?> list = (List<?>) eObject.eGet(eref);
+
+				// in case of an estore the list has to be retrieved in a
+				// special
+				// way
+				if (StoreUtil.isEStoreList(list)) {
+					final EStore eStore = ((InternalEObject) eObject).eStore();
+					list = (List<?>) eStore.get((InternalEObject) eObject,
+							eref, EStore.NO_INDEX);
+				}
+
 				if ((list instanceof PersistableEList)
 						&& ((PersistableEList<?>) list).isLoaded()) {
 					result.add(eref);
