@@ -8,6 +8,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.emf.examples.library.databinding;bundle-version="1.0.0",
  org.eclipse.emf.example.library.service;bundle-version="1.0.0",
- org.eclipse.equinox.ds;bundle-version="1.0.0"
+ org.eclipse.equinox.ds;bundle-version="1.0.0",
+ org.eclipse.emf.examples.library.databinding.core;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

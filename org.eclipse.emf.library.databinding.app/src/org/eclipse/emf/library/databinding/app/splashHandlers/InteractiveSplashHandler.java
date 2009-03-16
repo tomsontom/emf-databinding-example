@@ -1,6 +1,7 @@
 
 package org.eclipse.emf.library.databinding.app.splashHandlers;
 
+import org.eclipse.emf.examples.library.databinding.core.ILoginService;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -13,6 +14,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.splash.AbstractSplashHandler;
 
 /**
@@ -41,6 +43,8 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 	
 	private boolean fAuthenticated;
 	
+	private ILoginService loginService;
+	
 	/**
 	 * 
 	 */
@@ -61,17 +65,23 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 	public void init(final Shell splash) {
 		// Store the shell
 		super.init(splash);
-		// Configure the shell layout
-		configureUISplash();
-		// Create UI
-		createUI();		
-		// Create UI listeners
-		createUIListeners();
-		// Force the splash screen to layout
-		splash.layout(true);
-		// Keep the splash screen visible and prevent the RCP application from 
-		// loading until the close button is clicked.
-		doEventLoop();
+		
+		loginService = (ILoginService) PlatformUI.getWorkbench().getService(ILoginService.class);
+		
+		if( loginService != null) {
+			// Configure the shell layout
+			configureUISplash();
+			// Create UI
+			createUI();		
+			// Create UI listeners
+			createUIListeners();
+			// Force the splash screen to layout
+			splash.layout(true);
+			// Keep the splash screen visible and prevent the RCP application from 
+			// loading until the close button is clicked.
+			doEventLoop();
+		}
+
 	}
 	
 	/**
@@ -137,7 +147,10 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 		// any password
 		if ((username.length() > 0) &&
 				(password.length() > 0)) {
-			fAuthenticated = true;
+			if( loginService.login(username, password).isOK() ) {
+				fAuthenticated = true;
+			}
+			
 		} else {
 			MessageDialog.openError(
 					getSplash(),
@@ -180,7 +193,7 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 		// Configure layout data
 		GridData data = new GridData(SWT.NONE, SWT.NONE, false, false);
 		data.widthHint = F_BUTTON_WIDTH_HINT;	
-		data.verticalIndent = 10;
+//		data.verticalIndent = 10;
 		fButtonCancel.setLayoutData(data);
 	}
 
@@ -194,8 +207,9 @@ public class InteractiveSplashHandler extends AbstractSplashHandler {
 		// Configure layout data
 		GridData data = new GridData(SWT.NONE, SWT.NONE, false, false);
 		data.widthHint = F_BUTTON_WIDTH_HINT;
-		data.verticalIndent = 10;
+//		data.verticalIndent = 10;
 		fButtonOK.setLayoutData(data);
+		fCompositeLogin.getShell().setDefaultButton(fButtonOK);
 	}
 
 	/**

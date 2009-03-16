@@ -1,13 +1,14 @@
 package org.eclipse.emf.example.library.service.cdo.internal;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.examples.library.databinding.core.ILoginService;
 
 public class CDOLoginServiceImpl implements ILoginService {
 
 	public IStatus login(String username, String password) {
 		// TODO Auto-generated method stub
-		return null;
+		return Status.OK_STATUS;
 	}
 
 	public void addLoginListener(ILoginListener listener) {
