@@ -40,15 +40,27 @@
       </key>
    </extension>
    <extension
+         id="product"
          point="org.eclipse.core.runtime.products">
       <product
-            application="org.eclipse.emf.library.databinding.app.product1"
-            name="Library">
-            <property
-               name="aboutText"
-               value="Library Demo">
+            application="org.eclipse.emf.library.databinding.app.application"
+            name="library.app">
+         <property
+               name="appName"
+               value="library.app">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.splashHandlers">
+      <splashHandler
+            class="org.eclipse.emf.library.databinding.app.splashHandlers.InteractiveSplashHandler"
+            id="org.eclipse.emf.library.databinding.app.splashHandlers.interactive">
+      </splashHandler>
+      <splashHandlerProductBinding
+            productId="org.eclipse.emf.library.databinding.app.product"
+            splashId="org.eclipse.emf.library.databinding.app.splashHandlers.interactive">
+      </splashHandlerProductBinding>
    </extension>
 
 </plugin>
