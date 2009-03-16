@@ -60,7 +60,7 @@ import org.hibernate.property.Setter;
  * getSetter methods are called it returns itself.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.28 $
+ * @version $Revision: 1.29 $
  */
 @SuppressWarnings("unchecked")
 public class EListPropertyHandler implements Getter, Setter, PropertyAccessor,
@@ -144,7 +144,7 @@ public class EListPropertyHandler implements Getter, Setter, PropertyAccessor,
 
 		Object obj = ((EObject) owner).eGet(eFeature);
 
-		if (isEStoreList(obj)) {
+		if (StoreUtil.isEStoreList(obj)) {
 			final EStore eStore = ((InternalEObject) owner).eStore();
 			// the call to size forces a load, this is a trick to
 			// force the estore to create a list, otherwise the .get
@@ -208,19 +208,6 @@ public class EListPropertyHandler implements Getter, Setter, PropertyAccessor,
 		return obj;
 	}
 
-	protected boolean isEStoreList(Object o) {
-		if (o == null) {
-			return false;
-		}
-		if (o instanceof EStoreEList<?>) {
-			return true;
-		}
-		if (o instanceof EStoreEObjectImpl.BasicEStoreEList) {
-			return true;
-		}
-		return false;
-	}
-
 	protected String getFieldName(Object owner) {
 		return eFeature.getName();
 	}
@@ -244,7 +231,7 @@ public class EListPropertyHandler implements Getter, Setter, PropertyAccessor,
 
 		Object obj = ((EObject) owner).eGet(eFeature);
 
-		if (isEStoreList(obj)) {
+		if (StoreUtil.isEStoreList(obj)) {
 			final EStore eStore = ((InternalEObject) owner).eStore();
 			// the call to size forces a load, this is a trick to
 			// force the estore to create a list, otherwise the .get
@@ -324,7 +311,7 @@ public class EListPropertyHandler implements Getter, Setter, PropertyAccessor,
 			Object currentValue = EcoreAccess.getManyEFeatureValue(eFeature,
 					(BasicEObjectImpl) target);
 
-			if (isEStoreList(currentValue)) {
+			if (StoreUtil.isEStoreList(currentValue)) {
 				final EStore eStore = ((InternalEObject) target).eStore();
 				if (eStore.size((InternalEObject) target, eFeature) != -1) {
 					currentValue = eStore.get((InternalEObject) target,

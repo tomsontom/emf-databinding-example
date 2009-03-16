@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: PersistableEList.java,v 1.20 2009/03/16 07:08:09 mtaal Exp $
+ * $Id: PersistableEList.java,v 1.21 2009/03/16 21:39:42 mtaal Exp $
  */
 
 package org.eclipse.emf.teneo.mapping.elist;
@@ -26,6 +26,7 @@ import java.util.ListIterator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotifyingList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -39,7 +40,7 @@ import org.eclipse.emf.teneo.util.StoreUtil;
  * PersistentList in Hibernate) is the delegate for this elist.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 
 public abstract class PersistableEList<E> extends DelegatingEcoreEList<E>
@@ -182,19 +183,32 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E>
 	 */
 	@Override
 	protected boolean hasInverse() {
-		// try to be efficient
-		if (isThisListWrapped == null) {
-			final Object value = getEObject().eGet(getEStructuralFeature());
-			isThisListWrapped = value != this
-					&& value instanceof NotifyingList<?>;
-		}
-		if (isThisListWrapped) {
+		if (isWrapped()) {
 			return false;
 		}
 
 		return super.hasInverse();
 	}
-
+	
+	  @Override
+	  protected void dispatchNotification(Notification notification)
+	  {
+		  // don't notify anyone as the wrapper should do that
+		  if (isWrapped()) {
+			  return; 
+		  }
+		  super.dispatchNotification(notification);
+	  }
+	  
+	  private boolean isWrapped() {
+			if (isThisListWrapped == null) {
+				final Object value = getEObject().eGet(getEStructuralFeature());
+				isThisListWrapped = value != this
+						&& value instanceof NotifyingList<?>;
+			}
+			return isThisListWrapped;
+	  }
+		  
 	/** Replace the delegating list and set isLoaded = false */
 	public void replaceDelegate(List<E> newDelegate) {
 		// disabled this assertion because in case of a session refresh it is

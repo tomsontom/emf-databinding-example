@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Cdo
-Bundle-SymbolicName: org.eclipse.emf.example.library.service.cdo
+Bundle-SymbolicName: org.eclipse.emf.example.library.service.cdo;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.emf.example.library.service.cdo.internal.Activator
 Require-Bundle: org.eclipse.core.runtime,
@@ -10,7 +10,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.databinding;bundle-version="1.2.0",
  org.eclipse.net4j;bundle-version="2.0.0",
  org.eclipse.net4j.tcp;bundle-version="2.0.0",
- org.eclipse.emf.cdo;bundle-version="2.0.0"
+ org.eclipse.emf.cdo;bundle-version="2.0.0",
+ org.eclipse.ui;bundle-version="3.5.0",
+ org.eclipse.emf.examples.library.databinding.core;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.emf.example.library.service.cdo

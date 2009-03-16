@@ -42,6 +42,11 @@ public class CreateNewWriterHandler extends AbstractHandler {
 				
 				if( cmd.canExecute() ) {
 					service.getEditingDomain().getCommandStack().execute(cmd);
+					
+					for( Writer tmp: parent.getWriters() ) {
+						System.err.println(tmp + " => " + tmp.hashCode());
+					}
+					
 					return w;	
 				} else {
 					throw new ExecutionException("Could not execute add writer command.");
