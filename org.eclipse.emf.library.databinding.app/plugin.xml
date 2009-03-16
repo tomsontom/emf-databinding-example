@@ -39,5 +39,16 @@
             sequence="M1+Y">
       </key>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.emf.library.databinding.app.product1"
+            name="Library">
+            <property
+               name="aboutText"
+               value="Library Demo">
+         </property>
+      </product>
+   </extension>
 
 </plugin>
