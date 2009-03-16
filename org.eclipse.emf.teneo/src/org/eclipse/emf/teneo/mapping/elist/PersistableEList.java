@@ -12,7 +12,7 @@
  *
  * </copyright>
  *
- * $Id: PersistableEList.java,v 1.18 2008/04/11 23:43:43 mtaal Exp $
+ * $Id: PersistableEList.java,v 1.19 2009/03/15 23:25:10 mtaal Exp $
  */
 
 package org.eclipse.emf.teneo.mapping.elist;
@@ -26,6 +26,7 @@ import java.util.ListIterator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.emf.common.notify.NotifyingList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -33,21 +34,25 @@ import org.eclipse.emf.ecore.util.DelegatingEcoreEList;
 import org.eclipse.emf.teneo.util.StoreUtil;
 
 /**
- * A persistable elist which can be used by different or mappers. This persistable elist works
- * around the idea that the persisted list (e.g. PersistentList in Hibernate) is the delegate for
- * this elist.
+ * A persistable elist which can be used by different or mappers. This
+ * persistable elist works around the idea that the persisted list (e.g.
+ * PersistentList in Hibernate) is the delegate for this elist.
  * 
  * @author <a href="mailto:mtaal@elver.org">Martin Taal</a>
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 
-public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implements PersistableDelegateList<E> {
+public abstract class PersistableEList<E> extends DelegatingEcoreEList<E>
+		implements PersistableDelegateList<E> {
 	private static final long serialVersionUID = 1L;
 
 	/** The logger */
 	private static Log log = LogFactory.getLog(PersistableEList.class);
 
-	/** The actual list, must never be an elist as notifications etc. are done by this list */
+	/**
+	 * The actual list, must never be an elist as notifications etc. are done by
+	 * this list
+	 */
 	protected List<E> delegate;
 
 	/** The structural feature modeled by this list */
@@ -65,8 +70,11 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/** The string used for logging */
 	protected final String logString;
 
+	protected Boolean isThisListWrapped;
+
 	/** Constructor */
-	public PersistableEList(InternalEObject owner, EStructuralFeature feature, List<E> list) {
+	public PersistableEList(InternalEObject owner, EStructuralFeature feature,
+			List<E> list) {
 		super(owner);
 		estructuralFeature = feature;
 		if (list == null) {
@@ -75,17 +83,18 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 		} else if (list instanceof EList) {
 			delegate = new ArrayList<E>(list);
 			isLoaded = true;
-		} else if (list instanceof ArrayList) { // already loaded lists are packaged in an elist
+		} else if (list instanceof ArrayList) { // already loaded lists are
+			// packaged in an elist
 			delegate = list;
 			isLoaded = list.size() > 0;
 		} else {
 			delegate = list;
 		}
 
-		logString =
-				"EList of type: " + this.getClass().getName() + " of member " + estructuralFeature.getName() +
-						" owned by " + owner.getClass().getName() + " with delegate list " +
-						delegate.getClass().getName();
+		logString = "EList of type: " + this.getClass().getName()
+				+ " of member " + estructuralFeature.getName() + " owned by "
+				+ owner.getClass().getName() + " with delegate list "
+				+ delegate.getClass().getName();
 
 		log.debug("Created persistable list " + logString);
 	}
@@ -103,7 +112,8 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	}
 
 	/** Takes care of deserializing the efeature */
-	private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
+	private void readObject(java.io.ObjectInputStream in) throws IOException,
+			ClassNotFoundException {
 		in.defaultReadObject();
 		estructuralFeature = StoreUtil.stringToStructureFeature(eFeaturePath);
 	}
@@ -111,7 +121,8 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/*
 	 * Get the underlying efeature
 	 * 
-	 * @see org.eclipse.emf.ecore.util.DelegatingEcoreEList#getEStructuralFeature()
+	 * @see
+	 * org.eclipse.emf.ecore.util.DelegatingEcoreEList#getEStructuralFeature()
 	 */
 	@Override
 	public EStructuralFeature getEStructuralFeature() {
@@ -140,7 +151,8 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	 * @see org.eclipse.emf.ecore.util.DelegatingEcoreEList#getFeatureID()
 	 */
 	@Override
-	// todo: get rid of the override when the issue with the delegatingecorelist.getFeatureId is
+	// todo: get rid of the override when the issue with the
+	// delegatingecorelist.getFeatureId is
 	// solved.
 	public int getFeatureID() {
 		return owner.eClass().getFeatureID(estructuralFeature);
@@ -159,11 +171,34 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 		return delegate;
 	}
 
+	/**
+	 * If this instance is again wrapped then assume that the wrapper will be
+	 * smart enough to do all the inverse things....
+	 * 
+	 * @return <code>false</code>.
+	 */
+	@Override
+	protected boolean hasInverse() {
+		// try to be efficient
+		if (isThisListWrapped == null) {
+			final Object value = getEObject().eGet(getEStructuralFeature());
+			isThisListWrapped = value != this
+					&& value instanceof NotifyingList<?>;
+		}
+		if (isThisListWrapped) {
+			return false;
+		}
+
+		return super.hasInverse();
+	}
+
 	/** Replace the delegating list and set isLoaded = false */
 	public void replaceDelegate(List<E> newDelegate) {
-		// disabled this assertion because in case of a session refresh it is possible
+		// disabled this assertion because in case of a session refresh it is
+		// possible
 		// that the list is replaced by a persistent list
-		// AssertUtil.assertTrue("This elist " + logString + " already wraps an or specific list",
+		// AssertUtil.assertTrue("This elist " + logString +
+		// " already wraps an or specific list",
 		// !isPersistencyWrapped());
 		delegate = newDelegate;
 		isLoaded = false;
@@ -174,7 +209,10 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 		return logString;
 	}
 
-	/** Performs the load action if not yet oaded and sends out the load notification. */
+	/**
+	 * Performs the load action if not yet oaded and sends out the load
+	 * notification.
+	 */
 	protected void load() {
 		if (isLoaded) {
 			return;
@@ -195,12 +233,14 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 		try {
 			// only set to false if it was true
 			if (eDeliver) {
-				log.debug("Owner " + owner.getClass() + " set eDeliver to false");
+				log.debug("Owner " + owner.getClass()
+						+ " set eDeliver to false");
 				owner.eSetDeliver(false);
 				setDeliver = true;
 			}
 		} catch (UnsupportedOperationException e) {
-			// in this case the eSetDeliver was not overridden from the baseclass
+			// in this case the eSetDeliver was not overridden from the
+			// baseclass
 			// ignore
 		}
 		try {
@@ -212,7 +252,8 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 				owner.eSetDeliver(eDeliver);
 			}
 		}
-		// StoreUtil.dispatchEListLoadNotification(owner, this, getEStructuralFeature());
+		// StoreUtil.dispatchEListLoadNotification(owner, this,
+		// getEStructuralFeature());
 	}
 
 	/*
@@ -223,7 +264,8 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	@Override
 	protected boolean isNotificationRequired() {
 		if (!isLoaded() || isLoading()) {
-			return false; // not yet loaded so no notifications, prevents infinite looping
+			return false; // not yet loaded so no notifications, prevents
+			// infinite looping
 		}
 		return super.isNotificationRequired();
 	}
@@ -248,20 +290,26 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 		return isLoading;
 	}
 
-	/** The load method which should be overridden by the subclass to add lazyloading */
+	/**
+	 * The load method which should be overridden by the subclass to add
+	 * lazyloading
+	 */
 	protected abstract void doLoad();
 
 	/** Returns true if the wrapped list is a persistency layer specific list */
 	public abstract boolean isPersistencyWrapped();
 
-	// ---------------------------- Overloaded delegate methods --------------------------
-	// These methods have been overridden to a load action before the backing list is
+	// ---------------------------- Overloaded delegate methods
+	// --------------------------
+	// These methods have been overridden to a load action before the backing
+	// list is
 	// accessed.
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateAdd(int, java.lang.Object)
+	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateAdd(int,
+	 * java.lang.Object)
 	 */
 	@Override
 	protected void delegateAdd(int index, E object) {
@@ -272,7 +320,8 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateAdd(java.lang.Object)
+	 * @see
+	 * org.eclipse.emf.common.util.DelegatingEList#delegateAdd(java.lang.Object)
 	 */
 	@Override
 	protected void delegateAdd(E object) {
@@ -305,7 +354,9 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateContains(java.lang.Object)
+	 * @see
+	 * org.eclipse.emf.common.util.DelegatingEList#delegateContains(java.lang
+	 * .Object)
 	 */
 	@Override
 	protected boolean delegateContains(Object object) {
@@ -316,7 +367,9 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateContainsAll(java.util.Collection)
+	 * @see
+	 * org.eclipse.emf.common.util.DelegatingEList#delegateContainsAll(java.
+	 * util.Collection)
 	 */
 	@Override
 	protected boolean delegateContainsAll(Collection<?> collection) {
@@ -327,7 +380,9 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateEquals(java.lang.Object)
+	 * @see
+	 * org.eclipse.emf.common.util.DelegatingEList#delegateEquals(java.lang.
+	 * Object)
 	 */
 	@Override
 	protected boolean delegateEquals(Object object) {
@@ -360,7 +415,9 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateIndexOf(java.lang.Object)
+	 * @see
+	 * org.eclipse.emf.common.util.DelegatingEList#delegateIndexOf(java.lang
+	 * .Object)
 	 */
 	@Override
 	protected int delegateIndexOf(Object object) {
@@ -393,7 +450,9 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateLastIndexOf(java.lang.Object)
+	 * @see
+	 * org.eclipse.emf.common.util.DelegatingEList#delegateLastIndexOf(java.
+	 * lang.Object)
 	 */
 	@Override
 	protected int delegateLastIndexOf(Object object) {
@@ -425,7 +484,8 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateSet(int, java.lang.Object)
+	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateSet(int,
+	 * java.lang.Object)
 	 */
 	@Override
 	protected E delegateSet(int index, E object) {
@@ -458,7 +518,9 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.emf.common.util.DelegatingEList#delegateToArray(java.lang.Object[])
+	 * @see
+	 * org.eclipse.emf.common.util.DelegatingEList#delegateToArray(java.lang
+	 * .Object[])
 	 */
 	@Override
 	protected <T> T[] delegateToArray(T[] array) {
@@ -493,7 +555,10 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 		return super.basicIterator();
 	}
 
-	/** If not loaded then basicIterator will always return a false for hasNext/hasPrevious */
+	/**
+	 * If not loaded then basicIterator will always return a false for
+	 * hasNext/hasPrevious
+	 */
 	@Override
 	public ListIterator<E> basicListIterator() {
 		if (!isLoaded()) {
@@ -515,7 +580,10 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 		return super.basicListIterator();
 	}
 
-	/** If not loaded then basicIterator will always return a false for hasNext/hasPrevious */
+	/**
+	 * If not loaded then basicIterator will always return a false for
+	 * hasNext/hasPrevious
+	 */
 	@Override
 	public ListIterator<E> basicListIterator(int index) {
 		if (!isLoaded()) {
@@ -539,11 +607,12 @@ public abstract class PersistableEList<E> extends DelegatingEcoreEList<E> implem
 	}
 
 	/**
-	 * Is overridden because it can't use delegates for equality because the delegate (a hibernate
-	 * or jpox list) will try to be equal with this persistable elist.
+	 * Is overridden because it can't use delegates for equality because the
+	 * delegate (a hibernate or jpox list) will try to be equal with this
+	 * persistable elist.
 	 * 
-	 * This method does jvm instance equality because doing a full-fledge equal would result in a
-	 * load of the list.
+	 * This method does jvm instance equality because doing a full-fledge equal
+	 * would result in a load of the list.
 	 */
 	@Override
 	public boolean equals(Object object) {
