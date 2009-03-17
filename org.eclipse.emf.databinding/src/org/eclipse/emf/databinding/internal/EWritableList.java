@@ -68,7 +68,7 @@ public class EWritableList<Type> extends AbstractObservableList implements
 				case Notification.ADD: {
 					diff = Diffs.createListDiff(Diffs.createListDiffEntry(msg
 							.getPosition(), true, msg.getNewValue()));
-					fireListChange(diff);
+//					fireListChange(diff);
 					break;
 				}
 				case Notification.ADD_MANY: {
@@ -82,13 +82,13 @@ public class EWritableList<Type> extends AbstractObservableList implements
 								position++, true, newValue);
 					}
 					diff = Diffs.createListDiff(listDiffEntries);
-					fireListChange(diff);
+//					fireListChange(diff);
 					break;
 				}
 				case Notification.REMOVE: {
 					diff = Diffs.createListDiff(Diffs.createListDiffEntry(msg
 							.getPosition(), false, msg.getOldValue()));
-					fireListChange(diff);
+//					fireListChange(diff);
 					break;
 				}
 				case Notification.REMOVE_MANY: {
@@ -102,7 +102,7 @@ public class EWritableList<Type> extends AbstractObservableList implements
 								position++, false, oldValue);
 					}
 					diff = Diffs.createListDiff(listDiffEntries);
-					fireListChange(diff);
+//					fireListChange(diff);
 					break;
 				}
 				case Notification.MOVE: {
@@ -113,7 +113,7 @@ public class EWritableList<Type> extends AbstractObservableList implements
 					listDiffEntries[1] = Diffs.createListDiffEntry(msg
 							.getPosition(), true, movedValue);
 					diff = Diffs.createListDiff(listDiffEntries);
-					fireListChange(diff);
+//					fireListChange(diff);
 					break;
 				}
 				case Notification.UNSET: {
@@ -122,8 +122,17 @@ public class EWritableList<Type> extends AbstractObservableList implements
 					//
 					return;
 				}
+				default: {
+					throw new RuntimeException("unhandled case");
+				}
 				}
 
+				getRealm().exec(new Runnable() {
+					public void run() {
+						fireListChange(diff);
+					}
+				});
+				
 				// System.err.println("CHANGE: " +
 				// diff.getDifferences()[0].getElement());
 
