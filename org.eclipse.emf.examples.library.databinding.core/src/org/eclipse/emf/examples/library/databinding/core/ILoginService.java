@@ -10,6 +10,10 @@ public interface ILoginService {
 	
 	public String getUsername();
 	
+	public String getPassword();
+	
+	public String getGroup();
+	
 	public void addLoginListener(ILoginListener listener);
 	
 	public void removeLoginListener(ILoginListener listener);

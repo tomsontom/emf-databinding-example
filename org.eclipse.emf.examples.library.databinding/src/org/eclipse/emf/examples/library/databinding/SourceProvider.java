@@ -37,6 +37,7 @@ public class SourceProvider extends AbstractSourceProvider {
 	public SourceProvider() {
 		ILoginService s = (ILoginService) PlatformUI.getWorkbench().getService(ILoginService.class);
 		if( s != null ) {
+			group = s.getGroup() != null ? s.getGroup() : "admin";
 			s.addLoginListener(listener);
 		}
 	}

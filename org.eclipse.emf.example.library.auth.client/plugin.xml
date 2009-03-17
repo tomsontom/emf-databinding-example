@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.services">
       <serviceFactory
-            factoryClass="org.eclipse.emf.example.library.service.cdo.internal.LoginServiceFactory">
+            factoryClass="org.eclipse.emf.example.library.auth.client.LoginServiceFactory">
          <service
                serviceClass="org.eclipse.emf.examples.library.databinding.core.ILoginService"></service>
       </serviceFactory>

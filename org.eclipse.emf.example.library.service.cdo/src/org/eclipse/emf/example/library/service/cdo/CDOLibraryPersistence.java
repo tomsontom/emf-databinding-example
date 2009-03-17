@@ -12,9 +12,13 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.example.library.service.BaseLibraryPersistenceService;
 import org.eclipse.emf.example.library.service.cdo.internal.Activator;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
+import org.eclipse.emf.examples.library.databinding.core.ILoginService;
+import org.eclipse.net4j.connector.ConnectorCredentialsInjector;
 import org.eclipse.net4j.connector.IConnector;
 import org.eclipse.net4j.tcp.TCPUtil;
 import org.eclipse.net4j.util.container.IPluginContainer;
+import org.eclipse.net4j.util.security.PasswordCredentialsProvider;
+import org.eclipse.ui.PlatformUI;
 
 public abstract class CDOLibraryPersistence extends BaseLibraryPersistenceService {
 	private CDOResource resource;
@@ -30,6 +34,13 @@ public abstract class CDOLibraryPersistence extends BaseLibraryPersistenceServic
 	}
 
 	private void init() {
+		ILoginService loginService = (ILoginService) PlatformUI.getWorkbench().getService(ILoginService.class);
+		
+		PasswordCredentialsProvider pv = new PasswordCredentialsProvider(loginService.getUsername(),loginService.getPassword());
+		ConnectorCredentialsInjector ccj;
+		ccj = new ConnectorCredentialsInjector(null, pv);
+		IPluginContainer.INSTANCE.addPostProcessor(ccj);
+		
 		IConnector connector = TCPUtil.getConnector(IPluginContainer.INSTANCE, doGetHost() + ":" + doGetPort() );
 		CDOSessionConfiguration configuration = CDOUtil.createSessionConfiguration();
 	    configuration.setConnector(connector);
