@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdoServer>
+	
+	<!--acceptor type="http"/ -->
+	
+	<acceptor type="tcp" listenAddr="0.0.0.0" port="2036">
+		<!-- negotiator type="challenge" description="/Users/tomschindl/Documents/ecipse_ws/emf-databinding/.metadata/.cdodb/db"/ -->
+	</acceptor>
+	
+	<repository name="repo1">
+		<property name="overrideUUID" value="1ff5d226-b1f0-40fb-aba2-0c31b38c764f"/>
+		<property name="supportingAudits" value="true"/>
+		<property name="verifyingRevisions" value="false"/>
+		<property name="currentLRUCapacity" value="10000"/>
+		<property name="revisedLRUCapacity" value="100"/>
+		
+		<store type="db">
+			<mappingStrategy type="horizontal">
+				<property name="qualifiedNames" value="false"/>
+				<property name="toManyReferences" value="ONE_TABLE_PER_REFERENCE"/>
+				<property name="toOneReferences" value="LIKE_ATTRIBUTES"/>
+			</mappingStrategy>
+			
+			<!-- Old setting <jdbcDelegate type="statement" />
+			     is now replaced by preparedStatement: --> 
+			<jdbcDelegate type="preparedStatement" > 			
+			    <!-- to explicitly force prepared statement caching (e.g., if statement pooling is not supported 
+			         by the JDBC driver, use
+			   <property name="cacheStatements" value="enabled" /> 
+			         Else, the implicit default is:
+			   <property name="cacheStatements" value="guess" />
+			         Which guesses the correct setting based on the JDBC driver's metadata.
+			         Also supported is the third setting "disabled".
+			   -->
+			</jdbcDelegate>
+			<dbAdapter name="derby-embedded"/>
+			<dataSource class="org.apache.derby.jdbc.EmbeddedDataSource"
+				databaseName="/Users/tomschindl/Documents/ecipse_ws/emf-databinding/.metadata/.cdodb/db"
+				createDatabase="create"/>
+			
+			<!--<dbAdapter name="hsqldb"/>
+			<dataSource class="org.eclipse.net4j.db.hsqldb.HSQLDBDataSource" 
+				database="jdbc:hsqldb:mem:cdodb1"
+				user="sa"/>-->
+			
+			<!--<dbAdapter name="mysql"/>
+			<dataSource class="com.mysql.jdbc.jdbc2.optional.MysqlDataSource" 
+				url="jdbc:mysql://localhost/cdodb1"
+				user="sa"/>-->
+			
+			<!--<dbAdapter name="postgresql"/>
+			<dataSource class="org.postgresql.ds.PGSimpleDataSource"
+				url="jdbc:postgresql://localhost:5432/cdo"
+				databaseName="cdo"
+				user="cdo"
+				password="cdo"/>-->
+		</store>
+	</repository>
+	
+</cdoServer>

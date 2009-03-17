@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="LibraryCDOServer" id="org.eclipse.emf.example.library.cdo.server.product" application="org.eclipse.emf.cdo.server.app" useFeatures="true">
+
+
+   <configIni use="default">
+      <linux>/org.eclipse.emf.example.library.cdo.server/config.ini</linux>
+      <macosx>/org.eclipse.emf.example.library.cdo.server/config.ini</macosx>
+      <solaris>/org.eclipse.emf.example.library.cdo.server/config.ini</solaris>
+      <win32>/org.eclipse.emf.example.library.cdo.server/config.ini</win32>
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-clean
+-debug
+-console
+--launcher.XXMaxPermSize
+128M</programArgs>
+      <vmArgs>-Xms64M
+-Xmx512M
+-Ddebug=true</vmArgs>
+      <vmArgsLin>-Dnet4j.config=configuration</vmArgsLin>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+-Dnet4j.config=configuration</vmArgsMac>
+      <vmArgsSol>-Dnet4j.config=configuration</vmArgsSol>
+      <vmArgsWin>-Dnet4j.config=../../../configuration</vmArgsWin>
+   </launcherArgs>
+
+   <windowImages/>
+
+
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+
+   <vm>
+   </vm>
+
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.eclipse.emf.cdo.server.product" version="2.0.0.qualifier"/>
+      <feature id="org.eclipse.net4j" version="2.0.0.qualifier"/>
+      <feature id="org.eclipse.net4j.db" version="2.0.0.qualifier"/>
+      <feature id="org.eclipse.emf.cdo.server" version="2.0.0.qualifier"/>
+   </features>
+
+
+</product>

@@ -34,12 +34,12 @@ public abstract class CDOLibraryPersistence extends BaseLibraryPersistenceServic
 	}
 
 	private void init() {
-		ILoginService loginService = (ILoginService) PlatformUI.getWorkbench().getService(ILoginService.class);
-		
-		PasswordCredentialsProvider pv = new PasswordCredentialsProvider(loginService.getUsername(),loginService.getPassword());
-		ConnectorCredentialsInjector ccj;
-		ccj = new ConnectorCredentialsInjector(null, pv);
-		IPluginContainer.INSTANCE.addPostProcessor(ccj);
+//		ILoginService loginService = (ILoginService) PlatformUI.getWorkbench().getService(ILoginService.class);
+//		
+//		PasswordCredentialsProvider pv = new PasswordCredentialsProvider(loginService.getUsername(),loginService.getPassword());
+//		ConnectorCredentialsInjector ccj;
+//		ccj = new ConnectorCredentialsInjector(null, pv);
+//		IPluginContainer.INSTANCE.addPostProcessor(ccj);
 		
 		IConnector connector = TCPUtil.getConnector(IPluginContainer.INSTANCE, doGetHost() + ":" + doGetPort() );
 		CDOSessionConfiguration configuration = CDOUtil.createSessionConfiguration();
