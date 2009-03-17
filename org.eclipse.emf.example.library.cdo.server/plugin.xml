@@ -14,5 +14,17 @@
          </property>
       </product>
    </extension>
+   <extension
+         id="id1"
+         point="org.eclipse.core.runtime.applications">
+      <application
+            cardinality="singleton-global"
+            thread="main"
+            visible="true">
+         <run
+               class="org.eclipse.emf.example.library.cdo.server.LibraryServerApplication">
+         </run>
+      </application>
+   </extension>
 
 </plugin>
