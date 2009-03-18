@@ -11,6 +11,8 @@
 package org.eclipse.emf.example.library.cdo.server;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.emf.cdo.common.revision.CDORevision;
@@ -20,6 +22,10 @@ import org.eclipse.emf.cdo.server.IRepository;
 import org.eclipse.emf.cdo.server.ISession;
 import org.eclipse.emf.cdo.server.ITransaction;
 import org.eclipse.emf.cdo.server.IStoreAccessor.CommitContext;
+import org.eclipse.emf.cdo.spi.common.revision.InternalCDORevision;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject.EStore;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
 import org.eclipse.net4j.TransportConfigurator;
@@ -39,8 +45,8 @@ public class LibraryServerApplication extends OSGiApplication {
 	private IRepository[] repositories;
 
 	private IAcceptor[] acceptors;
-	
-	private IRepository.ReadAccessHandler readHandler = new IRepository.ReadAccessHandler(){
+
+	private IRepository.ReadAccessHandler readHandler = new IRepository.ReadAccessHandler() {
 
 		public void handleRevisionsBeforeSending(ISession session,
 				CDORevision[] revisions, List<CDORevision> additionalRevisions)
@@ -48,26 +54,54 @@ public class LibraryServerApplication extends OSGiApplication {
 			System.err.println("Read access");
 		}
 	};
-	
-	private IRepository.WriteAccessHandler writeHandler = new IRepository.WriteAccessHandler(){
-	
+
+	private IRepository.WriteAccessHandler writeHandler = new IRepository.WriteAccessHandler() {
+
 		public void handleTransactionBeforeCommitting(ITransaction transaction,
 				CommitContext commitContext, OMMonitor monitor)
 				throws RuntimeException {
-			CDORevision[] revs = commitContext.getNewObjects();
-			if( revs != null ) {
-				for( CDORevision rev : revs ) {
-					if( EXTLibraryPackage.Literals.LIBRARY.equals(rev.getEClass()) ) {
-						System.err.println("===> ADDING A LIBRARY");
-//						System.err.println("The parent is: " + rev.data().get(EXTLibraryPackage.Literals.LIBRARY__PARENT_BRANCH, EStore.NO_INDEX));
+			String userId = transaction.getSession().getUserID();
+//
+			if (userId == null) {
+				return;
+//				throw new SecurityException("You are not logged in!");
+			}
+
+			List<CDORevision> revisions = new ArrayList<CDORevision>();
+
+			{
+				CDORevision[] revs = commitContext.getNewObjects();
+
+				if (revs != null) {
+					revisions.addAll(Arrays.asList(revs));
+				}
+
+				revs = commitContext.getDirtyObjects();
+
+				if (revs != null) {
+					revisions.addAll(Arrays.asList(revs));
+				}
+
+				// FIXME Checking removes?
+			}
+
+			if (revisions.size() > 0) {
+				EPackage libraryPackage = commitContext.getPackageRegistry()
+						.getEPackage(EXTLibraryPackage.eNS_URI);
+				EClass libraryClass = (EClass) libraryPackage
+						.getEClassifier("Library");
+
+				for (CDORevision rev : revisions) {
+
+					if (libraryClass == rev.getEClass()) {
+						throw new IllegalAccessError(
+								"You are not allowed to create items");
 					}
-					
 				}
 			}
-			System.err.println("Writeing");
+
 		}
 	};
-	
 
 	public LibraryServerApplication() {
 		super(ID);
@@ -85,8 +119,8 @@ public class LibraryServerApplication extends OSGiApplication {
 			if (repositories == null || repositories.length == 0) {
 				OM.LOG.warn("No repositories configured");
 			}
-			
-			for( IRepository rep : repositories ) {
+
+			for (IRepository rep : repositories) {
 				System.err.println("Processing: " + rep);
 				rep.addHandler(readHandler);
 				rep.addHandler(writeHandler);

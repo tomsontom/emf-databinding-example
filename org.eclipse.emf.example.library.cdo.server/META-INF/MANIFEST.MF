@@ -8,10 +8,13 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.examples.library;bundle-version="2.5.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Import-Package: org.eclipse.emf.cdo.common.revision;version="2.0.0",
+Import-Package: org.eclipse.emf.cdo.common.model;version="2.0.0",
+ org.eclipse.emf.cdo.common.revision;version="2.0.0",
  org.eclipse.emf.cdo.internal.server;version="2.0.0",
  org.eclipse.emf.cdo.internal.server.bundle;version="2.0.0",
  org.eclipse.emf.cdo.server;version="2.0.0",
+ org.eclipse.emf.cdo.spi.common.model;version="2.0.0",
+ org.eclipse.emf.cdo.spi.common.revision;version="2.0.0",
  org.eclipse.emf.ecore,
  org.eclipse.net4j;version="2.0.0",
  org.eclipse.net4j.acceptor;version="2.0.0",
@@ -20,4 +23,5 @@ Import-Package: org.eclipse.emf.cdo.common.revision;version="2.0.0",
  org.eclipse.net4j.util.lifecycle;version="2.0.0",
  org.eclipse.net4j.util.om;version="2.0.0",
  org.eclipse.net4j.util.om.log;version="2.0.0",
- org.eclipse.net4j.util.om.monitor;version="2.0.0"
+ org.eclipse.net4j.util.om.monitor;version="2.0.0",
+ org.eclipse.net4j.util.security;version="2.0.0"

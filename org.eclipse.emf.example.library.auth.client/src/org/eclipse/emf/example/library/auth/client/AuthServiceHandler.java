@@ -8,6 +8,8 @@ import org.eclipse.emf.examples.library.databinding.core.ILoginService;
 public class AuthServiceHandler implements ILoginService {
 	private IAuthService authService;
 	private String group = "admin";
+	private String username;
+	private String password;
 	
 	public void bind(IAuthService authService) {
 		System.err.println("An auth service is injected: " + authService);
@@ -28,20 +30,25 @@ public class AuthServiceHandler implements ILoginService {
 	}
 
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return username;
 	}
 
 	public IStatus login(String username, String password) {
 		// TODO Auto-generated method stub
 		if( authService != null ) {
-			group = authService.login(username, password);
+			if( authService.login(username, password) ) {
+				group = authService.getRole(username);
+			} else {
+				return new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Username and/or Password wrong!");
+			}
 		}
+		
+		this.username = username;
+		this.password = password;
 		
 		return Status.OK_STATUS;
 	}

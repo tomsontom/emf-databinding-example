@@ -4,7 +4,7 @@
 	<!--acceptor type="http"/ -->
 	
 	<acceptor type="tcp" listenAddr="0.0.0.0" port="2036">
-		<!-- negotiator type="challenge" description="/Users/tomschindl/Documents/ecipse_ws/emf-databinding/.metadata/.cdodb/db"/ -->
+		<negotiator type="challenge" description="/Users/tomschindl/Documents/ecipse_ws/emf-databinding/.metadata/userdb"/>
 	</acceptor>
 	
 	<repository name="repo1">
