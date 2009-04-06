@@ -53,8 +53,6 @@ public abstract class TeneoLibraryPersistenceService extends BaseLibraryPersiste
 			e.printStackTrace();
 		}
 
-		System.err.println ("Contents: " + resource.getContents().size());
-		
 		if (resource != null) {
 			// load the resource domain
 			try {
@@ -66,7 +64,6 @@ public abstract class TeneoLibraryPersistenceService extends BaseLibraryPersiste
 	}
 
 	private void initHibernate() {
-		System.err.println("Init");
 		// Set the database information, Environment is
 		// org.hibernate.cfg.Environment
 		final Properties props = new Properties();
@@ -91,9 +88,6 @@ public abstract class TeneoLibraryPersistenceService extends BaseLibraryPersiste
 
 		// initialize, also creates the database tables
 		hbds.initialize();
-
-		// used for debugging
-		System.out.println(hbds.getMappingXML());
 	}
 
 	protected abstract String doGetDriver();

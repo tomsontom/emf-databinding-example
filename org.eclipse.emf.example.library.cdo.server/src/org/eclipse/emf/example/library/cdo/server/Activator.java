@@ -1,6 +1,9 @@
 package org.eclipse.emf.example.library.cdo.server;
 
 import org.eclipse.core.runtime.Plugin;
+import org.eclipse.emf.example.library.auth.common.IAuthService;
+import org.eclipse.riena.communication.core.IRemoteServiceRegistration;
+import org.eclipse.riena.communication.core.factory.Register;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -14,10 +17,16 @@ public class Activator extends Plugin {
 	// The shared instance
 	private static Activator plugin;
 	
+	private BundleContext context;
+	
 	/**
 	 * The constructor
 	 */
 	public Activator() {
+	}
+	
+	public BundleContext getBundleContext() {
+		return context;
 	}
 
 	/*
@@ -27,6 +36,11 @@ public class Activator extends Plugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
+		this.context = context;
+		
+		String url = "http://localhost:8080/hessian" + IAuthService.WS_ID;
+		IRemoteServiceRegistration reg = Register.remoteProxy(IAuthService.class).usingUrl(url).withProtocol("hessian").andStart(context); //$NON-NLS-1$
+		System.err.println(reg);
 	}
 
 	/*

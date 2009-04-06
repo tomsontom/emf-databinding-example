@@ -58,5 +58,4 @@ public class CreateNewWriterHandler extends AbstractHandler {
 			throw new ExecutionException("No library to add the writer to.");
 		}
 	}
-
 }

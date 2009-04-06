@@ -29,10 +29,10 @@ import org.eclipse.swt.graphics.Image;
 
 public class ObservableColumnLabelProvider extends ColumnLabelProvider {
 	
-	public abstract static class CondiditionalTemplate {
+	public abstract static class ConditionalTemplate {
 		private String templateText;
 
-		public CondiditionalTemplate(String templateText) {
+		public ConditionalTemplate(String templateText) {
 			this.templateText = templateText;
 		}
 
@@ -54,7 +54,7 @@ public class ObservableColumnLabelProvider extends ColumnLabelProvider {
 
 	private final IObservableMap[] attributeMaps;
 
-	private List<CondiditionalTemplate> templates = new ArrayList<CondiditionalTemplate>();
+	private List<ConditionalTemplate> templates = new ArrayList<ConditionalTemplate>();
 
 	private static StrSubstitutor substr = new StrSubstitutor(new EMFLookUp());
 
@@ -77,9 +77,9 @@ public class ObservableColumnLabelProvider extends ColumnLabelProvider {
 
 	}
 
-	private static List<CondiditionalTemplate> createList(String templateText) {
-		List<CondiditionalTemplate> l = new ArrayList<CondiditionalTemplate>();
-		l.add(new CondiditionalTemplate(templateText) {
+	private static List<ConditionalTemplate> createList(String templateText) {
+		List<ConditionalTemplate> l = new ArrayList<ConditionalTemplate>();
+		l.add(new ConditionalTemplate(templateText) {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -90,7 +90,7 @@ public class ObservableColumnLabelProvider extends ColumnLabelProvider {
 		return l;
 	}
 
-	public ObservableColumnLabelProvider(IObservableMap[] attributeMaps, List<CondiditionalTemplate> templates) {
+	public ObservableColumnLabelProvider(IObservableMap[] attributeMaps, List<ConditionalTemplate> templates) {
 		this.attributeMaps = attributeMaps;
 		for (int i = 0; i < attributeMaps.length; i++) {
 			attributeMaps[i].addMapChangeListener(mapChangeListener);
@@ -112,7 +112,7 @@ public class ObservableColumnLabelProvider extends ColumnLabelProvider {
 	public String getText(Object element) {
 		String templateText = null;
 
-		for( CondiditionalTemplate ct: templates ) {
+		for( ConditionalTemplate ct: templates ) {
 			if( ct.isTemplate((EObject) element) ) {
 				templateText = ct.templateText;
 				break;

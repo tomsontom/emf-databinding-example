@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject.EStore;
+import org.eclipse.emf.example.library.auth.common.IAuthService;
 import org.eclipse.emf.examples.extlibrary.EXTLibraryPackage;
 import org.eclipse.net4j.TransportConfigurator;
 import org.eclipse.net4j.acceptor.IAcceptor;
@@ -35,6 +36,8 @@ import org.eclipse.net4j.util.lifecycle.LifecycleUtil;
 import org.eclipse.net4j.util.om.OMPlatform;
 import org.eclipse.net4j.util.om.OSGiApplication;
 import org.eclipse.net4j.util.om.monitor.OMMonitor;
+import org.eclipse.riena.core.injector.Inject;
+import org.osgi.framework.ServiceReference;
 
 /**
  * @author Eike Stepper
@@ -46,25 +49,15 @@ public class LibraryServerApplication extends OSGiApplication {
 
 	private IAcceptor[] acceptors;
 
-	private IRepository.ReadAccessHandler readHandler = new IRepository.ReadAccessHandler() {
-
-		public void handleRevisionsBeforeSending(ISession session,
-				CDORevision[] revisions, List<CDORevision> additionalRevisions)
-				throws RuntimeException {
-			System.err.println("Read access");
-		}
-	};
-
 	private IRepository.WriteAccessHandler writeHandler = new IRepository.WriteAccessHandler() {
 
 		public void handleTransactionBeforeCommitting(ITransaction transaction,
 				CommitContext commitContext, OMMonitor monitor)
 				throws RuntimeException {
 			String userId = transaction.getSession().getUserID();
-//
+			
 			if (userId == null) {
-				return;
-//				throw new SecurityException("You are not logged in!");
+				throw new SecurityException("You are not logged in!");
 			}
 
 			List<CDORevision> revisions = new ArrayList<CDORevision>();
@@ -75,13 +68,7 @@ public class LibraryServerApplication extends OSGiApplication {
 				if (revs != null) {
 					revisions.addAll(Arrays.asList(revs));
 				}
-
-				revs = commitContext.getDirtyObjects();
-
-				if (revs != null) {
-					revisions.addAll(Arrays.asList(revs));
-				}
-
+				
 				// FIXME Checking removes?
 			}
 
@@ -90,27 +77,51 @@ public class LibraryServerApplication extends OSGiApplication {
 						.getEPackage(EXTLibraryPackage.eNS_URI);
 				EClass libraryClass = (EClass) libraryPackage
 						.getEClassifier("Library");
-
+				String role = null;
+				
 				for (CDORevision rev : revisions) {
 
 					if (libraryClass == rev.getEClass()) {
-						throw new IllegalAccessError(
-								"You are not allowed to create items");
+						if( role == null ) {
+							role = getRole(userId);
+						}
+						if( ! role.equals("admin") ) {
+							throw new IllegalAccessError("You are not allowed to write items");
+						}
 					}
 				}
 			}
 
 		}
+		
+		private String getRole(String userId) {
+			if( authService != null ) {
+				return authService.getRole(userId);
+			}
+			return "admin";
+		}
 	};
+	
+	private IAuthService authService;
 
 	public LibraryServerApplication() {
 		super(ID);
+	}
+	
+	public void bind(IAuthService authService) {
+		this.authService = authService;
+	}
+	
+	public void unbind(IAuthService authService) {
+		this.authService = null;
 	}
 
 	@Override
 	protected void doStart() throws Exception {
 		super.doStart();
 		OM.LOG.info("CDO Server starting");
+		Inject.service(IAuthService.class).into(this).andStart(Activator.getDefault().getBundleContext());
+		
 		File configFile = OMPlatform.INSTANCE.getConfigFile("cdo-server.xml");
 		if (configFile != null && configFile.exists()) {
 			RepositoryConfigurator repositoryConfigurator = new RepositoryConfigurator(
@@ -121,8 +132,6 @@ public class LibraryServerApplication extends OSGiApplication {
 			}
 
 			for (IRepository rep : repositories) {
-				System.err.println("Processing: " + rep);
-				rep.addHandler(readHandler);
 				rep.addHandler(writeHandler);
 			}
 

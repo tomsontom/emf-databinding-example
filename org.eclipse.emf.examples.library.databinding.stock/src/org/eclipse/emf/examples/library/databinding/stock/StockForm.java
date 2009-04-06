@@ -40,7 +40,7 @@ import org.eclipse.emf.examples.library.databinding.AbstractForm;
 import org.eclipse.emf.examples.library.databinding.ISources;
 import org.eclipse.emf.examples.library.databinding.SourceProvider;
 import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider;
-import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider.CondiditionalTemplate;
+import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider.ConditionalTemplate;
 import org.eclipse.emf.examples.library.databinding.stock.handler.CreateNewStockItemHandler;
 import org.eclipse.emf.examples.library.databinding.stock.handler.EditStockItemHandler;
 import org.eclipse.jface.action.MenuManager;
@@ -109,7 +109,7 @@ public class StockForm extends AbstractForm {
 			
 		});
 		
-		CondiditionalTemplate tplBookTitle = new CondiditionalTemplate("${0}") {
+		ConditionalTemplate tplBookTitle = new ConditionalTemplate("${0}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -117,7 +117,7 @@ public class StockForm extends AbstractForm {
 			}
 			
 		};
-		CondiditionalTemplate tplAudiovisualTitle = new CondiditionalTemplate("${1}") {
+		ConditionalTemplate tplAudiovisualTitle = new ConditionalTemplate("${1}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -125,7 +125,7 @@ public class StockForm extends AbstractForm {
 			}
 			
 		};
-		CondiditionalTemplate tplPeriodicalTitle = new CondiditionalTemplate("${2}") {
+		ConditionalTemplate tplPeriodicalTitle = new ConditionalTemplate("${2}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -134,7 +134,7 @@ public class StockForm extends AbstractForm {
 			
 		};
 
-		CondiditionalTemplate tplPublicationDate = new CondiditionalTemplate("${0,date,medium}") {
+		ConditionalTemplate tplPublicationDate = new ConditionalTemplate("${0,date,medium}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -143,7 +143,7 @@ public class StockForm extends AbstractForm {
 			
 		};
 		
-		CondiditionalTemplate tplNullValue = new CondiditionalTemplate("-") {
+		ConditionalTemplate tplNullValue = new ConditionalTemplate("-") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -159,7 +159,7 @@ public class StockForm extends AbstractForm {
 		
 		
 		TableViewerColumn c = new TableViewerColumn(itemViewer,SWT.NONE);
-		c.getColumn().setText("Title");
+		c.getColumn().setText("AAAAA");
 		layout.setColumnData(c.getColumn(), new ColumnWeightData(1,120));
 		c.setLabelProvider(new ObservableColumnLabelProvider(new IObservableMap[] { featBookTitle, featAudiovisualTitle, featPeriodicalTitle },Arrays.asList(tplBookTitle,tplAudiovisualTitle,tplPeriodicalTitle,tplNullValue)));
 		

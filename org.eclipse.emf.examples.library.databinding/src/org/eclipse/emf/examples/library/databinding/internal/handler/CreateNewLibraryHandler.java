@@ -49,30 +49,10 @@ public class CreateNewLibraryHandler extends AbstractHandler {
 			} else {
 				cmd = AddCommand.create(service.getEditingDomain(), parent,
 						EXTLibraryPackage.Literals.LIBRARY__BRANCHES, l);
-				System.err.println("Before Branches: ");
-				System.err.println(" => Parent: " + parent.hashCode());
-				System.err.println(" => Hash: "
-						+ parent.getBranches().hashCode());
-				System.err.println(" => Class: "
-						+ parent.getBranches().getClass());
-				System.err.println(" => Content: " + parent.getBranches());
 			}
 
 			if (cmd.canExecute()) {
 				service.getEditingDomain().getCommandStack().execute(cmd);
-
-				if (parent != null) {
-					System.err.println("After Branches: ");
-					System.err.println(" => Parent: "
-							+ l.getParentBranch().hashCode());
-					System.err.println(" => Hash: "
-							+ parent.getBranches().hashCode());
-					System.err.println(" => Class: "
-							+ parent.getBranches().getClass());
-					System.err.println(" => Content: " + parent.getBranches());
-
-				}
-
 				return l;
 			} else {
 				throw new ExecutionException(

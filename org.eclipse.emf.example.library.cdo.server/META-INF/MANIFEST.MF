@@ -5,7 +5,10 @@ Bundle-SymbolicName: org.eclipse.emf.example.library.cdo.server;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.emf.example.library.cdo.server.Activator
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.examples.library;bundle-version="2.5.0"
+ org.eclipse.emf.examples.library;bundle-version="2.5.0",
+ org.eclipse.emf.example.library.auth.common;bundle-version="1.0.0",
+ org.eclipse.riena.communication.core;bundle-version="1.1.0",
+ org.eclipse.riena.core;bundle-version="1.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Import-Package: org.eclipse.emf.cdo.common.model;version="2.0.0",

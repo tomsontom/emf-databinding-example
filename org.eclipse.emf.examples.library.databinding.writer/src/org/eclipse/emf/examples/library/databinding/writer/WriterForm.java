@@ -31,7 +31,7 @@ import org.eclipse.emf.examples.extlibrary.Writer;
 import org.eclipse.emf.examples.library.databinding.AbstractForm;
 import org.eclipse.emf.examples.library.databinding.common.FocusCellOwnerDrawHighlighter;
 import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider;
-import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider.CondiditionalTemplate;
+import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider.ConditionalTemplate;
 import org.eclipse.emf.examples.library.databinding.writer.handler.CreateNewWriterHandler;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -147,8 +147,8 @@ public class WriterForm extends AbstractForm {
 		ObservableListContentProvider cp = new ObservableListContentProvider();
 		writerViewer.setContentProvider(cp);
 
-		CondiditionalTemplate[] tpl = new CondiditionalTemplate[3];
-		tpl[0] = new CondiditionalTemplate("${0}") {
+		ConditionalTemplate[] tpl = new ConditionalTemplate[3];
+		tpl[0] = new ConditionalTemplate("${0}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -157,7 +157,7 @@ public class WriterForm extends AbstractForm {
 			}
 
 		};
-		tpl[1] = new CondiditionalTemplate("${0}") {
+		tpl[1] = new ConditionalTemplate("${0}") {
 
 			@Override
 			public boolean isTemplate(EObject element) {
@@ -166,7 +166,7 @@ public class WriterForm extends AbstractForm {
 			}
 
 		};
-		tpl[2] = new CondiditionalTemplate("-") {
+		tpl[2] = new ConditionalTemplate("-") {
 
 			@Override
 			public boolean isTemplate(EObject element) {

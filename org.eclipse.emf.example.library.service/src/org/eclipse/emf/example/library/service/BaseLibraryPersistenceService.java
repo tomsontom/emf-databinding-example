@@ -60,12 +60,12 @@ public abstract class BaseLibraryPersistenceService implements
 
 		ComposedAdapterFactory adapterFactory = new ComposedAdapterFactory(
 				ComposedAdapterFactory.Descriptor.Registry.INSTANCE);
-		adapterFactory
-				.addAdapterFactory(new ResourceItemProviderAdapterFactory());
+//		adapterFactory
+//				.addAdapterFactory(new ResourceItemProviderAdapterFactory());
 		// adapterFactory.addAdapterFactory(new
 		// SoccerItemProviderAdapterFactory());
-		adapterFactory
-				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
+//		adapterFactory
+//				.addAdapterFactory(new ReflectiveItemProviderAdapterFactory());
 
 		commandStack = new BasicCommandStack();
 		commandStack.addCommandStackListener(new CommandStackListenerImpl());

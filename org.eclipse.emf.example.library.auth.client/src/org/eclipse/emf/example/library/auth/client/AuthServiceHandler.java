@@ -12,7 +12,6 @@ public class AuthServiceHandler implements ILoginService {
 	private String password;
 	
 	public void bind(IAuthService authService) {
-		System.err.println("An auth service is injected: " + authService);
 		this.authService = authService;
 	}
 	

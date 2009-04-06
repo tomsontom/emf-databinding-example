@@ -33,8 +33,9 @@ import org.eclipse.core.expressions.ExpressionInfo;
 import org.eclipse.core.expressions.IEvaluationContext;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.command.CommandStack;
-import org.eclipse.emf.databinding.EMFObservables;
 import org.eclipse.emf.databinding.edit.EMFEditObservables;
 import org.eclipse.emf.databinding.edit.properties.EMFEditProperties;
 import org.eclipse.emf.databinding.edit.properties.IEMFEditValueProperty;
@@ -48,7 +49,7 @@ import org.eclipse.emf.examples.extlibrary.Library;
 import org.eclipse.emf.examples.library.databinding.AbstractForm;
 import org.eclipse.emf.examples.library.databinding.common.FormProperties;
 import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider;
-import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider.CondiditionalTemplate;
+import org.eclipse.emf.examples.library.databinding.common.ObservableColumnLabelProvider.ConditionalTemplate;
 import org.eclipse.emf.examples.library.databinding.internal.Activator;
 import org.eclipse.emf.examples.library.databinding.internal.FormDescriptor;
 import org.eclipse.emf.examples.library.databinding.internal.FormExtensionHandler.IModificationListener;
@@ -105,7 +106,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 			if (target instanceof IObservable) {
 				return (IObservable) target;
 			} else {
-				return EMFObservables.observeList(Realm.getDefault(), (EObject) target,
+				return EMFEditObservables.observeList(Realm.getDefault(), p.getEditingDomain(), (EObject) target,
 						EXTLibraryPackage.Literals.LIBRARY__BRANCHES);
 			}
 
@@ -159,7 +160,14 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 	
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-		p.save();
+		try {
+			IStatus s = p.save();
+			if( ! s.isOK() ) {
+				ErrorDialog.openError(getSite().getShell(), "Error Saving", "Error while saving", new Status(IStatus.ERROR, Activator.PLUGIN_ID, s.getMessage()));
+			}
+		} catch (Exception e) {
+			ErrorDialog.openError(getSite().getShell(), "Error Saving", "Error while saving", new Status(IStatus.ERROR, Activator.PLUGIN_ID, "Error while saving"));
+		}
 	}
 
 	@Override
@@ -452,7 +460,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 		ObservableListTreeContentProvider cp = new ObservableListTreeContentProvider(
 				new ListFactory(), new StructureAdvisor());
 		viewer.setContentProvider(cp);
-		CondiditionalTemplate defaultTemplate = new CondiditionalTemplate(
+		ConditionalTemplate defaultTemplate = new ConditionalTemplate(
 				"${0}") {
 
 			@Override
@@ -461,7 +469,7 @@ public class LibraryEditor extends EditorPart implements IEditingDomainProvider 
 			}
 		};
 
-		CondiditionalTemplate nullTemplate = new CondiditionalTemplate(
+		ConditionalTemplate nullTemplate = new ConditionalTemplate(
 				"*NO NAME*") {
 
 			@Override

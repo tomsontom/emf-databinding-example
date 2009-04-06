@@ -25,8 +25,7 @@ public class SourceProvider extends AbstractSourceProvider {
 	private ILoginListener listener = new ILoginListener(){
 	
 		public void userLoginSuccessful(String user, String group, String pwd) {
-			SourceProvider.this.group = group;
-			fireSourceChanged(org.eclipse.ui.ISources.WORKBENCH, ISources.USER_GROUP, group);
+			setGroup(group);
 		}
 	
 		public void userLoginFailed(String user, String pwd) {
@@ -59,6 +58,11 @@ public class SourceProvider extends AbstractSourceProvider {
 
 	public String[] getProvidedSourceNames() {
 		return new String[] { "selectedStockItemName", "userGroup" };
+	}
+	
+	public void setGroup(String group) {
+		this.group = group;
+		fireSourceChanged(org.eclipse.ui.ISources.WORKBENCH, ISources.USER_GROUP, group);
 	}
 	
 	public void setItemSelection(ISelection selection) {

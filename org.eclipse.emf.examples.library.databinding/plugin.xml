@@ -57,6 +57,14 @@
                <equals
                      value="org.eclipse.emf.examples.library.databinding.libraryeditor">
                </equals>
+               <and>
+                  <with
+                        variable="userGroup">
+                     <equals
+                           value="admin">
+                     </equals>
+                  </with>
+               </and>
             </with>
          </enabledWhen>
       </handler>
